@@ -12,6 +12,7 @@
                     {{ __("You're logged in!") }}
                     <br>
                     {{Auth::user()}}
+                    <img src="{{Auth::user()->photo}}" alt="">
                 </div>
             </div>
         </div>

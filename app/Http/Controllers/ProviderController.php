@@ -30,7 +30,7 @@ class ProviderController extends Controller
                 'provider_id' => $providerUser->id,
                 'provider' => $provider,
                 'name' => $providerUser->name,
-                'username' => $providerUser->name,
+                'username' => User::generateUsername(null),
                 'email' => $providerUser->email,
                 'photo' => $providerUser->avatar,
                 'email_verified_at' => now(),

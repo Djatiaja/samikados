@@ -1,7 +1,13 @@
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
+    @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+    @endif
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -57,9 +63,9 @@
         </div>
 
     </form>
-            <div
-                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
-            
-                <a href="/register"> Register</a>
-            </div>
-</x-guest-layout>    
+    <div
+        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
+
+        <a href="/register"> Register</a>
+    </div>
+</x-guest-layout>
