@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Kategori - Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-red-600 to-black p-4 text-white">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+      <h1 class="text-3xl font-bold">SAMIKADOS <span class="text-lg">ADMIN</span></h1>
+      <div class="relative w-full md:w-1/2 lg:w-1/3 mt-4 md:mt-0">
+        <input type="text" placeholder="Search..." class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
+        <img src="icon/search.png" class="absolute left-3 top-1/2 transform -translate-y-1/2" alt="Search Icon">
+      </div>
+      <div class="flex items-center space-x-4 mt-4 md:mt-0">
+        <img src="icon/notification (1).png" alt="Notification Icon">
+        <img src="icon/chat.png" alt="Chat Icon">
+        <img src="icon/profile.png" alt="User Icon">
+        <span>AdminSamikados</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex flex-col md:flex-row">
+    <!-- Sidebar -->
+    <aside class="w-full md:w-64 bg-white shadow-md h-auto md:h-screen p-6">
+      <nav>
+        <ul class="space-y-4">
+          <li><a href="Dasboard.html" class="block text-gray-700">Dashboard</a></li>
+          <li class="bg-red-600 text-white p-2 rounded-lg">
+            <a href="ManajemenKategori.html" class="block">Manajemen Kategori</a>
+          </li>
+          <li><a href="ManajemenAkun.html" class="block text-gray-700">Manajemen Akun</a></li>
+          <li><a href="ManajemenProduk.html" class="block text-gray-700">Manajemen Produk</a></li>
+          <li><a href="Laporan.html" class="block text-gray-700">Laporan</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">Manajemen Kategori</h2>
+        <button class="border border-black px-4 py-2 rounded-lg flex items-center space-x-2">
+          <img src="icon/add (1).png" alt="Add Icon">
+          <span>Kategori</span>
+        </button>
+      </div>
+
+     <!-- Responsive Table -->
+<div class="overflow-auto rounded-lg shadow-md">
+    <table class="w-full table-auto border-collapse border border-gray-300">
+      <thead class="bg-red-600 text-white">
+        <tr>
+          <th class="p-4 text-center border-r border-gray-300">Nama Kategori</th>
+          <th class="p-4 text-center border-r border-gray-300">Deskripsi</th>
+          <th class="p-4 text-center border-r border-gray-300">Jumlah Produk</th>
+          <th class="p-4 text-center border-r border-gray-300">Icon</th>
+          <th class="p-4 text-center">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Repeatable Row -->
+        <tr class="border-b border-gray-300">
+          <td class="p-4 text-center align-middle border-r border-gray-300">Merchandise</td>
+          <td class="p-4 text-center align-middle border-r border-gray-300">
+            Nikmati kualitas premium
+          </td>
+          <td class="p-4 text-center align-middle border-r border-gray-300">20</td>
+          <td class="p-4 text-center align-middle border-r border-gray-300">
+            <img src="icon/printer.png" alt="Icon" class="mx-auto">
+          </td>
+          <td class="p-4 text-center align-middle">
+            <button class=" text-white p-2 rounded">
+              <img src="icon/edit.png" alt="Edit Icon">
+            </button>
+            <button class=" text-white p-2 rounded">
+              <img src="icon/delete.png" alt="Delete Icon">
+            </button>
+          </td>
+        </tr>
+    </table>
+  </div>
+  
+      </div>
+    </main>
+  </div>
+
+</body>
+
+</html>

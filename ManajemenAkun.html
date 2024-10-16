@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Akun - Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Awalnya sembunyikan tabel buyer */
+    #buyerTable {
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-red-600 to-black p-4 text-white">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+      <h1 class="text-3xl font-bold">SAMIKADOS <span class="text-lg">ADMIN</span></h1>
+      <div class="relative w-full md:w-1/2 lg:w-1/3 mt-4 md:mt-0">
+        <input type="text" placeholder="Search..." class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
+        <img src="icon/search.png" class="absolute left-3 top-1/2 transform -translate-y-1/2" alt="Search Icon">
+      </div>
+      <div class="flex items-center space-x-4 mt-4 md:mt-0">
+        <img src="icon/notification (1).png" alt="Ikon Notifikasi">
+        <img src="icon/chat.png" alt="Ikon Pesan">
+        <img src="icon/profile.png" alt="Ikon Pengguna">
+        <span>AdminSamikados</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex flex-col md:flex-row">
+    <!-- Sidebar -->
+    <nav class="w-full md:w-64 bg-white shadow-md h-auto md:h-screen p-6">
+      <ul class="space-y-4">
+        <li><a href="Dasboard.html" class="block text-gray-700">Dashboard</a></li>
+        <li><a href="ManajemenKategori.html" class="block text-gray-700">Manajemen Kategori</a></li>
+        <li class="bg-red-600 text-white p-2 rounded-lg"><a href="ManajemenAkun.html" class="block">Manajemen Akun</a></li>
+        <li><a href="ManajemenProduk.html" class="block text-gray-700">Manajemen Produk</a></li>
+        <li><a href="Laporan.html" class="block text-gray-700">Laporan</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+        <!-- Tombol untuk memilih kategori Seller atau Buyer -->
+        <div class="flex justify-center space-x-4 mb-6">
+          <button id="sellerButton" class="bg-red-600 text-white px-4 py-2 rounded-lg" onclick="showSeller()">Seller</button>
+          <button id="buyerButton" class="bg-gray-300 text-black px-4 py-2 rounded-lg" onclick="showBuyer()">Buyer</button>
+        </div>
+
+        <!-- Tabel Seller -->
+        <div id="sellerTable" class="overflow-auto rounded-lg shadow-md">
+          <table class="w-full table-auto border-collapse border border-gray-300">
+            <thead class="bg-red-600 text-white">
+              <tr>
+                <th class="p-4 text-center border-r border-gray-300">Nama & Email</th>
+                <th class="p-4 text-center border-r border-gray-300">Status</th>
+                <th class="p-4 text-center border-r border-gray-300">Tanggal Bergabung</th>
+                <th class="p-4 text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data seller contoh -->
+              <tr class="border-b border-gray-300">
+                <td class="p-4 text-center align-middle border-r border-gray-300">
+                  Abimanyu Syahputra<br>
+                  <span class="text-gray-500">abimanyusyah@gmail.com</span>
+                </td>
+                <td class="p-4 text-center align-middle border-r border-gray-300">Tidak Aktif</td>
+                <td class="p-4 text-center align-middle border-r border-gray-300">30/2/2021</td>
+                <td class="p-4 text-center align-middle">
+                  <button class="text-white rounded">
+                    <img src="icon/block.png" alt="Ikon Nonaktif">
+                  </button>
+                </td>
+              </tr>
+              <!-- Tambahkan data lain jika diperlukan -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tabel Buyer -->
+        <div id="buyerTable" class="overflow-auto rounded-lg shadow-md">
+          <table class="w-full table-auto border-collapse border border-gray-300">
+            <thead class="bg-red-600 text-white">
+              <tr>
+                <th class="p-4 text-center border-r border-gray-300">Nama & Email</th>
+                <th class="p-4 text-center border-r border-gray-300">Status</th>
+                <th class="p-4 text-center border-r border-gray-300">Tanggal Bergabung</th>
+                <th class="p-4 text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data buyer contoh -->
+              <tr class="border-b border-gray-300">
+                <td class="p-4 text-center align-middle border-r border-gray-300">
+                  Siti Rahayu<br>
+                  <span class="text-gray-500">sitirahayu@gmail.com</span>
+                </td>
+                <td class="p-4 text-center align-middle border-r border-gray-300">Aktif</td>
+                <td class="p-4 text-center align-middle border-r border-gray-300">15/3/2021</td>
+                <td class="p-4 text-center align-middle">
+                  <button class="text-white rounded">
+                    <img src="icon/block.png" alt="Ikon Nonaktif">
+                  </button>
+                </td>
+              </tr>
+              <!-- Tambahkan data lain jika diperlukan -->
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <!-- Script untuk toggle antara tabel seller dan buyer -->
+  <script>
+    function showSeller() {
+      document.getElementById('sellerTable').style.display = 'block';
+      document.getElementById('buyerTable').style.display = 'none';
+      document.getElementById('sellerButton').classList.add('bg-red-600', 'text-white');
+      document.getElementById('buyerButton').classList.remove('bg-red-600', 'text-white');
+      document.getElementById('buyerButton').classList.add('bg-gray-300', 'text-black');
+    }
+
+    function showBuyer() {
+      document.getElementById('sellerTable').style.display = 'none';
+      document.getElementById('buyerTable').style.display = 'block';
+      document.getElementById('buyerButton').classList.add('bg-red-600', 'text-white');
+      document.getElementById('sellerButton').classList.remove('bg-red-600', 'text-white');
+      document.getElementById('sellerButton').classList.add('bg-gray-300', 'text-black');
+    }
+  </script>
+
+</body>
+
+</html>
