@@ -52,7 +52,7 @@
             <p class="text-xs text-gray-500 text-center mb-4">Mohon tunggu 35 detik untuk mengirim ulang.</p>
 
             <!-- Submit Button -->
-            <button class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg mb-4 transition duration-300 shadow-lg" type="submit">
+            <button class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg mb-4 transition duration-300 shadow-lg" type="button" onclick="window.location.href='AturPassword.html'">
                 Berikutnya
             </button>
         </section>
@@ -92,6 +92,28 @@
             </section>
         </div>
     </footer>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const inputs = document.querySelectorAll("input[type='text']");
+    
+            inputs.forEach((input, index) => {
+                input.addEventListener("keyup", (e) => {
+                    // Pindah fokus ke input berikutnya saat pengguna mengetik angka
+                    if (e.target.value.length === 1) {
+                        if (index < inputs.length - 1) {
+                            inputs[index + 1].focus();
+                        }
+                    }
+    
+                    // Jika backspace ditekan, kembali ke input sebelumnya
+                    if (e.key === "Backspace" && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
