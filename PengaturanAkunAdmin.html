@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-red-600 to-black p-4 text-white">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-3xl font-bold">SAMIKADOS <span class="text-lg">ADMIN</span></h1>
+            <div class="relative w-full md:w-1/2 lg:w-1/3 mt-4 md:mt-0">
+                <input type="text" placeholder="Search..." class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
+                <img src="icon/search.png" class="absolute left-3 top-1/2 transform -translate-y-1/2" alt="Search Icon">
+            </div>
+            <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                <img src="icon/notification (1).png" alt="Notification Icon">
+                <img src="icon/chat.png" alt="Chat Icon">
+                <img src="icon/profile.png" alt="User Icon">
+                <span>AdminSamikados</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 bg-white shadow-md h-auto md:h-screen p-6">
+            <nav>
+                <ul class="space-y-4">
+                    <li><a href="Dasboard.html" class="block text-gray-700">Dashboard</a></li>
+                    <li><a href="ManajemenKategori.html" class="block text-gray-700">Manajemen Kategori</a></li>
+                    <li><a href="ManajemenAkun.html" class="block text-gray-700">Manajemen Akun</a></li>
+                    <li><a href="ManajemenProduk.html" class="block text-gray-700">Manajemen Produk</a></li>
+                    <li><a href="ManajemenKupon.html" class="block text-gray-700">Manajemen Kupon</a></li>
+                    <li><a href="Laporan.html" class="block text-gray-700">Laporan</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="w-full p-6 mt-10">
+            <!-- Profile Section -->
+            <section class="flex flex-col md:flex-row items-start md:space-x-10 justify-center">
+                <!-- Profile Picture -->
+                <div class="w-full md:w-1/4 mr-20">
+                    <img src="https://placehold.co/300x300" class="rounded-lg shadow-lg w-full" />
+                    <button class="mt-5 w-full bg-red-600 text-white py-3 rounded-lg">Ganti Foto Profil</button>
+                </div>
+
+                <!-- Profile Details -->
+                <div class="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-lg h-auto flex flex-col items-center justify-center">
+                    <h2 class="text-3xl mt-4 font-semibold mb-4 text-center">Profil Saya</h2>
+                    <div class="space-y-4 w-5/6 mt-8">
+                        <div class="bg-gray-100 p-5 mb-90 rounded-lg">AdminSamikados</div>
+                        <div class="bg-gray-100 p-5 mb-90 rounded-lg">adminsamikados@gmail.com</div>
+                        <div class="bg-gray-100 p-5 mb-90 rounded-lg">**********</div>
+                    </div>
+                    <button class="mt-10 w-full md:w-96 bg-red-600 text-white py-3 rounded-lg mb-4" onclick="openEditModal()">Edit Profil</button>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="mt-32 space-y-4 flex flex-col items-center justify-center">
+                <button class="w-2/5 bg-red-600 text-white py-3 rounded-xl" onclick="openAddAdminModal()">Tambah Akun</button>
+                <button class="w-2/5 bg-red-600 text-white py-3 rounded-xl" onclick="openChangePasswordModal()">Ganti Password</button>
+                <button class="w-2/5 bg-red-600 text-white py-3 rounded-xl">Log Out</button>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal Edit Profile -->
+    <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+            <h3 class="text-2xl mb-4 font-semibold text-center">Edit Profile</h3>
+            <form id="editProfileForm">
+                <div class="mb-4">
+                    <label class="block mb-2 text-gray-700">Username</label>
+                    <input type="text" id="editUsername" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter new username">
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 text-gray-700">Email</label>
+                    <input type="email" id="editEmail" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter new email">
+                </div>
+                <div class="flex justify-evenly mt-10">
+                    <button type="button" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg" onclick="openConfirmModal()">Simpan</button>
+                    <button type="button" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg" onclick="closeEditModal()">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi -->
+    <div id="confirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-fit">
+            <h3 class="text-2xl mb-6 font-semibold text-center">Konfirmasi Perubahan</h3>
+            <p>Apakah Anda yakin ingin mengubah profil?</p>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="bg-red-600 w-1/2 text-white py-2 px-4 mx-2 rounded-lg" onclick="submitForm()">Ya</button>
+                <button type="button" class="bg-gray-300 w-1/2 py-2 px-4 mx-2 rounded-lg" onclick="closeConfirmModal()">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Data Berhasil Diubah -->
+    <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+            <h3 class="text-2xl mb-4 font-semibold text-center">Data Berhasil Diubah</h3>
+            <img src="icon/Done.gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+            <div class="flex justify-center mt-10">
+                <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Akun -->
+    <div id="addAdminModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+            <h3 class="text-2xl mb-4 font-semibold text-center">Tambah Admin Baru</h3>
+            <form id="addAdminForm">
+                <div class="mb-4">
+                    <label class="block mb-2 text-gray-700">Tipe Admin</label>
+                    <select id="adminType" class="w-full p-2 border border-gray-300 rounded-lg">
+                        <option value="superadmin">Super Admin</option>
+                        <option value="akuntan">Akuntan</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 text-gray-700">Email</label>
+                    <input type="email" id="addAdminEmail" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter email">
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 text-gray-700">Username</label>
+                    <input type="text" id="addAdminUsername" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter username">
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 text-gray-700">Password</label>
+                    <input type="password" id="addAdminPassword" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter password">
+                </div>
+                <div class="flex justify-evenly mt-10">
+                    <button type="button" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg" onclick="openConfirmAddModal()">Tambah Admin</button>
+                    <button type="button" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg" onclick="closeAddAdminModal()">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Tambah Admin -->
+    <div id="confirmAddAdminModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-fit">
+            <h3 class="text-2xl mb-6 font-semibold text-center">Konfirmasi Penambahan Admin</h3>
+            <p>Apakah Anda yakin ingin menambahkan admin baru?</p>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="bg-red-600 w-1/2 text-white py-2 px-4 mx-2 rounded-lg" onclick="submitAddAdminForm()">Ya</button>
+                <button type="button" class="bg-gray-300 w-1/2 py-2 px-4 mx-2 rounded-lg" onclick="closeConfirmAddModal()">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Sukses Tambah Admin -->
+    <div id="successAddAdminModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+            <h3 class="text-2xl mb-4 font-semibold text-center">Admin Baru Berhasil Ditambahkan</h3>
+            <img src="icon/Done.gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+            <div class="flex justify-center mt-10">
+                <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessAddAdminModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ganti Password -->
+    <div id="changePasswordModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+            <h3 class="text-2xl mb-4 font-semibold text-center">Ganti Password</h3>
+            <form id="changePasswordForm">
+                <div class="mb-4">
+                    <label class="block mb-2 text-gray-700">Password Lama</label>
+                    <input type="password" id="oldPassword" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter old password">
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 text-gray-700">Password Baru</label>
+                    <input type="password" id="newPassword" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter new password">
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 text-gray-700">Konfirmasi Password Baru</label>
+                    <input type="password" id="confirmNewPassword" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Confirm new password">
+                </div>
+                <div class="flex justify-evenly mt-10">
+                    <button type="button" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg" onclick="openConfirmChangePasswordModal()">Ganti Password</button>
+                    <button type="button" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg" onclick="closeChangePasswordModal()">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Ganti Password -->
+    <div id="confirmChangePasswordModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-fit">
+            <h3 class="text-2xl mb-6 font-semibold text-center">Konfirmasi Penggantian Password</h3>
+            <p>Apakah Anda yakin ingin mengganti password?</p>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="bg-red-600 w-1/2 text-white py-2 px-4 mx-2 rounded-lg" onclick="submitChangePasswordForm()">Ya</button>
+                <button type="button" class="bg-gray-300 w-1/2 py-2 px-4 mx-2 rounded-lg" onclick="closeConfirmChangePasswordModal()">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Sukses Ganti Password -->
+    <div id="successChangePasswordModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+            <h3 class="text-2xl mb-4 font-semibold text-center">Password Berhasil Diubah</h3>
+            <img src="icon/Done.gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+            <div class="flex justify-center mt-10">
+                <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessChangePasswordModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openEditModal() {
+            document.getElementById("editModal").classList.remove("hidden");
+        }
+
+        function closeEditModal() {
+            document.getElementById("editModal").classList.add("hidden");
+        }
+
+        function openConfirmModal() {
+            document.getElementById("confirmModal").classList.remove("hidden");
+        }
+
+        function closeConfirmModal() {
+            document.getElementById("confirmModal").classList.add("hidden");
+        }
+
+        function openSuccessModal() {
+            document.getElementById("successModal").classList.remove("hidden");
+        }
+
+        function closeSuccessModal() {
+            document.getElementById("successModal").classList.add("hidden");
+        }
+
+        function submitForm() {
+            closeConfirmModal();
+            closeEditModal();
+            setTimeout(function() {
+                openSuccessModal();
+            }, 500);
+        }
+
+        // Functions to manage 'Tambah Akun' modal
+        function openAddAdminModal() {
+            document.getElementById("addAdminModal").classList.remove("hidden");
+        }
+
+        function closeAddAdminModal() {
+            document.getElementById("addAdminModal").classList.add("hidden");
+        }
+
+        // Functions to manage 'Konfirmasi Tambah Admin' modal
+        function openConfirmAddModal() {
+            document.getElementById("confirmAddAdminModal").classList.remove("hidden");
+        }
+
+        function closeConfirmAddModal() {
+            document.getElementById("confirmAddAdminModal").classList.add("hidden");
+        }
+
+        // Functions to manage 'Success Tambah Admin' modal
+        function openSuccessAddModal() {
+            document.getElementById("successAddAdminModal").classList.remove("hidden");
+        }
+
+        function closeSuccessAddAdminModal() {
+            document.getElementById("successAddAdminModal").classList.add("hidden");
+        }
+
+        // Function to submit 'Tambah Admin' form
+        function submitAddAdminForm() {
+            closeConfirmAddModal();
+            closeAddAdminModal();
+            setTimeout(function() {
+                openSuccessAddModal();
+            }, 500);
+        }
+
+        // Functions to manage 'Ganti Password' modal
+        function openChangePasswordModal() {
+            document.getElementById("changePasswordModal").classList.remove("hidden");
+        }
+
+        function closeChangePasswordModal() {
+            document.getElementById("changePasswordModal").classList.add("hidden");
+        }
+
+        // Functions to manage 'Konfirmasi Ganti Password' modal
+        function openConfirmChangePasswordModal() {
+            document.getElementById("confirmChangePasswordModal").classList.remove("hidden");
+        }
+
+        function closeConfirmChangePasswordModal() {
+            document.getElementById("confirmChangePasswordModal").classList.add("hidden");
+        }
+
+        // Functions to manage 'Success Ganti Password' modal
+        function openSuccessChangePasswordModal() {
+            document.getElementById("successChangePasswordModal").classList.remove("hidden");
+        }
+        
+        function closeSuccessChangePasswordModal() {
+        document.getElementById("successChangePasswordModal").classList.add("hidden");
+        }
+
+        // Function to submit 'Ganti Password' form
+        function submitChangePasswordForm() {
+        closeConfirmChangePasswordModal();
+        closeChangePasswordModal();
+        setTimeout(function () {
+            openSuccessChangePasswordModal();
+        }, 500);
+        }
+    </script>
+</body>
+ 
+</html> 

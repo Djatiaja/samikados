@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samikados Register</title>
+    <title>Samikados Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
@@ -14,8 +14,8 @@
     <header class="bg-gradient-to-r from-red-600 to-black p-4 shadow-lg">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center text-white">
-                <h1 class="text-4xl font-bold">SAMIKADOS</h1>
-                <span class="text-xl ml-4">REGISTER</span>
+                <h1 class="text-3xl lg:text-4xl font-bold">SAMIKADOS</h1>
+                <span class="text-lg lg:text-xl ml-4">LOGIN</span>
             </div>
         </div>
     </header>
@@ -23,26 +23,35 @@
     <!-- Main Content -->
     <main class="container mx-auto mt-8 flex flex-col lg:flex-row justify-center items-center lg:items-start lg:justify-between flex-grow">
         
-        <!-- Image Section -->
-        <section class="w-full lg:w-1/2 flex justify-center mb-8 lg:mb-0">
+        <!-- Image Section (Hidden on mobile) -->
+        <section class="w-full lg:w-1/2 justify-center mb-8 lg:mb-0 hidden lg:flex">
             <figure>
-                <img src="https://storage.googleapis.com/a1aa/image/jrIoY6y0JBo9LtVAd9v5u9gPbKB7r5rX2RTpNclnT2p93q4E.jpg" 
-                     alt="A happy character in a shopping cart giving a thumbs up" 
-                     class="w-64 h-64 lg:w-96 lg:h-96 shadow-xl rounded-lg">
-                <figcaption class="text-center text-gray-500 mt-2">Join our platform and start shopping today!</figcaption>
+                <img src="https://placehold.co/560x560" 
+                     alt="Placeholder image" 
+                     class="w-full h-full shadow-xl rounded-lg">
             </figure>
         </section>
         
-        <!-- Registration Form -->
+        <!-- Login Form -->
         <section class="w-full lg:w-1/3 bg-white p-8 shadow-xl rounded-lg">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">REGISTER</h2>
+            <h2 class="text-xl lg:text-2xl font-bold mb-4 text-gray-800">LOGIN</h2>
             <form>
-                <!-- Email / Username / No. Telp -->
+                <!-- Role Selection -->
                 <div class="mb-4">
-                    <label for="username" class="sr-only">Email / Username / No. Telp</label>
+                    <label for="role" class="sr-only">Masuk Sebagai</label>
+                    <select id="role" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600">
+                        <option>Masuk Sebagai</option>
+                        <option>Admin</option>
+                        <option>Akuntan</option>
+                    </select>
+                </div>
+
+                <!-- Email / Username -->
+                <div class="mb-4">
+                    <label for="username" class="sr-only">Email / Username</label>
                     <input id="username" 
-                           class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
-                           placeholder="Email / Username / No. Telp" 
+                           class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
+                           placeholder="Email / Username" 
                            type="text" />
                 </div>
 
@@ -50,40 +59,31 @@
                 <div class="mb-4">
                     <label for="password" class="sr-only">Password</label>
                     <input id="password" 
-                           class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
+                           class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
                            placeholder="Password" 
                            type="password" />
                 </div>
 
                 <!-- Remember Me and Forgot Password -->
                 <div class="flex justify-between items-center mb-4">
-                    <label class="flex items-center text-gray-700">
+                    <label class="flex items-center text-gray-700 text-sm lg:text-base">
                         <input class="mr-2" type="checkbox" /> Ingat Saya
                     </label>
-                    <a class="text-sm text-red-600 hover:underline" href="#">Lupa Password?</a>
+                    <a class="text-xs lg:text-sm text-red-600 hover:underline" href="#">Lupa Password?</a>
                 </div>
 
                 <!-- Submit Button -->
-                <button class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded mb-4 transition duration-300 shadow-lg" type="submit">
+                <button class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg mb-4 transition duration-300 shadow-lg" type="submit">
                     Masuk
                 </button>
 
                 <!-- Google Sign-up -->
                 <div class="text-center mb-4 text-gray-700">atau</div>
-                <button class="w-full bg-white border border-gray-400 text-gray-700 py-3 rounded flex items-center justify-center hover:bg-gray-50 transition duration-300 shadow-sm" type="button">
-                    <i class="fab fa-google mr-2"></i> Sign Up with Google
+                <button class="w-full bg-white border border-gray-400 text-gray-700 py-3 rounded-lg flex items-center justify-center hover:bg-gray-50 transition duration-300 shadow-sm" type="button">
+                    <img src="icon/google.png" alt="Google placeholder" class="mr-2"> Sign In with Google
                 </button>
 
-                <!-- Register Link -->
-                <div class="text-center mt-4">
-                    <span>Belum Punya Akun? <a class="text-red-600 hover:underline" href="#">Register</a></span>
-                </div>
             </form>
-
-            <!-- Login Link -->
-            <div class="mt-4 text-center">
-                <span>Sudah Punya Akun? <a href="#" class="text-black hover:underline font-bold">Log in</a></span>
-            </div>
         </section>
     </main>
 
@@ -92,8 +92,8 @@
         <div class="container mx-auto flex flex-col lg:flex-row justify-between">
             <!-- Company Info -->
             <section class="mb-8 lg:mb-0">
-                <h2 class="text-4xl font-bold">SAMIKADOS</h2>
-                <p class="text-lg">SOLUSI TEPAT, PRINT DI MANA SAJA</p>
+                <h2 class="text-3xl lg:text-4xl font-bold">SAMIKADOS</h2>
+                <p class="text-lg lg:text-xl">SOLUSI TEPAT, PRINT DI MANA SAJA</p>
             </section>
 
             <!-- Contact Information -->
@@ -107,7 +107,7 @@
                     <a href="tel:+622154399642">(021) 54399642</a>
                 </address>
                 <h3 class="text-xl font-bold mt-4">OPERASIONAL</h3>
-                <p>
+                <p class="text-sm lg:text-base">
                     Senin - Jumat: 08.30 s/d 21.00 WIB<br>
                     Sabtu: 08.30 s/d 15.00 WIB<br>
                     Minggu / Tanggal Merah: Libur
@@ -117,7 +117,7 @@
             <!-- Payment Information -->
             <section>
                 <h3 class="text-xl font-bold">PEMBAYARAN</h3>
-                <img src="Midtrans.png" alt="Midtrans logo" class="w-24 h-15">
+                <img src="Midtrans.png" alt="Payment placeholder" class="w-24 h-15">
             </section>
         </div>
     </footer>
