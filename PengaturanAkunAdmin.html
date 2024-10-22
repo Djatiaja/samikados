@@ -13,15 +13,14 @@
     <!-- Header -->
     <header class="bg-gradient-to-r from-red-600 to-black p-4 text-white">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <h1 class="text-3xl font-bold">SAMIKADOS <span class="text-lg">ADMIN</span></h1>
+            <h1 class="text-3xl font-bold">SAMIKADOS <a href="AdminView.html"><span class="text-lg">ADMIN</span></a></h1>
             <div class="relative w-full md:w-1/2 lg:w-1/3 mt-4 md:mt-0">
                 <input type="text" placeholder="Search..." class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
                 <img src="icon/search.png" class="absolute left-3 top-1/2 transform -translate-y-1/2" alt="Search Icon">
             </div>
             <div class="flex items-center space-x-4 mt-4 md:mt-0">
-                <img src="icon/notification (1).png" alt="Notification Icon">
-                <img src="icon/chat.png" alt="Chat Icon">
-                <img src="icon/profile.png" alt="User Icon">
+                <a href="Notifikasi.html"><img src="icon/notification (1).png" alt="Notification Icon"></a>
+                <a href="PengaturanAkunAdmin.html"><img src="icon/profile.png" alt="User Icon"></a>
                 <span>AdminSamikados</span>
             </div>
         </div>
@@ -32,11 +31,10 @@
         <aside class="w-full md:w-64 bg-white shadow-md h-auto md:h-screen p-6">
             <nav>
                 <ul class="space-y-4">
-                    <li><a href="Dasboard.html" class="block text-gray-700">Dashboard</a></li>
+                    <li><a href="Dashboard.html" class="block text-gray-700">Dashboard</a></li>
                     <li><a href="ManajemenKategori.html" class="block text-gray-700">Manajemen Kategori</a></li>
                     <li><a href="ManajemenAkun.html" class="block text-gray-700">Manajemen Akun</a></li>
                     <li><a href="ManajemenProduk.html" class="block text-gray-700">Manajemen Produk</a></li>
-                    <li><a href="ManajemenKupon.html" class="block text-gray-700">Manajemen Kupon</a></li>
                     <li><a href="Laporan.html" class="block text-gray-700">Laporan</a></li>
                 </ul>
             </nav>
@@ -49,7 +47,7 @@
                 <!-- Profile Picture -->
                 <div class="w-full md:w-1/4 mr-20">
                     <img src="https://placehold.co/300x300" class="rounded-lg shadow-lg w-full" />
-                    <button class="mt-5 w-full bg-red-600 text-white py-3 rounded-lg">Ganti Foto Profil</button>
+                    <button class="mt-5 w-full bg-red-600 text-white py-3 rounded-lg" onclick="openPhotoModal()">Ganti Foto Profil</button>
                 </div>
 
                 <!-- Profile Details -->
@@ -110,7 +108,7 @@
     <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
         <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
             <h3 class="text-2xl mb-4 font-semibold text-center">Data Berhasil Diubah</h3>
-            <img src="icon/Done.gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+            <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
             <div class="flex justify-center mt-10">
                 <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessModal()">Tutup</button>
             </div>
@@ -165,7 +163,7 @@
     <div id="successAddAdminModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
         <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
             <h3 class="text-2xl mb-4 font-semibold text-center">Admin Baru Berhasil Ditambahkan</h3>
-            <img src="icon/Done.gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+            <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
             <div class="flex justify-center mt-10">
                 <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessAddAdminModal()">Tutup</button>
             </div>
@@ -201,7 +199,7 @@
     <div id="confirmChangePasswordModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
         <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-fit">
             <h3 class="text-2xl mb-6 font-semibold text-center">Konfirmasi Penggantian Password</h3>
-            <p>Apakah Anda yakin ingin mengganti password?</p>
+            <p class="text-center">Apakah Anda yakin ingin mengganti password?</p>
             <div class="flex justify-between mt-6">
                 <button type="button" class="bg-red-600 w-1/2 text-white py-2 px-4 mx-2 rounded-lg" onclick="submitChangePasswordForm()">Ya</button>
                 <button type="button" class="bg-gray-300 w-1/2 py-2 px-4 mx-2 rounded-lg" onclick="closeConfirmChangePasswordModal()">Batal</button>
@@ -213,9 +211,48 @@
     <div id="successChangePasswordModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
         <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
             <h3 class="text-2xl mb-4 font-semibold text-center">Password Berhasil Diubah</h3>
-            <img src="icon/Done.gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+            <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
             <div class="flex justify-center mt-10">
                 <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessChangePasswordModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ganti Foto Profil -->
+    <div id="photoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+            <h3 class="text-2xl mb-4 font-semibold text-center">Unggah Foto Profil Baru</h3>
+            <form id="uploadPhotoForm">
+                <div class="mb-4">
+                    <input type="file" id="newProfilePhoto" accept="image/*" class="w-full p-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div class="flex justify-evenly mt-10">
+                    <button type="button" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg" onclick="openConfirmPhotoModal()">Ganti Foto</button>
+                    <button type="button" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg" onclick="closePhotoModal()">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Ganti Foto -->
+    <div id="confirmPhotoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-fit">
+            <h3 class="text-2xl mb-6 font-semibold text-center">Konfirmasi Penggantian Foto</h3>
+            <p>Apakah Anda yakin ingin mengganti foto profil?</p>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="bg-red-600 w-1/2 text-white py-2 px-4 mx-2 rounded-lg" onclick="submitPhotoForm()">Ya</button>
+                <button type="button" class="bg-gray-300 w-1/2 py-2 px-4 mx-2 rounded-lg" onclick="closeConfirmPhotoModal()">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Sukses Ganti Foto -->
+    <div id="successPhotoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+            <h3 class="text-2xl mb-4 font-semibold text-center">Foto Berhasil Diubah</h3>
+            <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+            <div class="flex justify-center mt-10">
+                <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessPhotoModal()">Tutup</button>
             </div>
         </div>
     </div>
@@ -311,20 +348,64 @@
         function openSuccessChangePasswordModal() {
             document.getElementById("successChangePasswordModal").classList.remove("hidden");
         }
-        
+
         function closeSuccessChangePasswordModal() {
-        document.getElementById("successChangePasswordModal").classList.add("hidden");
+            document.getElementById("successChangePasswordModal").classList.add("hidden");
         }
 
         // Function to submit 'Ganti Password' form
         function submitChangePasswordForm() {
-        closeConfirmChangePasswordModal();
-        closeChangePasswordModal();
-        setTimeout(function () {
-            openSuccessChangePasswordModal();
-        }, 500);
+            closeConfirmChangePasswordModal();
+            closeChangePasswordModal();
+            setTimeout(function() {
+                openSuccessChangePasswordModal();
+            }, 500);
+        }
+
+        // Function to open the photo picker modal
+        function openPhotoModal() {
+            document.getElementById("photoModal").classList.remove("hidden");
+        }
+
+        // Function to close the photo picker modal
+        function closePhotoModal() {
+            document.getElementById("photoModal").classList.add("hidden");
+        }
+
+        // Function to open the confirmation modal
+        function openConfirmPhotoModal() {
+            const fileInput = document.getElementById("newProfilePhoto");
+            if (fileInput.files.length === 0) {
+                alert("Silakan pilih foto terlebih dahulu.");
+                return;
+            }
+            document.getElementById("confirmPhotoModal").classList.remove("hidden");
+        }
+
+        // Function to close the confirmation modal
+        function closeConfirmPhotoModal() {
+            document.getElementById("confirmPhotoModal").classList.add("hidden");
+        }
+
+        // Function to submit the photo change form
+        function submitPhotoForm() {
+            closeConfirmPhotoModal();
+            closePhotoModal();
+            setTimeout(function () {
+                openSuccessPhotoModal();
+            }, 500);
+        }
+
+        // Function to open the success modal
+        function openSuccessPhotoModal() {
+            document.getElementById("successPhotoModal").classList.remove("hidden");
+        }
+
+        // Function to close the success modal
+        function closeSuccessPhotoModal() {
+            document.getElementById("successPhotoModal").classList.add("hidden");
         }
     </script>
 </body>
- 
-</html> 
+
+</html>

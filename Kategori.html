@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategori Produk - Samikados</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-red-600 to-black text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold">SAMIKADOS</h1>
+            <div class="relative w-full max-w-md">
+                <input type="text"
+                    class="pl-10 pr-4 py-2 w-full text-black rounded-full focus:outline-none focus:ring-2 focus:ring-white"
+                    placeholder="Search">
+                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+            </div>
+            <span class="text-lg">ADMIN</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-8">
+
+        <!-- Merchandise Section -->
+        <section class="lg:flex lg:justify-between items-center mb-8">
+            <img src="https://placehold.co/600x400" alt="Merchandise Image" class="w-full lg:w-1/2">
+            <div class="w-full lg:w-1/2 lg:pl-8 mt-4 lg:mt-0 flex flex-col justify-center items-center text-center">
+                <h2 class="text-xl lg:text-5xl font-bold">MERCHANDISE</h2>
+                <p class="text-gray-700 mt-4 font-normal textsm lg:text-lg lg:w-5/12">
+                    Nikmati kualitas premium dari berbagai produk yang kami sediakan
+                </p>
+            </div>
+        </section>
+
+        <!-- Product Categories -->
+        <section class="flex justify-center items-center mb-8 relative">
+            <!-- Tambahkan tombol Prev dan Next -->
+            <button id="prevBtn" class="fas fa-chevron-left"></button> <!-- Tombol Prev -->
+            <div class="swiper multiple-slide-carousel swiper-container w-11/12">
+                <div id="category-slider" class="swiper-wrapper flex transition-transform duration-300">
+                    <!-- Category 1 -->
+                    <div class="swiper-slide bg-red-600 text-white p-8 rounded-lg flex items-center space-x-2 w-1/6 h-20">
+                        <img src="https://placehold.co/50x50" alt="Category Icon" class="w-10 h-10">
+                        <span>AKRILIK</span>
+                    </div>
+                    <!-- Category 2 -->
+                    <div class="swiper-slide bg-red-600 text-white p-8 rounded-lg flex items-center space-x-2 w-1/6 h-20">
+                        <img src="https://placehold.co/50x50" alt="Category Icon" class="w-10 h-10">
+                        <span>STIKER</span>
+                    </div>
+                    <!-- Category 3 -->
+                    <div class="swiper-slide bg-red-600 text-white p-8 rounded-lg flex items-center space-x-2 w-1/6 h-20">
+                        <img src="https://placehold.co/50x50" alt="Category Icon" class="w-10 h-10">
+                        <span>T-SHIRT</span>
+                    </div>
+                    <!-- Category 4 -->
+                    <div class="swiper-slide bg-red-600 text-white p-8 rounded-lg flex items-center space-x-2 w-1/6 h-20">
+                        <img src="https://placehold.co/50x50" alt="Category Icon" class="w-10 h-10">
+                        <span>KANVAS</span>
+                    </div>
+                    <!-- Category 5 -->
+                    <div class="swiper-slide bg-red-600 text-white p-8 rounded-lg flex items-center space-x-2 w-1/6 h-20">
+                        <img src="https://placehold.co/50x50" alt="Category Icon" class="w-10 h-10">
+                        <span>DISPLAY</span>
+                    </div>
+                     <!-- Category 1 -->
+                     <div class="swiper-slide bg-red-600 text-white p-8 rounded-lg flex items-center space-x-2 w-1/6 h-20">
+                        <img src="https://placehold.co/50x50" alt="Category Icon" class="w-10 h-10">
+                        <span>AKRILIK</span>
+                    </div>
+                    <!-- Category 2 -->
+                    <div class="swiper-slide bg-red-600 text-white p-8 rounded-lg flex items-center space-x-2 w-1/6 h-20">
+                        <img src="https://placehold.co/50x50" alt="Category Icon" class="w-10 h-10">
+                        <span>STIKER</span>
+                    </div>
+                    <!-- Category 3 -->
+                    <div class="swiper-slide bg-red-600 text-white p-8 rounded-lg flex items-center space-x-2 w-1/6 h-20">
+                        <img src="https://placehold.co/50x50" alt="Category Icon" class="w-10 h-10">
+                        <span>T-SHIRT</span>
+                    </div>
+                    <!-- Category 4 -->
+                    <div class="swiper-slide bg-red-600 text-white p-8 rounded-lg flex items-center space-x-2 w-1/6 h-20">
+                        <img src="https://placehold.co/50x50" alt="Category Icon" class="w-10 h-10">
+                        <span>KANVAS</span>
+                    </div>
+                    <!-- Category 5 -->
+                    <div class="swiper-slide bg-red-600 text-white p-8 rounded-lg flex items-center space-x-2 w-1/6 h-20">
+                        <img src="https://placehold.co/50x50" alt="Category Icon" class="w-10 h-10">
+                        <span>DISPLAY</span>
+                    </div>
+                </div>
+            </div>
+            <button id="nextBtn" class="fas fa-chevron-right"></button> <!-- Tombol Next -->
+        </section>
+
+        <!-- Available Products -->
+        <section>
+            <h3 class="text-xl font-bold mb-2">PRODUK TERSEDIA</h3>
+            <p class="text-gray-700 mb-8">MACAM - MACAM PRODUK</p>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <article class="bg-red-600 text-white p-4 rounded-lg">
+                    <img src="https://placehold.co/200x200" alt="TUMBLR CUSTOM" class="w-full mb-4">
+                    <h4 class="font-bold">TUMBLR CUSTOM</h4>
+                    <p>Rp80.000</p>
+                    <p class="text-sm">10RB+ Terjual</p>
+                </article>
+                <!-- Product 2 -->
+                <article class="bg-red-600 text-white p-4 rounded-lg">
+                    <img src="https://placehold.co/200x200" alt="TUMBLR TRAVEL" class="w-full mb-4">
+                    <h4 class="font-bold">TUMBLR TRAVEL</h4>
+                    <p>Rp115.000</p>
+                    <p class="text-sm">10RB+ Terjual</p>
+                </article>
+                <!-- Product 3 -->
+                <article class="bg-red-600 text-white p-4 rounded-lg">
+                    <img src="https://placehold.co/200x200" alt="SMART TUMBLR LED" class="w-full mb-4">
+                    <h4 class="font-bold">SMART TUMBLR LED</h4>
+                    <p>Rp90.000</p>
+                    <p class="text-sm">10RB+ Terjual</p>
+                </article>
+                <!-- Product 4 -->
+                <article class="bg-red-600 text-white p-4 rounded-lg">
+                    <img src="https://placehold.co/200x200" alt="PIN PENITI 58mm" class="w-full mb-4">
+                    <h4 class="font-bold">PIN PENITI 58mm</h4>
+                    <p>Rp4.500</p>
+                    <p class="text-sm">10RB+ Terjual</p>
+                </article>
+                <!-- Additional Products -->
+                <article class="bg-red-600 text-white p-4 rounded-lg">
+                    <img src="https://placehold.co/200x200" alt="TOTEBAG PREMIUM" class="w-full mb-4">
+                    <h4 class="font-bold">TOTEBAG PREMIUM</h4>
+                    <p>Rp50.000</p>
+                    <p class="text-sm">10RB+ Terjual</p>
+                </article>
+                <article class="bg-red-600 text-white p-4 rounded-lg">
+                    <img src="https://placehold.co/200x200" alt="MUG COUPLE DINO" class="w-full mb-4">
+                    <h4 class="font-bold">MUG COUPLE DINO</h4>
+                    <p>Rp40.000</p>
+                    <p class="text-sm">10RB+ Terjual</p>
+                </article>
+                <article class="bg-red-600 text-white p-4 rounded-lg">
+                    <img src="https://placehold.co/200x200" alt="TUMBLR SPORT" class="w-full mb-4">
+                    <h4 class="font-bold">TUMBLR SPORT</h4>
+                    <p>Rp50.000</p>
+                    <p class="text-sm">10RB+ Terjual</p>
+                </article>
+                <article class="bg-red-600 text-white p-4 rounded-lg">
+                    <img src="https://placehold.co/200x200" alt="SPUNBOND CUSTOM" class="w-full mb-4">
+                    <h4 class="font-bold">SPUNBOND CUSTOM</h4>
+                    <p>Rp8.000</p>
+                    <p class="text-sm">10RB+ Terjual</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-red-600 to-black text-white p-8 mt-8">
+        <div class="container mx-auto flex flex-col lg:flex-row justify-between">
+            <section class="mb-8 lg:mb-0">
+                <h2 class="text-3xl lg:text-4xl font-bold">SAMIKADOS</h2>
+                <p class="text-lg lg:text-xl">SOLUSI TEPAT, PRINT DI MANA SAJA</p>
+            </section>
+            <section class="mb-8 lg:mb-0">
+                <h3 class="text-xl font-bold">HUBUNGI KAMI</h3>
+                <address>
+                    DKI JAKARTA<br>
+                    Jl. Gilimanuk Raya No.60<br>
+                    Daan Mogot Baru - Kalideres<br>
+                    Jakarta Barat 11840<br>
+                    <a href="tel:+622154399642">(021) 54399642</a>
+                </address>
+                <h3 class="text-xl font-bold mt-4">OPERASIONAL</h3>
+                <p>Senin - Jumat: 08.30 s/d 21.00 WIB</p>
+                <p>Sabtu: 08.30 s/d 15.00 WIB</p>
+                <p>Minggu / Tanggal Merah: Libur</p>
+            </section>
+            <section>
+                <h3 class="text-xl font-bold">PEMBAYARAN</h3>
+                <img src="Midtrans.png" alt="Payment placeholder" class="w-24 h-15 mt-2">
+            </section>
+        </div>
+    </footer>
+
+    <script>
+        var swiper = new Swiper(".multiple-slide-carousel", {
+            loop: true,
+            slidesPerView: 5, // Display 5 categories at once
+            spaceBetween: 20,
+            navigation: {
+                nextEl: "#nextBtn",  // Menghubungkan tombol Next dengan slider
+                prevEl: "#prevBtn",  // Menghubungkan tombol Prev dengan slider
+            },
+            breakpoints: {
+                1920: {
+                    slidesPerView: 6,
+                    spaceBetween: 30
+                },
+                1028: {
+                    slidesPerView: 5,
+                    spaceBetween: 20
+                },
+                990: {
+                    slidesPerView: 2,
+                    spaceBetween: 15
+                },
+                400: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                300: {
+                    slidesPerView :1,
+                    spaceBetween: 10
+                }
+            }
+        });
+    </script>
+    
+</body>
+
+</html>

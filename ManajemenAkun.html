@@ -7,8 +7,9 @@
   <title>Manajemen Akun - Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Awalnya sembunyikan tabel buyer */
-    #buyerTable {
+    /* Awalnya sembunyikan tabel customer dan seller */
+    #customerTable,
+    #sellerTable {
       display: none;
     }
   </style>
@@ -18,15 +19,14 @@
   <!-- Header -->
   <header class="bg-gradient-to-r from-red-600 to-black p-4 text-white">
     <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-      <h1 class="text-3xl font-bold">SAMIKADOS <span class="text-lg">ADMIN</span></h1>
+      <h1 class="text-3xl font-bold">SAMIKADOS <a href="AdminView.html"><span class="text-lg">ADMIN</span></a></h1>
       <div class="relative w-full md:w-1/2 lg:w-1/3 mt-4 md:mt-0">
         <input type="text" placeholder="Search..." class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
         <img src="icon/search.png" class="absolute left-3 top-1/2 transform -translate-y-1/2" alt="Search Icon">
       </div>
       <div class="flex items-center space-x-4 mt-4 md:mt-0">
-        <img src="icon/notification (1).png" alt="Ikon Notifikasi">
-        <img src="icon/chat.png" alt="Ikon Pesan">
-        <img src="icon/profile.png" alt="Ikon Pengguna">
+        <a href="Notifikasi.html"><img src="icon/notification (1).png" alt="Notification Icon"></a>
+        <a href="PengaturanAkunAdmin.html"><img src="icon/profile.png" alt="User Icon"></a>
         <span>AdminSamikados</span>
       </div>
     </div>
@@ -36,7 +36,7 @@
     <!-- Sidebar -->
     <nav class="w-full md:w-64 bg-white shadow-md h-auto md:h-screen p-6">
       <ul class="space-y-4">
-        <li><a href="Dasboard.html" class="block text-gray-700">Dashboard</a></li>
+        <li><a href="Dashboard.html" class="block text-gray-700">Dashboard</a></li>
         <li><a href="ManajemenKategori.html" class="block text-gray-700">Manajemen Kategori</a></li>
         <li class="bg-red-600 text-white p-2 rounded-lg"><a href="ManajemenAkun.html" class="block">Manajemen Akun</a></li>
         <li><a href="ManajemenProduk.html" class="block text-gray-700">Manajemen Produk</a></li>
@@ -46,94 +46,143 @@
 
     <!-- Main Content -->
     <main class="flex-1 p-6">
-        <!-- Tombol untuk memilih kategori Seller atau Buyer -->
-        <div class="flex justify-center space-x-4 mb-6">
-          <button id="sellerButton" class="bg-red-600 text-white px-4 py-2 rounded-lg" onclick="showSeller()">Seller</button>
-          <button id="buyerButton" class="bg-gray-300 text-black px-4 py-2 rounded-lg" onclick="showBuyer()">Buyer</button>
-        </div>
+      <h2 class="text-2xl font-bold mb-6">Manajemen Akun</h2>
+      <!-- Dropdown Filter -->
+      <div class="mb-6">
+        <label for="accountFilter" class="block mb-2 text-sm font-medium text-gray-700">Filter Akun:</label>
+        <select id="accountFilter" class="block w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" onchange="filterAccounts()">
+          <option value="all">Semua Akun</option>
+          <option value="customer">Akun Customer</option>
+          <option value="seller">Akun Seller</option>
+        </select>
+      </div>
 
-        <!-- Tabel Seller -->
-        <div id="sellerTable" class="overflow-auto rounded-lg shadow-md">
-          <table class="w-full table-auto border-collapse border border-gray-300">
-            <thead class="bg-red-600 text-white">
-              <tr>
-                <th class="p-4 text-center border-r border-gray-300">Nama & Email</th>
-                <th class="p-4 text-center border-r border-gray-300">Status</th>
-                <th class="p-4 text-center border-r border-gray-300">Tanggal Bergabung</th>
-                <th class="p-4 text-center">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Data seller contoh -->
-              <tr class="border-b border-gray-300">
-                <td class="p-4 text-center align-middle border-r border-gray-300">
-                  Abimanyu Syahputra<br>
-                  <span class="text-gray-500">abimanyusyah@gmail.com</span>
-                </td>
-                <td class="p-4 text-center align-middle border-r border-gray-300">Tidak Aktif</td>
-                <td class="p-4 text-center align-middle border-r border-gray-300">30/2/2021</td>
-                <td class="p-4 text-center align-middle">
-                  <button class="text-white rounded">
-                    <img src="icon/block.png" alt="Ikon Nonaktif">
-                  </button>
-                </td>
-              </tr>
-              <!-- Tambahkan data lain jika diperlukan -->
-            </tbody>
-          </table>
-        </div>
+      <!-- Tabel Semua Akun -->
+      <div id="allAccountsTable" class="overflow-auto rounded-lg shadow-md">
+        <table class="w-full table-auto border-collapse border border-gray-300">
+          <thead class="bg-red-600 text-white">
+            <tr>
+              <th class="p-4 text-center border-r border-gray-300">Nama</th>
+              <th class="p-4 text-center border-r border-gray-300">Email</th>
+              <th class="p-4 text-center border-r border-gray-300">Tipe</th>
+              <th class="p-4 text-center border-r border-gray-300">Status</th>
+              <th class="p-4 text-center border-r border-gray-300">Tanggal Bergabung</th>
+              <th class="p-4 text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-300">
+              <td class="p-4 text-center align-middle border-r border-gray-300">Abimanyu Syahputra</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">abimanyusyah@gmail.com</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">Seller</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">Tidak Aktif</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">30/2/2021</td>
+              <td class="p-4 text-center align-middle">
+                <button class="text-white rounded">
+                  <img src="icon/block.png" alt="Ikon Nonaktif">
+                </button>
+              </td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="p-4 text-center align-middle border-r border-gray-300">Siti Rahayu</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">sitirahayu@gmail.com</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">Customer</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">Aktif</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">15/3/2021</td>
+              <td class="p-4 text-center align-middle">
+                <button class="text-white rounded">
+                  <img src="icon/block.png" alt="Ikon Nonaktif">
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-        <!-- Tabel Buyer -->
-        <div id="buyerTable" class="overflow-auto rounded-lg shadow-md">
-          <table class="w-full table-auto border-collapse border border-gray-300">
-            <thead class="bg-red-600 text-white">
-              <tr>
-                <th class="p-4 text-center border-r border-gray-300">Nama & Email</th>
-                <th class="p-4 text-center border-r border-gray-300">Status</th>
-                <th class="p-4 text-center border-r border-gray-300">Tanggal Bergabung</th>
-                <th class="p-4 text-center">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Data buyer contoh -->
-              <tr class="border-b border-gray-300">
-                <td class="p-4 text-center align-middle border-r border-gray-300">
-                  Siti Rahayu<br>
-                  <span class="text-gray-500">sitirahayu@gmail.com</span>
-                </td>
-                <td class="p-4 text-center align-middle border-r border-gray-300">Aktif</td>
-                <td class="p-4 text-center align-middle border-r border-gray-300">15/3/2021</td>
-                <td class="p-4 text-center align-middle">
-                  <button class="text-white rounded">
-                    <img src="icon/block.png" alt="Ikon Nonaktif">
-                  </button>
-                </td>
-              </tr>
-              <!-- Tambahkan data lain jika diperlukan -->
-            </tbody>
-          </table>
-        </div>
+      <!-- Tabel Akun Customer -->
+      <div id="customerTable" class="overflow-auto rounded-lg shadow-md">
+        <table class="w-full table-auto border-collapse border border-gray-300">
+          <thead class="bg-red-600 text-white">
+            <tr>
+              <th class="p-4 text-center border-r border-gray-300">Nama</th>
+              <th class="p-4 text-center border-r border-gray-300">Email</th>
+              <th class="p-4 text-center border-r border-gray-300">Status</th>
+              <th class="p-4 text-center border-r border-gray-300">Tanggal Bergabung</th>
+              <th class="p-4 text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-300">
+              <td class="p-4 text-center align-middle border-r border-gray-300">Siti Rahayu</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">sitirahayu@gmail.com</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">Aktif</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">15/3/2021</td>
+              <td class="p-4 text-center align-middle">
+                <button class="text-white rounded">
+                  <img src="icon/block.png" alt="Ikon Nonaktif">
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      </section>
+      <!-- Tabel Akun Seller -->
+      <div id="sellerTable" class="overflow-auto rounded-lg shadow-md">
+        <table class="w-full table-auto border-collapse border border-gray-300">
+          <thead class="bg-red-600 text-white">
+            <tr>
+              <th class="p-4 text-center border-r border-gray-300">Nama</th>
+              <th class="p-4 text-center border-r border-gray-300">Email</th>
+              <th class="p-4 text-center border-r border-gray-300">Status</th>
+              <th class="p-4 text-center border-r border-gray-300">Tanggal Bergabung</th>
+              <th class="p-4 text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-300">
+              <td class="p-4 text-center align-middle border-r border-gray-300">Abimanyu Syahputra</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">abimanyusyah@gmail.com</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">Tidak Aktif</td>
+              <td class="p-4 text-center align-middle border-r border-gray-300">30/2/2021</td>
+              <td class="p-4 text-center align-middle">
+                <button class="text-white rounded">
+                  <img src="icon/block.png" alt="Ikon Nonaktif">
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </main>
   </div>
 
-  <!-- Script untuk toggle antara tabel seller dan buyer -->
+  <!-- Script untuk toggle antara tabel akun -->
   <script>
-    function showSeller() {
-      document.getElementById('sellerTable').style.display = 'block';
-      document.getElementById('buyerTable').style.display = 'none';
-      document.getElementById('sellerButton').classList.add('bg-red-600', 'text-white');
-      document.getElementById('buyerButton').classList.remove('bg-red-600', 'text-white');
-      document.getElementById('buyerButton').classList.add('bg-gray-300', 'text-black');
+    function filterAccounts() {
+      var filter = document.getElementById('accountFilter').value;
+      var allTable = document.getElementById('allAccountsTable');
+      var customerTable = document.getElementById('customerTable');
+      var sellerTable = document.getElementById('sellerTable');
+
+      // Sembunyikan semua tabel
+      allTable.style.display = 'none';
+      customerTable.style.display = 'none';
+      sellerTable.style.display = 'none';
+
+      // Tampilkan tabel sesuai filter
+      if (filter === 'all') {
+        allTable.style.display = 'block';
+      } else if (filter === 'customer') {
+        customerTable.style.display = 'block';
+      } else if (filter === 'seller') {
+        sellerTable.style.display = 'block';
+      }
     }
 
-    function showBuyer() {
-      document.getElementById('sellerTable').style.display = 'none';
-      document.getElementById('buyerTable').style.display = 'block';
-      document.getElementById('buyerButton').classList.add('bg-red-600', 'text-white');
-      document.getElementById('sellerButton').classList.remove('bg-red-600', 'text-white');
-      document.getElementById('sellerButton').classList.add('bg-gray-300', 'text-black');
+    // Tampilkan tabel "Semua Akun" saat halaman pertama kali dimuat
+    window.onload = function() {
+      filterAccounts();
     }
   </script>
 
