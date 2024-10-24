@@ -26,7 +26,7 @@
         <!-- Image Section (Hidden on mobile) -->
         <section class="w-full lg:w-1/2 justify-center mb-8 lg:mb-0 hidden lg:flex">
             <figure>
-                <img src="{{ asset('storage/assets/Transparent.png') }}" 
+                <img src="{{ asset('/assets/SamikadosLogo.png') }}" 
                      alt="Reset Password Image" 
                      class="w-9/12">
             </figure>
@@ -103,7 +103,7 @@
             <!-- Payment Information -->
             <section>
                 <h3 class="text-xl font-bold">PEMBAYARAN</h3>
-                <img src="{{ asset('storage/assets/Midtrans.png') }}" alt="Payment placeholder" class="w-24 h-15">
+                <img src="{{ asset('/assets/MidtransLogo.png') }}" alt="Payment placeholder" class="w-24 h-15">
             </section>
         </div>
     </footer>
@@ -124,7 +124,7 @@
     <div id="successPasswordModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
         <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
             <h3 class="text-2xl mb-4 font-semibold text-center">Password Berhasil Diubah</h3>
-            <img src="{{ asset('storage/assets/Done (1).gif') }}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+            <img src="{{ asset('assets/SuccessAnimation.gif') }}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
             <div class="flex justify-center mt-10">
                 <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="redirectToLogin()">Tutup</button>
             </div>

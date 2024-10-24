@@ -26,7 +26,7 @@
         <!-- Image Section -->
         <section class="w-full lg:w-1/2 justify-center mb-8 lg:mb-0 hidden lg:flex">
             <figure>
-                <img src="{{ asset('storage/assets/SamikadosLogo.png') }}" 
+                <img src="{{ asset('/assets/SamikadosLogo.png') }}" 
                      alt="Forgot Password Image" 
                      class="w-full">
             </figure>
@@ -84,7 +84,7 @@
             <!-- Payment Information -->
             <section>
                 <h3 class="text-xl font-bold">PEMBAYARAN</h3>
-                <img src="{{ asset('storage/assets/MidtransLogo.png') }}" alt="Payment placeholder" class="w-24 h-15">
+                <img src="{{ asset('/assets/MidtransLogo.png') }}" alt="Payment placeholder" class="w-24 h-15">
             </section>
         </div>
     </footer>

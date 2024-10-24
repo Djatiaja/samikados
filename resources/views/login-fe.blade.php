@@ -26,7 +26,7 @@
         <!-- Image Section (Hidden on mobile) -->
         <section class="w-full lg:w-1/2 mb-8 lg:mb-0 hidden lg:flex">
             <figure>
-                <img src="{{ asset('storage/assets/SamikadosLogo.png') }}" 
+                <img src="{{ asset('assets/SamikadosLogo.png') }}" 
                      alt="Placeholder image" 
                      class="w-full">
             </figure>
@@ -70,7 +70,7 @@
                 <!-- Google Sign-up -->
                 <div class="text-center mb-4 text-gray-700">atau</div>
                 <button class="w-full bg-white border border-gray-400 text-gray-700 py-3 rounded-lg flex items-center justify-center hover:bg-gray-50 transition duration-300 shadow-sm" type="button" onclick="window.location.href='Dashboard.html'">
-                    <img src="{{ asset('storage/assets/google.png') }}" alt="Google placeholder" class="mr-2"> Sign In with Google
+                    <img src="{{ asset('assets/GoogleLogo.png') }}" alt="Google placeholder" class="mr-2"> Sign In with Google
                 </button>
 
             </form>
@@ -107,7 +107,7 @@
             <!-- Payment Information -->
             <section>
                 <h3 class="text-xl font-bold">PEMBAYARAN</h3>
-                <img src="{{ asset('storage/assets/MidtransLogo.png') }}" alt="Payment placeholder" class="w-24 h-15">
+                <img src="{{ asset('/assets/MidtransLogo.png') }}" alt="Payment placeholder" class="w-24 h-15">
             </section>
         </div>
     </footer>
