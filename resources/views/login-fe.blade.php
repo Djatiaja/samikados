@@ -26,7 +26,7 @@
         <!-- Image Section (Hidden on mobile) -->
         <section class="w-full lg:w-1/2 mb-8 lg:mb-0 hidden lg:flex">
             <figure>
-                <img src="{{ asset('storage/assets/Transparent.png') }}" 
+                <img src="{{ asset('storage/assets/SamikadosLogo.png') }}" 
                      alt="Placeholder image" 
                      class="w-full">
             </figure>
@@ -107,7 +107,7 @@
             <!-- Payment Information -->
             <section>
                 <h3 class="text-xl font-bold">PEMBAYARAN</h3>
-                <img src="{{ asset('storage/assets/Midtrans.png') }}" alt="Payment placeholder" class="w-24 h-15">
+                <img src="{{ asset('storage/assets/MidtransLogo.png') }}" alt="Payment placeholder" class="w-24 h-15">
             </section>
         </div>
     </footer>
