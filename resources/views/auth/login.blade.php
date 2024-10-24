@@ -10,11 +10,10 @@
     @endif
     <form method="POST" action="{{ route('login') }}">
         @csrf
-
         <!-- Email Address or Username -->
         <div>
             <x-input-label for="loginParam" :value="__('Email/Username')" />
-            <x-text-input id="loginParam" class="block mt-1 w-full" name="loginParam" :value="old('loginParam')"
+            <x-text-input id="loginParam" class="block mt-1 w-full" name="loginParam" value="{{isset($email)?$email:old('loginParam')}}"
                 required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
@@ -25,7 +24,7 @@
             <x-input-label for="password" :value="__('Password')" />
 
             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="current-password" />
+                autocomplete="current-password" value="{{isset($pass)?$password:''}}"/>
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -33,7 +32,7 @@
         <!-- Remember Me -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox"
+                <input id="remember" type="checkbox"
                     class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
                 <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
             </label>

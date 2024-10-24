@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-    protected $loginParamType;
+    public $loginParamType;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -30,7 +30,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required_without:username', 'string', 'email', 'exists:users,email'],
             'username' => ['required_without:email', 'string',  'exists:users,username'],
-            'password' => ['required', 'string'],
+            'password' => ['required', 'string']
         ];
     }
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('username')->unique()->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean("is_twoFactor")->default(false);
             $table->string('password')->nullable();
             $table->string("photo")->nullable();
             $table->string("provider_id")->nullable();
@@ -27,9 +28,17 @@ return new class extends Migration
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
+            $table->id();
+            $table->string('email');
             $table->string('token');
             $table->timestamp('created_at')->nullable();
+        });
+
+        Schema::create('otp_tokens', function (Blueprint $table) {
+            $table->id();
+            $table->string('email');
+            $table->string('token');
+            $table->timestamp('created_at');
         });
 
         Schema::create('sessions', function (Blueprint $table) {
@@ -49,6 +58,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('otp_tokens');
         Schema::dropIfExists('sessions');
     }
 };

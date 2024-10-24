@@ -26,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'username',
         'photo',
         'email_verified_at',
+        'is_twoFactor',
         'provider_id',
         'provider',
         'provider_token',
@@ -38,7 +39,6 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $hidden = [
         'password',
-        'remember_token',
         'provider_token'    ];
 
     /**
