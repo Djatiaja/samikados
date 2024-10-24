@@ -69,13 +69,14 @@
                 <a href="Kategori.html">Merchandise</a>
               </td>
               <td class="p-4 text-center border-r border-gray-300">Nikmati kualitas premium</td>
-              <td class="p-4 text-center border-r border-gray-300">20</td>
+              <td class="p-4 text-center border-r border-gray-300" id="productCount">20</td>
               <td class="p-4 text-center border-r border-gray-300">
                 <img src="icon/printer.png" alt="Icon" class="mx-auto">
               </td>
               <td class="p-4 text-center">
-                <button class="p-2"><img src="icon/edit.png" alt="Edit Icon"></button>
-                <button class="p-2"><img src="icon/delete.png" alt="Delete Icon"></button>
+                <button class="p-2" onclick="openEditCategoryModal()"><img src="icon/edit.png" alt="Edit Icon"></button>
+                <button class="p-2" onclick="checkDeleteCategory()"><img src="icon/delete.png" alt="Delete Icon"></button>
+              </td>
               </td>
             </tr>
           </tbody>
@@ -113,30 +114,94 @@
     </div>
   </div>
 
-  <!-- Modal: Confirm Add Category -->
-  <div id="confirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <!-- Modal: Edit Category -->
+  <div id="editCategoryModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+      <h3 class="text-2xl mb-4 font-semibold text-center">Edit Kategori</h3>
+      <form>
+        <div class="mb-4">
+          <label class="block mb-2 text-gray-700">Nama Kategori</label>
+          <input type="text" class="w-full p-2 border border-gray-300 rounded-lg" id="editCategoryName" value="Merchandise">
+        </div>
+        <div class="mb-4">
+          <label class="block mb-2 text-gray-700">Deskripsi</label>
+          <textarea class="w-full p-2 border border-gray-300 rounded-lg" rows="3" id="editCategoryDescription">Nikmati kualitas premium</textarea>
+        </div>
+        <div class="mb-4">
+          <label class="block mb-2 text-gray-700">Icon</label>
+          <input type="file" class="w-full p-2 border border-gray-300 rounded-lg">
+        </div>
+        <div class="mb-4">
+          <label class="block mb-2 text-gray-700">Banner</label>
+          <input type="file" class="w-full p-2 border border-gray-300 rounded-lg">
+        </div>
+        <div class="flex justify-evenly">
+          <button type="button" onclick="openEditConfirmModal()" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg">Edit Kategori</button>
+          <button type="button" onclick="closeEditCategoryModal()" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Confirm Edit Category -->
+  <div id="editConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-fit">
-      <h3 class="text-2xl mb-6 font-semibold text-center">Konfirmasi Tambah Kategori</h3>
-      <p class="text-center">Apakah Anda yakin ingin menambahkan kategori baru?</p>
+      <h3 class="text-2xl mb-6 font-semibold text-center">Konfirmasi Edit Kategori</h3>
+      <p class="text-center">Apakah Anda yakin ingin menyimpan perubahan kategori ini?</p>
       <div class="flex justify-evenly mt-6">
-        <button onclick="submitCategory()" class="bg-red-600 w-1/3 text-white py-2 px-4 mx-2 rounded-lg">Ya</button>
-        <button onclick="closeConfirmModal()" class="bg-gray-300 w-1/3 py-2 px-4 mx-2 rounded-lg">Batal</button>
+        <button onclick="submitEditCategory()" class="bg-red-600 w-1/3 text-white py-2 px-4 mx-2 rounded-lg">Ya</button>
+        <button onclick="closeEditConfirmModal()" class="bg-gray-300 w-1/3 py-2 px-4 mx-2 rounded-lg">Batal</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Success -->
-  <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <!-- Modal: Success Edit -->
+  <div id="successEditModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-      <h3 class="text-2xl mb-4 font-semibold text-center">Kategori Berhasil Ditambahkan</h3>
+      <h3 class="text-2xl mb-4 font-semibold text-center">Kategori Berhasil Diedit</h3>
       <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
       <div class="flex justify-center mt-10">
-        <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessModal()">Tutup</button>
+        <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessEditModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Confirm Delete Category -->
+  <div id="deleteConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-fit">
+      <h3 class="text-2xl mb-6 font-semibold text-center">Konfirmasi Hapus Kategori</h3>
+      <p class="text-center">Apakah Anda yakin ingin menghapus kategori ini?</p>
+      <div class="flex justify-evenly mt-6">
+        <button onclick="submitDeleteCategory()" class="bg-red-600 w-1/3 text-white py-2 px-4 mx-2 rounded-lg">Ya</button>
+        <button onclick="closeDeleteConfirmModal()" class="bg-gray-300 w-1/3 py-2 px-4 mx-2 rounded-lg">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Success Delete Category -->
+  <div id="successDeleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+      <h3 class="text-2xl mb-4 font-semibold text-center">Kategori Berhasil Dihapus</h3>
+      <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+      <div class="flex justify-center mt-10">
+        <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessDeleteModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Warning Cannot Delete Category -->
+  <div id="cannotDeleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+      <h3 class="text-2xl mb-4 font-semibold text-center text-red-600">Kategori Tidak Bisa Dihapus</h3>
+      <p class="text-center">Kategori ini masih memiliki produk dan tidak dapat dihapus.</p>
+      <div class="flex justify-center mt-10">
+        <button type="button" class="bg-gray-300 py-3 px-4 rounded-lg w-1/3" onclick="closeCannotDeleteModal()">Tutup</button>
       </div>
     </div>
   </div>
 
   <script>
+    // Tambah Kategori baru
     function openAddCategoryModal() {
       document.getElementById('addCategoryModal').classList.remove('hidden');
     }
@@ -163,6 +228,67 @@
 
     function closeSuccessModal() {
       document.getElementById('successModal').classList.add('hidden');
+    }
+
+    //Edit Kategori
+    function openEditCategoryModal() {
+      document.getElementById('editCategoryModal').classList.remove('hidden');
+    }
+
+    function closeEditCategoryModal() {
+      document.getElementById('editCategoryModal').classList.add('hidden');
+    }
+
+    function openEditConfirmModal() {
+      document.getElementById('editConfirmModal').classList.remove('hidden');
+    }
+
+    function closeEditConfirmModal() {
+      document.getElementById('editConfirmModal').classList.add('hidden');
+    }
+
+    function submitEditCategory() {
+      closeEditConfirmModal();
+      closeEditCategoryModal();
+      setTimeout(() => {
+        document.getElementById('successEditModal').classList.remove('hidden');
+      }, 500);
+    }
+
+    function closeSuccessEditModal() {
+      document.getElementById('successEditModal').classList.add('hidden');
+    }
+
+    // Delete Kategori
+    function checkDeleteCategory() {
+      const productCount = parseInt(document.getElementById('productCount').textContent);
+
+      if (productCount > 0) {
+        // Kategori tidak bisa dihapus karena masih memiliki produk
+        document.getElementById('cannotDeleteModal').classList.remove('hidden');
+      } else {
+        // Tampilkan modal konfirmasi hapus jika tidak ada produk
+        document.getElementById('deleteConfirmModal').classList.remove('hidden');
+      }
+    }
+
+    function closeCannotDeleteModal() {
+      document.getElementById('cannotDeleteModal').classList.add('hidden');
+    }
+
+    function closeDeleteConfirmModal() {
+      document.getElementById('deleteConfirmModal').classList.add('hidden');
+    }
+
+    function submitDeleteCategory() {
+      closeDeleteConfirmModal();
+      setTimeout(() => {
+        document.getElementById('successDeleteModal').classList.remove('hidden');
+      }, 500);
+    }
+
+    function closeSuccessDeleteModal() {
+      document.getElementById('successDeleteModal').classList.add('hidden');
     }
   </script>
 </body>
