@@ -18,23 +18,25 @@
         <p class="mb-4 text-sm text-gray-600">Kode OTP telah dikirim pada email Anda</p>
         
         <!-- OTP Input -->
-        <div class="flex justify-center space-x-4 mb-4">
-            <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
-                   type="text" maxlength="1">
-            <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
-                   type="text" maxlength="1">
-            <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
-                   type="text" maxlength="1">
-            <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
-                   type="text" maxlength="1">
-        </div>
+        <form>
+            <div class="flex justify-center space-x-4 mb-4">
+                <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
+                    type="text" maxlength="1">
+                <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
+                    type="text" maxlength="1">
+                <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
+                    type="text" maxlength="1">
+                <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
+                    type="text" maxlength="1">
+            </div>
 
-        <p class="text-xs text-gray-500 text-center mb-4">Mohon tunggu 35 detik untuk mengirim ulang.</p>
+            <p class="text-xs text-gray-500 text-center mb-4">Mohon tunggu 35 detik untuk mengirim ulang.</p>
 
-        <!-- Submit Button -->
-        <button class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg mb-4 transition duration-300 shadow-lg" type="button" onclick="window.location.href='{{ route('reset-password-fe') }}'">
-            Berikutnya
-        </button>
+            <!-- Submit Button -->
+            <button class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg mb-4 transition duration-300 shadow-lg" type="button" onclick="window.location.href='{{ route('reset-password-fe') }}'">
+                Berikutnya
+            </button>
+        </form>
     </section>
 @endsection
 

@@ -16,7 +16,8 @@
     <section class="w-full lg:w-1/3 bg-white p-8 shadow-xl rounded-lg my-auto">
         <h2 class="text-xl lg:text-2xl font-bold mb-4 text-gray-800">ATUR PASSWORD BARU</h2>
 
-        <!-- New Password Input -->
+        <form>
+            <!-- New Password Input -->
         <p class="text-sm text-gray-500">Masukkan Password Baru</p>
         <div class="mb-4 relative">
             <label for="new-password" class="sr-only">Password</label>
@@ -31,25 +32,26 @@
         
         <!-- New Password Confirmation -->
         <p class="text-sm text-gray-500">Konfirmasi Password Baru</p>
-        <div class="mb-4 relative">
-            <label for="new-password-confirmation" class="sr-only">Password</label>
-            <input id="new-password-confirmation" 
-                   class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
-                   placeholder="Password" 
-                   type="password" />
-            <button type="button" class="absolute inset-y-0 right-3 flex items-center justify-center h-full" onclick="togglePasswordVisibility('new-password-confirmation', 'togglePasswordIcon2')">
-                <i class="far fa-eye text-gray-500" id="togglePasswordIcon2"></i>
+            <div class="mb-4 relative">
+                <label for="new-password-confirmation" class="sr-only">Password</label>
+                <input id="new-password-confirmation" 
+                    class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
+                    placeholder="Password" 
+                    type="password" />
+                <button type="button" class="absolute inset-y-0 right-3 flex items-center justify-center h-full" onclick="togglePasswordVisibility('new-password-confirmation', 'togglePasswordIcon2')">
+                    <i class="far fa-eye text-gray-500" id="togglePasswordIcon2"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-gray-500 mb-4">
+                Password terdiri dari kombinasi huruf kecil, huruf besar, simbol, dan angka!
+            </p>
+
+            <!-- Submit Button -->
+            <button class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg mb-4 transition duration-300 shadow-lg" type="button" onclick="openConfirmPasswordModal()">
+                Berikutnya
             </button>
-        </div>
-
-        <p class="text-xs text-gray-500 mb-4">
-            Password terdiri dari kombinasi huruf kecil, huruf besar, simbol, dan angka!
-        </p>
-
-        <!-- Submit Button -->
-        <button class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg mb-4 transition duration-300 shadow-lg" type="button" onclick="openConfirmPasswordModal()">
-            Berikutnya
-        </button>
+        </form>
     </section>
 
     <!-- Modal Konfirmasi Penggantian Password -->

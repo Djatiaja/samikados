@@ -26,7 +26,7 @@ Route::get('/verification-otp-fe', function(){
 Route::get('/reset-password-fe', function(){
     return view('reset-password-fe');
 })->name('reset-password-fe');
-=======
+// =======
 Route::get('/dashboard', function () {
     // dd(Auth::user());
     return view('dashboard');
