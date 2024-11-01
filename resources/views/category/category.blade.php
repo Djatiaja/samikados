@@ -55,13 +55,9 @@
                 <td> {{ $category ->name }}</td>
                 <td> {{ $category ->description }}</td>
                 <td> {{ $jumlah_produk }}</td>
-                <td> {{ $category->Icon }}</td>
+                <td> <img src="{{asset('storage/'.$category->icon)}}" alt=""> {{$category->icon}}</td>
                 <td>
-                    <form action="{{ route('buku.delete', $buku->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn-danger">Delete</button>
-                    </form>
+
 
                 </td>
             </tr>
@@ -69,7 +65,7 @@
         </tbody>
     </table>
     <div class="w-100 d-flex justify-content-center">
-        <a href="{{ url('category/tambah') }}">
+        <a href="{{ url('admin/category/create') }}">
             <button class="btn-primary rounded-3">
                 Tambah category
             </button>

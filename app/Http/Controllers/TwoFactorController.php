@@ -20,8 +20,10 @@ class TwoFactorController extends Controller
 
     function verify(Request $request){
         
-        $valid = $request->validate([
-            "code"=>'required|max:4'
+        $otp = $request->otp_1 . $request->otp_2 . $request->otp_3 . $request->otp_4;
+        $request->merge(["code" => $otp]);
+        $valid=$request->validate([
+            "code" => ["required", "min:4", "max:4"]
         ]);
 
         $login_type = Session::get("login_type");
@@ -29,8 +31,7 @@ class TwoFactorController extends Controller
         $user = User::where($login_type, $login_value)->first();
         $user_otp = Otp_token::where("email", $user->email)->orderBy('created_at', "desc")->first();
 
-        // jangan lupa tambahin waktu expired
-        if($valid["code"]==$user_otp->token){
+        if(now()<=$user_otp->expired_date &&$valid["code"]==$user_otp->token){
             $password = Session::get("password");
             $remember = Session::get("remember");
             Auth::attempt([$login_type=>$login_value, "password"=>$password], $remember);
@@ -46,15 +47,4 @@ class TwoFactorController extends Controller
         return redirect("/login/two-factor")->withErrors( "The provided code is incorrect");
     }
 
-    static function sendTwoFactor(){
-        $login_type = Session::get("login_type");
-        $login_value = Session::get("login_value");
-        $user = User::where($login_type, $login_value)->first();
-        $otp = new Otp_token();
-        $otp ->email = $user->email;
-        $otp ->token = Str::random(4);
-        $otp ->created_at = now();
-        $otp->save();
-        Mail::to($otp->email)->send(new OtpMail($user->name,$otp->email,$otp->token));
-    }
 }

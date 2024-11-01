@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\OTPController;
 use App\Http\Controllers\TwoFactorController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
@@ -34,7 +35,7 @@ class AuthenticatedSessionController extends Controller
             Session::put("password", $request->validated()["password"]);
             Session::put("remember", isset($request->validated()["remember"]) ? true : false);
             Session::put("login_value", $request->validated()[$request->loginParamType]);
-            TwoFactorController::sendTwoFactor();
+            OTPController::sendOTP($user->email, "Two Factor login");
             return redirect()->route("two-factor");
         }
 

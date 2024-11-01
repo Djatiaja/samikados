@@ -18,6 +18,8 @@ class Otp_token extends Model
         'email',
         'token',
         'created_at',
+        "description",
+        "expired_date"
     ];
 
     public $timestamps = false;
