@@ -44,18 +44,62 @@
       <tr class="border-b border-gray-300">
         <td class="p-4 text-center align-middle border-r border-gray-300">Nama Akun</td>
         <td class="p-4 text-center align-middle border-r border-gray-300">email@example.com</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">Tipe Akun</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">Status Akun</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">Customer</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">Suspended</td>
         <td class="p-4 text-center align-middle border-r border-gray-300">Tanggal Bergabung</td>
         <td class="p-4 text-center align-middle">
-          <button class="text-white rounded">
-            <img src="{{ asset('assets/block.png') }}" alt="Ikon Nonaktif">
-          </button>
+            <button class="p-4" onclick="openSuspendConfirmModal()"><img src="{{ asset('assets/block.png') }}" alt="Suspend Icon"></button>
+            <button class="p-4" onclick="openUnsuspendConfirmModal()"><img src="{{ asset('assets/checkmark.png') }}" alt="Unsuspend Icon"></button>
         </td>
       </tr>
-      <!-- Backend akan mengulang baris di atas untuk setiap akun yang sesuai dengan filter -->
     </tbody>
   </table>
+</div>
+
+<!-- Modal Konfirmasi Suspend -->
+<div id="suspendConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+    <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Suspend Akun</h3>
+    <p class="text-center">Apakah Anda yakin ingin suspend akun ini?</p>
+    <div class="flex justify-evenly mt-6">
+      <button onclick="submitSuspendAccount()" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Ya</button>
+      <button onclick="closeSuspendConfirmModal()" class="bg-gray-300 py-2 px-4 rounded-lg w-1/3">Batal</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Konfirmasi Unsuspend -->
+<div id="unsuspendConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+    <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Unsuspend Akun</h3>
+    <p class="text-center">Apakah Anda yakin ingin unsuspend akun ini?</p>
+    <div class="flex justify-evenly mt-6">
+      <button onclick="submitUnsuspendAccount()" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Ya</button>
+      <button onclick="closeUnsuspendConfirmModal()" class="bg-gray-300 py-2 px-4 rounded-lg w-1/3">Batal</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Sukses Suspend -->
+<div id="successSuspendModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+    <h3 class="text-2xl mb-4 font-semibold text-center">Akun Berhasil di-Suspend</h3>
+    <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+    <div class="flex justify-center mt-10">
+      <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessSuspendModal()">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Sukses Unsuspend -->
+<div id="successUnsuspendModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+    <h3 class="text-2xl mb-4 font-semibold text-center">Akun Berhasil di-Unsuspend</h3>
+    <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+    <div class="flex justify-center mt-10">
+      <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessUnsuspendModal()">Tutup</button>
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -65,6 +109,45 @@
     var filter = document.getElementById('accountFilter').value;
     // Mengubah URL untuk menyertakan filter yang dipilih dan mengirimkan request ke backend
     window.location.href = '?filter=' + filter;
+  }
+  // Modal Suspend
+  function openSuspendConfirmModal() {
+    document.getElementById('suspendConfirmModal').classList.remove('hidden');
+  }
+
+  function closeSuspendConfirmModal() {
+    document.getElementById('suspendConfirmModal').classList.add('hidden');
+  }
+
+  function submitSuspendAccount() {
+    closeSuspendConfirmModal();
+    setTimeout(() => {
+      document.getElementById('successSuspendModal').classList.remove('hidden');
+    }, 500);
+  }
+
+  function closeSuccessSuspendModal() {
+    document.getElementById('successSuspendModal').classList.add('hidden');
+  }
+
+  // Modal Unsuspend
+  function openUnsuspendConfirmModal() {
+    document.getElementById('unsuspendConfirmModal').classList.remove('hidden');
+  }
+
+  function closeUnsuspendConfirmModal() {
+    document.getElementById('unsuspendConfirmModal').classList.add('hidden');
+  }
+
+  function submitUnsuspendAccount() {
+    closeUnsuspendConfirmModal();
+    setTimeout(() => {
+      document.getElementById('successUnsuspendModal').classList.remove('hidden');
+    }, 500);
+  }
+
+  function closeSuccessUnsuspendModal() {
+    document.getElementById('successUnsuspendModal').classList.add('hidden');
   }
 </script>
 @endpush

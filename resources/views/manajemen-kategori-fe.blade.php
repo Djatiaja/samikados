@@ -39,7 +39,7 @@
           <td class="p-4 text-center border-r border-gray-300">Nikmati kualitas premium</td>
           <td class="p-4 text-center border-r border-gray-300" id="productCount">20</td>
           <td class="p-4 text-center border-r border-gray-300">
-            <img src="{{ asset('assets/printer.png') }}" alt="Icon" class="mx-auto">
+            <img src="{{ asset('assets/printer.png') }}" alt="Icon" class="mx-auto w-9 h-9 object-cover">
           </td>
           <td class="p-4 text-center">
             <button class="p-2" onclick="openEditCategoryModal()"><img src="{{ asset('assets/edit.png') }}" alt="Edit Icon"></button>
@@ -55,7 +55,7 @@
           <td class="p-4 text-center border-r border-gray-300">Kategori tanpa produk</td>
           <td class="p-4 text-center border-r border-gray-300" id="emptyCategoryProductCount">0</td>
           <td class="p-4 text-center border-r border-gray-300">
-            <img src="{{ asset('assets/placeholder.png') }}" alt="Icon" class="mx-auto">
+            <img src="https://placehold.co/48x48"alt="Icon" class="mx-auto w-9 h-9 object-cover">
           </td>
           <td class="p-4 text-center">
             <button class="p-2" onclick="openEditCategoryModal()"><img src="{{ asset('assets/edit.png') }}" alt="Edit Icon"></button>
@@ -66,34 +66,38 @@
     </table>
   </div>
 
- <!-- Modal: Add Category -->
-  <div id="addCategoryModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<!-- Modal: Add Category -->
+<div id="addCategoryModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-      <h3 class="text-2xl mb-4 font-semibold text-center">Tambah Kategori Baru</h3>
-      <form>
-        <div class="mb-4">
-          <label class="block mb-2 text-gray-700">Nama Kategori</label>
-          <input type="text" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Masukkan nama kategori">
-        </div>
-        <div class="mb-4">
-          <label class="block mb-2 text-gray-700">Deskripsi</label>
-          <textarea class="w-full p-2 border border-gray-300 rounded-lg" rows="3" placeholder="Masukkan deskripsi kategori"></textarea>
-        </div>
-        <div class="mb-4">
-          <label class="block mb-2 text-gray-700">Icon</label>
-          <input type="file" class="w-full p-2 border border-gray-300 rounded-lg">
-        </div>
-        <div class="mb-4">
-          <label class="block mb-2 text-gray-700">Banner</label>
-          <input type="file" class="w-full p-2 border border-gray-300 rounded-lg">
-        </div>
-        <div class="flex justify-evenly">
-          <button type="button" onclick="openAddConfirmModal()" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg">Tambah Kategori</button>
-          <button type="button" onclick="closeAddCategoryModal()" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg">Batal</button>
-        </div>
-      </form>
+        <h3 class="text-2xl mb-4 font-semibold text-center">Tambah Kategori Baru</h3>
+        <form id="addCategoryForm">
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-700">Nama Kategori</label>
+                <input type="text" id="categoryName" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Masukkan nama kategori">
+                <p id="categoryNameError" class="text-red-500 text-sm hidden">Nama kategori harus diisi.</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-700">Deskripsi</label>
+                <textarea id="categoryDescription" class="w-full p-2 border border-gray-300 rounded-lg" rows="3" placeholder="Masukkan deskripsi kategori"></textarea>
+                <p id="categoryDescriptionError" class="text-red-500 text-sm hidden">Deskripsi harus diisi.</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-700">Icon</label>
+                <input type="file" id="categoryIcon" class="w-full p-2 border border-gray-300 rounded-lg">
+                <p id="categoryIconError" class="text-red-500 text-sm hidden">Ikon harus dipilih.</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-700">Banner</label>
+                <input type="file" id="categoryBanner" class="w-full p-2 border border-gray-300 rounded-lg">
+                <p id="categoryBannerError" class="text-red-500 text-sm hidden">Banner harus dipilih.</p>
+            </div>
+            <div class="flex justify-evenly">
+                <button type="button" onclick="validateCategoryForm()" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg">Tambah Kategori</button>
+                <button type="button" onclick="closeAddCategoryModal()" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg">Batal</button>
+            </div>
+        </form>
     </div>
-  </div>
+</div>
 
   <!-- Modal: Success Add Category -->
   <div id="successAddModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -118,33 +122,37 @@
     </div>
   </div>
 
-  <!-- Modal: Edit Category -->
+ <!-- Modal: Edit Category -->
 <div id="editCategoryModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-    <h3 class="text-2xl mb-4 font-semibold text-center">Edit Kategori</h3>
-    <form>
-      <div class="mb-4">
-        <label class="block mb-2 text-gray-700">Nama Kategori</label>
-        <input type="text" id="editCategoryName" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Nama Kategori">
-      </div>
-      <div class="mb-4">
-        <label class="block mb-2 text-gray-700">Deskripsi</label>
-        <textarea id="editCategoryDescription" class="w-full p-2 border border-gray-300 rounded-lg" rows="3" placeholder="Deskripsi Kategori"></textarea>
-      </div>
-      <div class="mb-4">
-        <label class="block mb-2 text-gray-700">Icon</label>
-        <input type="file" id="editCategoryIcon" class="w-full p-2 border border-gray-300 rounded-lg">
-      </div>
-      <div class="mb-4">
-        <label class="block mb-2 text-gray-700">Banner</label>
-        <input type="file" id="editCategoryBanner" class="w-full p-2 border border-gray-300 rounded-lg">
-      </div>
-      <div class="flex justify-evenly">
-        <button type="button" onclick="openEditConfirmModal()" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg">Edit Kategori</button>
-        <button type="button" onclick="closeEditCategoryModal()" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg">Batal</button>
-      </div>
-    </form>
-  </div>
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+        <h3 class="text-2xl mb-4 font-semibold text-center">Edit Kategori</h3>
+        <form id="editCategoryForm">
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-700">Nama Kategori</label>
+                <input type="text" id="editCategoryName" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Nama Kategori">
+                <p id="editCategoryNameError" class="text-red-500 text-sm hidden">Nama kategori harus diisi.</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-700">Deskripsi</label>
+                <textarea id="editCategoryDescription" class="w-full p-2 border border-gray-300 rounded-lg" rows="3" placeholder="Deskripsi Kategori"></textarea>
+                <p id="editCategoryDescriptionError" class="text-red-500 text-sm hidden">Deskripsi harus diisi.</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-700">Icon</label>
+                <input type="file" id="editCategoryIcon" class="w-full p-2 border border-gray-300 rounded-lg">
+                <p id="editCategoryIconError" class="text-red-500 text-sm hidden">Ikon harus dipilih.</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-700">Banner</label>
+                <input type="file" id="editCategoryBanner" class="w-full p-2 border border-gray-300 rounded-lg">
+                <p id="editCategoryBannerError" class="text-red-500 text-sm hidden">Banner harus dipilih.</p>
+            </div>
+            <div class="flex justify-evenly">
+                <button type="button" onclick="validateEditCategoryForm()" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg">Edit Kategori</button>
+                <button type="button" onclick="closeEditCategoryModal()" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg">Batal</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <!-- Modal: Confirm Edit Category -->
@@ -301,6 +309,110 @@ function checkDeleteCategory(productCount) {
   } else {
     openDeleteConfirmModal(); // Tampilkan modal konfirmasi hapus jika tidak ada produk
   }
+}
+
+function validateCategoryForm() {
+    // Ambil elemen input dan elemen error
+    const categoryName = document.getElementById("categoryName");
+    const categoryDescription = document.getElementById("categoryDescription");
+    const categoryIcon = document.getElementById("categoryIcon");
+    const categoryBanner = document.getElementById("categoryBanner");
+
+    const categoryNameError = document.getElementById("categoryNameError");
+    const categoryDescriptionError = document.getElementById("categoryDescriptionError");
+    const categoryIconError = document.getElementById("categoryIconError");
+    const categoryBannerError = document.getElementById("categoryBannerError");
+
+    let valid = true;
+
+    // Validasi Nama Kategori
+    if (categoryName.value.trim() === "") {
+        categoryNameError.classList.remove("hidden");
+        valid = false;
+    } else {
+        categoryNameError.classList.add("hidden");
+    }
+
+    // Validasi Deskripsi
+    if (categoryDescription.value.trim() === "") {
+        categoryDescriptionError.classList.remove("hidden");
+        valid = false;
+    } else {
+        categoryDescriptionError.classList.add("hidden");
+    }
+
+    // Validasi Icon
+    if (categoryIcon.files.length === 0) {
+        categoryIconError.classList.remove("hidden");
+        valid = false;
+    } else {
+        categoryIconError.classList.add("hidden");
+    }
+
+    // Validasi Banner
+    if (categoryBanner.files.length === 0) {
+        categoryBannerError.classList.remove("hidden");
+        valid = false;
+    } else {
+        categoryBannerError.classList.add("hidden");
+    }
+
+    // Jika semua validasi berhasil, buka modal konfirmasi
+    if (valid) {
+        openAddConfirmModal();
+    }
+}
+
+function validateEditCategoryForm() {
+    // Ambil elemen input dan elemen error
+    const editCategoryName = document.getElementById("editCategoryName");
+    const editCategoryDescription = document.getElementById("editCategoryDescription");
+    const editCategoryIcon = document.getElementById("editCategoryIcon");
+    const editCategoryBanner = document.getElementById("editCategoryBanner");
+
+    const editCategoryNameError = document.getElementById("editCategoryNameError");
+    const editCategoryDescriptionError = document.getElementById("editCategoryDescriptionError");
+    const editCategoryIconError = document.getElementById("editCategoryIconError");
+    const editCategoryBannerError = document.getElementById("editCategoryBannerError");
+
+    let valid = true;
+
+    // Validasi Nama Kategori
+    if (editCategoryName.value.trim() === "") {
+        editCategoryNameError.classList.remove("hidden");
+        valid = false;
+    } else {
+        editCategoryNameError.classList.add("hidden");
+    }
+
+    // Validasi Deskripsi
+    if (editCategoryDescription.value.trim() === "") {
+        editCategoryDescriptionError.classList.remove("hidden");
+        valid = false;
+    } else {
+        editCategoryDescriptionError.classList.add("hidden");
+    }
+
+    // Validasi Icon
+    if (editCategoryIcon.files.length === 0) {
+        editCategoryIconError.classList.remove("hidden");
+        valid = false;
+    } else {
+        editCategoryIconError.classList.add("hidden");
+    }
+
+    // Validasi Banner
+    if (editCategoryBanner.files.length === 0) {
+        editCategoryBannerError.classList.remove("hidden");
+        valid = false;
+    } else {
+        editCategoryBannerError.classList.add("hidden");
+    }
+
+    // Jika semua validasi berhasil, buka modal konfirmasi
+    if (valid) {
+        openEditConfirmModal();
+    }
 }
 </script>
 @endpush
