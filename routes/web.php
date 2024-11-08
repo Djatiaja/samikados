@@ -26,7 +26,20 @@ Route::get('/verification-otp-fe', function(){
 Route::get('/reset-password-fe', function(){
     return view('reset-password-fe');
 })->name('reset-password-fe');
-=======
+
+//FE - Dashboard
+Route::view('/admin/dashboard-fe', 'dashboard-fe')->name('dashboard-fe');
+Route::view('/admin/manajemen-kategori-fe', 'manajemen-kategori-fe')->name('manajemen-kategori-fe');
+Route::view('/admin/manajemen-akun-fe', 'manajemen-akun-fe')->name('manajemen-akun-fe');
+Route::view('/admin/manajemen-produk-fe', 'manajemen-produk-fe')->name('manajemen-produk-fe');
+Route::view('/admin/mapproval-withdraw-fe', 'approval-withdraw-fe')->name('approval-withdraw-fe');
+Route::view('/admin/laporan-fe', 'laporan-fe')->name('laporan-fe');
+Route::view('/admin/notifikasi-fe', 'notifikasi-fe')->name('notifikasi-fe');
+Route::view('/admin/pengaturan-akun-fe', 'pengaturan-akun-fe')->name('pengaturan-akun-fe'); 
+Route::view('/admin/kategori-fe', 'kategori-fe')->name('kategori-fe');
+Route::view('/admin/produk-fe', 'produk-fe')->name('produk-fe');
+Route::view('/admin/detail-produk-fe', 'detail-produk-fe')->name('detail-produk-fe');
+// =======
 Route::get('/dashboard', function () {
     // dd(Auth::user());
     return view('dashboard');
