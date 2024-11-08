@@ -26,10 +26,6 @@
                     <td><input type="text" name="description" id="description"></td>
                 </tr>
                 <tr>
-                    <td><label for="jumlah_produk">Jumlah Produk </label></td>
-                    <td><input type="number" inputmode="numeric" name="jumlah_produk" id="jumlah_produk" min="0"></td>
-                </tr>
-                <tr>
                     <td><label for="icon">icon </label></td>
                     <td><input type="file" name="icon" id="icon" accept="jpeg,png,jpg"></td>
                 </tr>

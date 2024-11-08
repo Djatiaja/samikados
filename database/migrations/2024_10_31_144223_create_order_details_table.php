@@ -13,22 +13,17 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('sku');
-            $table->string('brand_name');
-            $table->string('thumbnail');
-            $table->string('name');
-            $table->text('description');
-            $table->string('unit');
-            $table->double('weight');
-            $table->integer('price');
-            $table->integer('buy_price');
+            $table->double( 'subtotal_weight');
+            $table->integer('subtotal_price');
+            $table->integer('subtotal_buy_price');
             $table->integer('quantity');
             $table->timestamps();
 
 
             $table->foreignId('product_id')->references("id")->on('products');
             $table->foreignId('order_id')-> references("id")->on('orders');
-            $table->foreignId('product_finishing_id')->references("id")->on("product_finishings"); 
+            $table->unsignedBigInteger('product_finishing_id')->nullable();
+            $table->foreign('product_finishing_id')->references("id")->on("product_finishings"); 
 
         });
     }

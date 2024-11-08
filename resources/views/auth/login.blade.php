@@ -8,7 +8,18 @@
         </ul>
     </div>
     @endif
+            @if (session('error'))
+            <div class="alert alert-danger">
+                <ul>
+                    <li>{{ session('error') }}</li>
+                </ul>
+            </div>
+            @endif
+
     <form method="POST" action="{{ route('login') }}">
+
+
+
         @csrf
         <!-- Email Address or Username -->
         <div>

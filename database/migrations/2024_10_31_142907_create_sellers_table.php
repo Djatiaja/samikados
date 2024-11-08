@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('address');
             $table->text('description');
-            $table->string('city_id');
             $table->string('postal_code');
             $table->timestamps();
 
             $table->foreignId("user_id")->references("id")->on("users");
+            $table->foreignId('city_id')->references("id")->on("cities");
         });
     }
 

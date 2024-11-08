@@ -30,6 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'provider_id',
         'provider',
         'provider_token',
+        "suspend_until"
     ];
 
     /**
@@ -65,5 +66,9 @@ class User extends Authenticatable implements MustVerifyEmail
             $username =self::generateUsername($newUsername);
         }
         return $username;
+    }
+
+    public function role(){
+        return $this->hasOne(Role::class, "id", "role_id");
     }
 }

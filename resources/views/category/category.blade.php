@@ -55,10 +55,18 @@
                 <td> {{ $category ->name }}</td>
                 <td> {{ $category ->description }}</td>
                 <td> {{ $jumlah_produk }}</td>
-                <td> <img src="{{asset('storage/'.$category->icon)}}" alt=""> {{$category->icon}}</td>
+                <td> <img src="{{asset('storage/public/'.$category->icon)}}"  width="100px" height="100px">
                 <td>
+                <a href="{{ url('admin/category/update/'.$category->id) }}">
+                    <button class="btn-primary rounded-3">
+                        edit
+                    </button>
+                </a>
 
-
+                <form action="{{route('category.delete', $category->id)}}">
+                    @method('delete')
+                    <button type="submit">delete</button>
+                </form>
                 </td>
             </tr>
             @endforeach

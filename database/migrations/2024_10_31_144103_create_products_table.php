@@ -22,7 +22,8 @@ return new class extends Migration
             $table->integer('min_qty');
             $table->integer('price');
             $table->integer('buy_price');
-            $table->boolean('is_publish')->default(false); // Optional: default to false
+            $table->boolean('is_publish')->default(false); 
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('brand_id')->references("id")->on("brands");

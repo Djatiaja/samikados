@@ -7,6 +7,7 @@ use App\Http\Controllers\OTPController;
 use App\Http\Controllers\TwoFactorController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,9 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $user = User::where($request->loginParamType,$request->validated()[$request->loginParamType])->first();
+        if( now() < $user->suspend_until) {
+            return redirect("login")->withError("akun anda telah di suspend sampai ". $user->suspend_until);
+        }
 
         if ($user->is_twoFactor) {
             Session::put("login_type", $request->loginParamType);

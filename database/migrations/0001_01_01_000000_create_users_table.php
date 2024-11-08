@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string("role_name");
+            $table->string("name");
             $table->timestamps();
         });
 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('username')->unique()->nullable();
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean("is_twoFactor")->default(false);
@@ -29,10 +29,11 @@ return new class extends Migration
             $table->string("provider_id")->nullable();
             $table->string("provider")->nullable();
             $table->string("provider_token")->nullable();
+            $table->timestamp("suspend_until")->nullable();
             $table->rememberToken();
             $table->timestamps();
-
-            $table->foreignId("role_id")->references("id")->on("roles");
+            $table->unsignedBigInteger("role_id")->default("2");
+            $table->foreign("role_id")->references("id")->on("roles");
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
