@@ -10,4 +10,8 @@ class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory, SoftDeletes;
+
+    public function product(){
+        return $this->belongsTo(Category::class);
+    }
 }

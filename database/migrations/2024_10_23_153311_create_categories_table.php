@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer("parent_id")->nullable();
             $table->string("description");
             $table->string("icon");
+            $table->string("banner")->nullable();
             $table->timestamps();
         });
     }

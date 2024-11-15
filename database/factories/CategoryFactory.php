@@ -18,8 +18,8 @@ class CategoryFactory extends Factory
     {
         return [
             "name"=>fake()->word(),
-            "description"=>fake()->sentence(20),
-            "icon"=>"public/icon/example.png"
+            "description"=>fake()->sentence(5),
+            "icon"=>"assets/icon/example.png"
         ];
     }
 }

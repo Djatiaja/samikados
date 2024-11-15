@@ -1,81 +1,61 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-    @if (\Session::has('success'))
-    <div class="alert alert-success">
-        <ul>
-            <li>{!! \Session::get('success') !!}</li>
-        </ul>
-    </div>
-    @endif
-            @if (session('error'))
-            <div class="alert alert-danger">
-                <ul>
-                    <li>{{ session('error') }}</li>
-                </ul>
-            </div>
-            @endif
+@extends('layouts.auth')
 
-    <form method="POST" action="{{ route('login') }}">
+@section('title', 'Samikados Login')
 
+@section('header-subtitle', 'LOGIN')
 
+@section('content')
+<!-- Image Section (Hidden on mobile) -->
+<section class="w-full lg:w-fit mb-8 lg:mb-0 hidden lg:flex">
+    <figure class="">
+        <img src="{{ asset('assets/SamikadosLogo.png') }}" alt="Placeholder image" class="w-full">
+    </figure>
+</section>
 
-        @csrf
-        <!-- Email Address or Username -->
-        <div>
-            <x-input-label for="loginParam" :value="__('Email/Username')" />
-            <x-text-input id="loginParam" class="block mt-1 w-full" name="loginParam" value="{{isset($email)?$email:old('loginParam')}}"
-                required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+<!-- Login Form -->
+<section class="w-full lg:w-1/3 bg-white p-8 shadow-xl rounded-lg">
+    <h2 class="text-xl lg:text-2xl font-bold mb-4 text-gray-800">LOGIN</h2>
+    <form>
+        <!-- Email / Username -->
+        <div class="mb-4">
+            <label for="username" class="sr-only">Email / Username</label>
+            <input id="username"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600"
+                placeholder="Email / Username" type="text" />
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="current-password" value="{{isset($pass)?$password:''}}"/>
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="mb-4">
+            <label for="password" class="sr-only">Password</label>
+            <input id="password"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600"
+                placeholder="Password" type="password" />
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember" type="checkbox"
-                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+        <!-- Remember Me and Forgot Password -->
+        <div class="flex justify-between items-center mb-4">
+            <label class="flex items-center text-gray-700 text-sm lg:text-base">
+                <input class="mr-2" type="checkbox" /> Ingat Saya
             </label>
+            <a class="text-xs lg:text-sm text-red-600 hover:underline" href="{{ route('forgot-password') }}">Lupa
+                Password?</a>
         </div>
 
-        <div class="login-container" style="text-align: center; margin-top: 20px;">
-            <a href="/auth/google/redirect"
-                style="display: flex; align-items: center; padding: 10px 20px; background-color: #4285F4; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; text-decoration: none;">
-                <img src="https://img.icons8.com/?size=100&id=V5cGWnc9R4xj&format=png&color=000000" alt="Google logo"
-                    style="width: 24px; height: 24px; margin-right: 10px;">
-                Sign in with Google
-            </a>
-        </div>
+        <!-- Submit Button -->
+        <button
+            class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg mb-4 transition duration-300 shadow-lg"
+            type="button" onclick="window.location.href='Dashboard.html'">
+            Masuk
+        </button>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                href="{{ route('password.request') }}">
-                {{ __('Forgot your password?') }}
-            </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-
-        </div>
+        <!-- Google Sign-up -->
+        <div class="text-center mb-4 text-gray-700">atau</div>
+        <button
+            class="w-full bg-white border border-gray-400 text-gray-700 py-3 rounded-lg flex items-center justify-center hover:bg-gray-50 transition duration-300 shadow-sm"
+            type="button" onclick="window.location.href='Dashboard.html'">
+            <img src="{{ asset('assets/GoogleLogo.png') }}" alt="Google placeholder" class="mr-2"> Sign In with Google
+        </button>
 
     </form>
-    <div
-        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
-
-        <a href="/register"> Register</a>
-    </div>
-</x-guest-layout>
+</section>
+@endsection

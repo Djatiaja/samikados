@@ -35,7 +35,7 @@
         <a href="{{ route('notifikasi-fe') }}">
           <img src="{{ asset('assets/notification.png') }}" alt="Notification Icon" class="w-6 h-6">
         </a>
-        <a href="{{ route('pengaturan-akun-fe') }}">
+        <a href="{{ route('pengaturan-akun') }}">
           <img src="{{ asset('assets/profile.png') }}" alt="User Icon" class="w-6 h-6">
         </a>
         <span class="font-semibold">AdminSamikados</span>
@@ -49,11 +49,11 @@
     <!-- Menambahkan `pt-16` untuk jarak dari header -->
     <nav>
       <ul class="space-y-2">
-        <li class="{{ Route::is('dashboard-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('dashboard-fe') }}" class="block">Dashboard</a>
+        <li class="{{ Route::is('dashboard') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('dashboard') }}" class="block">Dashboard</a>
         </li>
-        <li class="{{ Route::is('manajemen-kategori-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-kategori-fe') }}" class="block">Manajemen Kategori</a>
+        <li class="{{ Route::is('manajemen-kategori') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('manajemen-kategori') }}" class="block">Manajemen Kategori</a>
         </li>
         <li class="{{ Route::is('manajemen-akun-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
           <a href="{{ route('manajemen-akun-fe') }}" class="block">Manajemen Akun</a>

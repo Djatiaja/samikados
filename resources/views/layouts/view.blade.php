@@ -18,7 +18,7 @@
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold">SAMIKADOS</h1>
             @yield('searchbar') <!-- Bagian dinamis untuk searchbar -->
-            <a href="{{ route('dashboard-fe') }}">
+            <a href="{{ route('dashboard') }}">
                 <span class="text-lg">ADMIN</span>
             </a>
         </div>

@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Order_status;
 use App\Models\Seller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -35,7 +36,9 @@ class OrderFactory extends Factory
             "tracking_code"=>Str::random(),
             "delivery_price"=> $delivery_price,
             "grand_total"=> $total,
-            "order_status_id"=>Order_status::all()->random()
+            "order_status_id"=>Order_status::all()->random(),
+            "created_at" => Carbon::now()->subDays(rand(0, 365)),  // Random date in the past year
+            "updated_at" => Carbon::now(),
         ];
     }
 }

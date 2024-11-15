@@ -18,6 +18,11 @@ class Category extends Model
         "name",
         "parent_id",
         "description",
-        "icon"
+        "icon",
+        "banner",
     ];
+
+    public function product(){
+        return $this->hasMany(Product::class);
+    }
 }
