@@ -57,7 +57,7 @@
           <td class="p-4 text-center border-r border-gray-300">Kategori tanpa produk</td>
           <td class="p-4 text-center border-r border-gray-300" id="emptyCategoryProductCount">0</td>
           <td class="p-4 text-center border-r border-gray-300">
-            <img src="{{ asset('assets/placeholder.png') }}" alt="Icon" class="mx-auto">
+            <img src="https://placehold.co/48x48"alt="Icon" class="mx-auto w-9 h-9 object-cover">
           </td>
           <td class="p-4 text-center">
             <button class="p-2" onclick="openEditCategoryModal()"><img src="{{ asset('assets/edit.png') }}" alt="Edit Icon"></button>
@@ -68,8 +68,8 @@
     </table>
   </div>
 
- <!-- Modal: Add Category -->
-  <div id="addCategoryModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<!-- Modal: Add Category -->
+<div id="addCategoryModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
       <h3 class="text-2xl mb-4 font-semibold text-center">Tambah Kategori Baru</h3>
       <form action="{{route('manajemen-kategori.store')}}" enctype="multipart/form-data" method="POST">
@@ -96,7 +96,7 @@
         </div>
       </form>
     </div>
-  </div>
+</div>
 
   @if (session('add-success'))
   <!-- Modal: Success Add Category -->
@@ -124,7 +124,7 @@
     </div>
   </div>
 
-  <!-- Modal: Edit Category -->
+ <!-- Modal: Edit Category -->
 <div id="editCategoryModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
   <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
     <h3 class="text-2xl mb-4 font-semibold text-center">Edit Kategori</h3>

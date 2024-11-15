@@ -146,7 +146,6 @@
         var swiper = new Swiper('.centered-slide-carousel', {
             centeredSlides: true,
             loop: true,
-            initialSlide: 2,
             spaceBetween: 30,
             pagination: {
                 el: '.swiper-pagination',

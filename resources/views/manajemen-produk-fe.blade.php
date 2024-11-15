@@ -40,30 +40,80 @@
     </thead>
     <tbody id="productsBody">
       <!-- Data produk akan ditampilkan di sini berdasarkan filter kategori -->
-      <!-- Contoh data placeholder di bawah ini akan digantikan dengan data dari backend -->
       <tr class="border-b border-gray-300">
         <td class="p-4 text-center align-middle border-r border-gray-300">Nama Produk</td>
         <td class="p-4 text-center align-middle border-r border-gray-300">Rp0</td>
         <td class="p-4 text-center align-middle border-r border-gray-300">Nama Seller</td>
         <td class="p-4 text-center align-middle border-r border-gray-300">Status Produk</td>
         <td class="p-4 text-center align-middle">
-          <button class="text-white p-2 rounded">
+          <button onclick="openDeleteConfirmModal()" class="text-white p-2 rounded">
             <img src="{{ asset('assets/delete.png') }}" alt="Ikon Hapus">
           </button>
         </td>
       </tr>
-      <!-- Backend akan mengulang baris di atas untuk setiap produk yang sesuai dengan filter -->
     </tbody>
   </table>
 </div>
+
+<!-- Modal Konfirmasi Hapus -->
+<div id="deleteConfirmModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3">
+    <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Penghapusan</h3>
+    <p class="text-center">Apakah Anda yakin ingin menghapus produk ini?</p>
+    <div class="flex justify-evenly mt-6">
+        <button onclick="deleteProduct()" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Hapus</button>  
+        <button onclick="closeDeleteConfirmModal()" class="bg-gray-300 py-2 px-4 rounded-lg w-1/3">Batal</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Sukses Hapus -->
+<div id="successDeleteModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+<div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+    <h3 class="text-2xl mb-4 font-semibold text-center">Produk Berhasil Dihapus</h3>
+    <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+    <div class="flex justify-center mt-10">
+      <button onclick="closeSuccessDeleteModal()" type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3">Tutup</button>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @push('scripts')
 <script>
+  // Filter Produk Berdasarkan Kategori
   function filterByCategory() {
     var selectedCategory = document.getElementById('categoryFilter').value;
     // Mengubah URL dengan parameter filter dan mengirimkan permintaan ke backend
     window.location.href = '?category=' + selectedCategory;
+  }
+
+  // Modal Konfirmasi Hapus
+  function openDeleteConfirmModal() {
+    document.getElementById('deleteConfirmModal').classList.remove('hidden');
+  }
+
+  function closeDeleteConfirmModal() {
+    document.getElementById('deleteConfirmModal').classList.add('hidden');
+  }
+
+  // Modal Sukses Hapus
+  function openSuccessDeleteModal() {
+    document.getElementById('successDeleteModal').classList.remove('hidden');
+  }
+
+  function closeSuccessDeleteModal() {
+    document.getElementById('successDeleteModal').classList.add('hidden');
+  }
+
+  // Fungsi Hapus Produk
+  function deleteProduct() {
+    closeDeleteConfirmModal();
+    // Simulasi penghapusan produk dengan delay sebelum modal sukses muncul
+    setTimeout(() => {
+      openSuccessDeleteModal();
+    }, 500);
   }
 </script>
 @endpush
