@@ -40,7 +40,9 @@ class DatabaseSeeder extends Seeder
             MidtransStatusSeeder::class,
             PaymentSeeder::class,
             RequestStatusSeeder::class,
-            WalletSeeder::class
+            WalletSeeder::class,
+            BankSeeder::class,
+            WithdrawalSeeder::class
         ]);
     }
 }

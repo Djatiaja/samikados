@@ -8,8 +8,6 @@ use App\Models\Product;
 use App\Models\Seller;
 use App\Models\User;
 use Carbon\Carbon;
-use DateTime;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {

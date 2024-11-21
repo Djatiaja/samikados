@@ -256,17 +256,17 @@ function closeSuccessAddModal() {
   document.getElementById('successAddModal').classList.add('hidden');
 }
 
-// Edit Kategori
-function openEditCategoryModal(id) {
-  document.getElementById('editCategoryModal').classList.remove('hidden');
-  var editButton = document.getElementById("editCategory"+id);
-  var row = editButton.closest("tr");
-  var data = row.getElementsByTagName('td');
+  // Edit Kategori
+  function openEditCategoryModal(id) {
+    document.getElementById('editCategoryModal').classList.remove('hidden');
+    var editButton = document.getElementById("editCategory"+id);
+    var row = editButton.closest("tr");
+    var data = row.getElementsByTagName('td');
 
-  document.getElementById("FormEdit").action = "{{route('manajemen-kategori.update', '')}}/" + id;  
-  document.getElementById("editCategoryName").value = data[0].innerText;  
-  document.getElementById("editCategoryDescription").value = data[1].innerText;  
-}
+    document.getElementById("FormEdit").action = "{{route('manajemen-kategori.update', '')}}/" + id;  
+    document.getElementById("editCategoryName").value = data[0].innerText;  
+    document.getElementById("editCategoryDescription").value = data[1].innerText;  
+  }
 
 function closeEditCategoryModal() {
   document.getElementById('editCategoryModal').classList.add('hidden');

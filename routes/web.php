@@ -5,12 +5,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WithdrawalController;
 use App\Http\Middleware\VerifyMustHaveEmail;
-use App\Http\Middleware\VerifyRole;
-use App\Models\Product;
-use App\Models\Product_finishing;
+use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\HttpKernel\EventListener\ProfilerListener;
+use PhpParser\Node\Expr\FuncCall;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,7 +30,6 @@ Route::get('/reset-password-fe', function () {
 //FE - Dashboard
 Route::view('/admin/manajemen-akun-fe', 'manajemen-akun-fe')->name('manajemen-akun-fe');
 Route::view('/admin/manajemen-produk-fe', 'manajemen-produk-fe')->name('manajemen-produk-fe');
-Route::view('/admin/mapproval-withdraw-fe', 'approval-withdraw-fe')->name('approval-withdraw-fe');
 Route::view('/admin/laporan-fe', 'laporan-fe')->name('laporan-fe');
 Route::view('/admin/notifikasi-fe', 'notifikasi-fe')->name('notifikasi-fe');
 Route::view('/admin/kategori-fe', 'kategori-fe')->name('kategori-fe');
@@ -41,11 +39,20 @@ Route::view('/admin/detail-produk-fe', 'detail-produk-fe')->name('detail-produk-
 
 Route::controller(AdminController::class)->prefix("/admin")->group(function(){
     Route::get("/", "index")->name("dashboard");
-    Route::view('/pengaturan-akun', 'admin.pengaturan-akun')->name('pengaturan-akun'); 
 });
 
-// Route::controller(ProfileController::class)
+Route::controller(ProfileController::class)->prefix('/admin/pengaturan-akun')->middleware(["auth", "verified", "role:admin"])->group(function () {
+    Route::get('/', 'index')->name('pengaturan-akun');
+    Route::put('/update/{id}', 'update')->name('pengaturan-akun.update');
+    Route::post('/tambah-admin', 'tambahAdmin')->name('pengaturan-akun.tambah-admin');
+    Route::post('/ganti-password', 'changePassword')->name('pengaturan-akun.changePassword');
+    Route::put('/update/photo/{id}', 'changePhoto')->name('pengaturan-akun.update-profile');
+});
 
+Route::controller(WithdrawalController::class)->prefix('/admin/manajemen-withdrawal')->middleware([])->group(function(){
+    Route::get("/", "index")->name("manajemen-withdrawal");
+    Route::put("/update/{id}", "update")->name("manajemen-withdrawal.update");
+});
 
 Route::controller(CategoryController::class)->prefix("/admin/manajemen-kategori")->group(function(){
     Route::get('/', 'index')->name('manajemen-kategori');
@@ -54,12 +61,6 @@ Route::controller(CategoryController::class)->prefix("/admin/manajemen-kategori"
     Route::delete("/delete/{id}", "delete")->name("manajemen-kategori.delete");
 });
 
-Route::middleware(["auth", "verified", "role:admin"])->group(function ()   {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-});
 Route::controller(AccountController::class)->prefix("/admin/account")->group(function(){
     Route::get("/", "index")->name("account.index");
     Route::post("/suspend", "suspend")->name("account.suspend");

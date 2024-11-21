@@ -15,13 +15,14 @@
 <!-- Login Form -->
 <section class="w-full lg:w-1/3 bg-white p-8 shadow-xl rounded-lg">
     <h2 class="text-xl lg:text-2xl font-bold mb-4 text-gray-800">LOGIN</h2>
-    <form>
+    <form action="{{route('login')}}" method="post">
+        @csrf
         <!-- Email / Username -->
         <div class="mb-4">
             <label for="username" class="sr-only">Email / Username</label>
             <input id="username"
                 class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600"
-                placeholder="Email / Username" type="text" />
+                placeholder="Email / Username" type="text" name="loginParam" />
         </div>
 
         <!-- Password -->
@@ -29,7 +30,7 @@
             <label for="password" class="sr-only">Password</label>
             <input id="password"
                 class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600"
-                placeholder="Password" type="password" />
+                placeholder="Password" type="password" name="password"/>
         </div>
 
         <!-- Remember Me and Forgot Password -->
@@ -44,18 +45,20 @@
         <!-- Submit Button -->
         <button
             class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg mb-4 transition duration-300 shadow-lg"
-            type="button" onclick="window.location.href='Dashboard.html'">
+            type="submit" >
             Masuk
         </button>
 
         <!-- Google Sign-up -->
         <div class="text-center mb-4 text-gray-700">atau</div>
-        <button
-            class="w-full bg-white border border-gray-400 text-gray-700 py-3 rounded-lg flex items-center justify-center hover:bg-gray-50 transition duration-300 shadow-sm"
-            type="button" onclick="window.location.href='Dashboard.html'">
-            <img src="{{ asset('assets/GoogleLogo.png') }}" alt="Google placeholder" class="mr-2"> Sign In with Google
-        </button>
-
+        <a href="/auth/google/redirect">
+            <button
+                class="w-full bg-white border border-gray-400 text-gray-700 py-3 rounded-lg flex items-center justify-center hover:bg-gray-50 transition duration-300 shadow-sm"
+                type="button">
+                <img src="{{ asset('assets/GoogleLogo.png') }}" alt="Google placeholder" class="mr-2"> Sign In with
+                Google
+            </button>
+        </a>
     </form>
 </section>
 @endsection

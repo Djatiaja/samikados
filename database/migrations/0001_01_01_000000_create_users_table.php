@@ -25,11 +25,11 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean("is_twoFactor")->default(false);
             $table->string('password')->nullable();
-            $table->string("photo")->nullable();
+            $table->string("photo")->nullable()->default('https://placehold.co/600x400');
             $table->string("provider_id")->nullable();
             $table->string("provider")->nullable();
             $table->string("provider_token")->nullable();
-            $table->timestamp("suspend_until")->nullable();
+            $table->boolean("is_suspended")->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->unsignedBigInteger("role_id")->default("2");

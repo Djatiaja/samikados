@@ -29,7 +29,7 @@
                 <i class="far fa-eye text-gray-500" id="togglePasswordIcon1"></i>
             </button>
         </div>
-        
+            
         <!-- New Password Confirmation -->
         <p class="text-sm text-gray-500">Konfirmasi Password Baru</p>
             <div class="mb-4 relative">

@@ -61,8 +61,8 @@
         <li class="{{ Route::is('manajemen-produk-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
           <a href="{{ route('manajemen-produk-fe') }}" class="block">Manajemen Produk</a>
         </li>
-        <li class="{{ Route::is('approval-withdraw-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('approval-withdraw-fe') }}" class="block">Approval Withdraw</a>
+        <li class="{{ Route::is('manajemen-withdrawal') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('manajemen-withdrawal') }}" class="block">Approval Withdraw</a>
         </li>
         <li class="{{ Route::is('laporan-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
           <a href="{{ route('laporan-fe') }}" class="block">Laporan</a>
