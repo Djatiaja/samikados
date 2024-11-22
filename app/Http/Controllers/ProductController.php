@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     function index(){
-        $products = Product::paginate(10);
-        return view('product.index-be', compact('products'));
+        $products = Product::with('seller')->get();
+        return view('admin.manajemen-produk', compact('products'));
     }
 
     function search(Request $request){
@@ -20,25 +20,15 @@ class ProductController extends Controller
 
         $products = $query->paginate(10);
 
-        return view('product.index-be', compact('products'));
+        return view('admin.manajemen-produk', compact('products'));
     }
 
-    function delete($id){
+    function unpublish($id){
         $product = Product::find($id);
-        $product->delete();
+        $product->update([
+            "is_publish" => false
+        ]);
         $product->save();
-        return redirect()->route("product.index");
-    }
-
-    function restore($id){
-        $product = Product::withTrashed()->find($id);
-        $product->restore();
-        return redirect()->route("product.trash");
-    }
-
-    function trash()
-    {
-        $products = Product::onlyTrashed()->paginate(10);
-        return view('product.trash-be', compact('products'));
+        return redirect()->route("manajemen-produk");
     }
 }

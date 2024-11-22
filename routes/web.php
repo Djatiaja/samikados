@@ -28,8 +28,6 @@ Route::get('/reset-password-fe', function () {
 })->name('reset-password-fe');
 
 //FE - Dashboard
-Route::view('/admin/manajemen-akun-fe', 'manajemen-akun-fe')->name('manajemen-akun-fe');
-Route::view('/admin/manajemen-produk-fe', 'manajemen-produk-fe')->name('manajemen-produk-fe');
 Route::view('/admin/laporan-fe', 'laporan-fe')->name('laporan-fe');
 Route::view('/admin/notifikasi-fe', 'notifikasi-fe')->name('notifikasi-fe');
 Route::view('/admin/kategori-fe', 'kategori-fe')->name('kategori-fe');
@@ -61,19 +59,17 @@ Route::controller(CategoryController::class)->prefix("/admin/manajemen-kategori"
     Route::delete("/delete/{id}", "delete")->name("manajemen-kategori.delete");
 });
 
-Route::controller(AccountController::class)->prefix("/admin/account")->group(function(){
-    Route::get("/", "index")->name("account.index");
-    Route::post("/suspend", "suspend")->name("account.suspend");
-    Route::get("/search", "search")->name("account.search");
+Route::controller(AccountController::class)->prefix("/admin/manajemen-akun")->group(function(){
+    Route::get("/", "index")->name("manajemen-akun");
+    Route::put("/suspend/{id}", "suspend")->name("manajemen-akun.suspend");
+    Route::put("/unsuspend/{id}", "unsuspend")->name("manajemen-akun.unsuspend");
+    Route::get("/search", "search")->name("manajemen-akun.search");
 });
 
-Route::controller(ProductController::class)->prefix("/admin/product")->group(function () {
-    Route::get("/update/{id}", "index")->name("product.index");
-    Route::get("/", "index")->name("product.index");
-    Route::get("/trash", "trash")->name("product.trash");
-    Route::delete("/delete/{id}", "delete")->name("product.delete");
-    Route::put("/restore/{id}", "restore")->name("product.restore");
-    Route::get("/search", "search")->name("product.search");
+Route::controller(ProductController::class)->prefix("/admin/manajemen-produk")->group(function () {
+    Route::get("/", "index")->name("manajemen-produk");
+    Route::put("/unpublish/{id}", "unpublish")->name("manajemen-produk.unpublish");
+    Route::get("/search", "search")->name("manajemen-produk.search");
 });
 
 

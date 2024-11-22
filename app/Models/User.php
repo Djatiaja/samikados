@@ -31,7 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'provider_id',
         'provider',
         'provider_token',
-        "suspend_until"
+        "is_suspended"
     ];
 
     /**

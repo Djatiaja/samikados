@@ -4,7 +4,7 @@
 
 <!-- Jika halaman ini memerlukan search bar, gunakan section 'search' -->
 @section('search')
-<form action="#" method="GET" class="relative">
+<form action="{{route('manajemen-akun.search')}}" method="GET" class="relative">
   <input type="text" name="search" placeholder="Cari Akun..." class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
   <img src="{{ asset('assets/search.png') }}" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" alt="Search Icon">
 </form>
@@ -39,68 +39,78 @@
       </tr>
     </thead>
     <tbody>
-      <!-- Ini adalah bagian yang perlu diisi oleh backend dengan data akun sesuai filter -->
-      <!-- Contoh data statis di bawah ini hanya sebagai placeholder dan harus diganti oleh backend -->
+      @foreach ($users as $user )
+
       <tr class="border-b border-gray-300">
-        <td class="p-4 text-center align-middle border-r border-gray-300">Nama Akun</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">email@example.com</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">Customer</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">Suspended</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">Tanggal Bergabung</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->name}}</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->email}}</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->role->name}}</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->is_suspended ? 'suspend':'aktif'}}</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->created_at->format('d-m-Y') }}</td>
         <td class="p-4 text-center align-middle">
-            <button class="p-4" onclick="openSuspendConfirmModal()"><img src="{{ asset('assets/block.png') }}" alt="Suspend Icon"></button>
-            <button class="p-4" onclick="openUnsuspendConfirmModal()"><img src="{{ asset('assets/checkmark.png') }}" alt="Unsuspend Icon"></button>
+          <button class="p-4" onclick="openSuspendConfirmModal({{$user->id}})"><img src="{{ asset('assets/block.png') }}" alt="Suspend Icon"></button>
+          <button class="p-4" onclick="openUnsuspendConfirmModal({{$user->id}})"><img src="{{ asset('assets/checkmark.png') }}" alt="Unsuspend Icon"></button>
         </td>
       </tr>
+
+      @endforeach
+
     </tbody>
   </table>
 </div>
 
 <!-- Modal Konfirmasi Suspend -->
 <div id="suspendConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+  <form class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3" method="POST" id="formSuspend">
+    @csrf
+    @method('PUT')
     <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Suspend Akun</h3>
     <p class="text-center">Apakah Anda yakin ingin suspend akun ini?</p>
     <div class="flex justify-evenly mt-6">
-      <button onclick="submitSuspendAccount()" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Ya</button>
+      <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Ya</button>
       <button onclick="closeSuspendConfirmModal()" class="bg-gray-300 py-2 px-4 rounded-lg w-1/3">Batal</button>
     </div>
-  </div>
+  </form>
 </div>
 
 <!-- Modal Konfirmasi Unsuspend -->
 <div id="unsuspendConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+  <form class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3" method="POST" id="formUnsuspend">
+    @csrf
+    @method('PUT')
     <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Unsuspend Akun</h3>
     <p class="text-center">Apakah Anda yakin ingin unsuspend akun ini?</p>
     <div class="flex justify-evenly mt-6">
-      <button onclick="submitUnsuspendAccount()" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Ya</button>
+      <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Ya</button>
       <button onclick="closeUnsuspendConfirmModal()" class="bg-gray-300 py-2 px-4 rounded-lg w-1/3">Batal</button>
     </div>
-  </div>
+  </form>
 </div>
 
-<!-- Modal Sukses Suspend -->
-<div id="successSuspendModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+@if (Session::get('success')== "suspend")
+<div id="successSuspendModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
   <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
     <h3 class="text-2xl mb-4 font-semibold text-center">Akun Berhasil di-Suspend</h3>
-    <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+    <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
     <div class="flex justify-center mt-10">
       <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessSuspendModal()">Tutup</button>
     </div>
   </div>
 </div>
+@endif
+@if (Session::get('success')== "unsuspend")
 
-<!-- Modal Sukses Unsuspend -->
-<div id="successUnsuspendModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div id="successUnsuspendModal" class=" fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
   <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
     <h3 class="text-2xl mb-4 font-semibold text-center">Akun Berhasil di-Unsuspend</h3>
-    <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+    <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
     <div class="flex justify-center mt-10">
       <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessUnsuspendModal()">Tutup</button>
     </div>
   </div>
 </div>
+@endif
+
 @endsection
 
 @push('scripts')
@@ -111,8 +121,9 @@
     window.location.href = '?filter=' + filter;
   }
   // Modal Suspend
-  function openSuspendConfirmModal() {
+  function openSuspendConfirmModal(id) {
     document.getElementById('suspendConfirmModal').classList.remove('hidden');
+    document.getElementById('formSuspend').action = "{{route('manajemen-akun.suspend', '')}}/" + id;
   }
 
   function closeSuspendConfirmModal() {
@@ -128,11 +139,13 @@
 
   function closeSuccessSuspendModal() {
     document.getElementById('successSuspendModal').classList.add('hidden');
+
   }
 
   // Modal Unsuspend
-  function openUnsuspendConfirmModal() {
+  function openUnsuspendConfirmModal(id) {
     document.getElementById('unsuspendConfirmModal').classList.remove('hidden');
+    document.getElementById('formUnsuspend').action = "{{route('manajemen-akun.unsuspend', '')}}/" + id;
   }
 
   function closeUnsuspendConfirmModal() {

@@ -55,11 +55,11 @@
         <li class="{{ Route::is('manajemen-kategori') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
           <a href="{{ route('manajemen-kategori') }}" class="block">Manajemen Kategori</a>
         </li>
-        <li class="{{ Route::is('manajemen-akun-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-akun-fe') }}" class="block">Manajemen Akun</a>
+        <li class="{{ Route::is('manajemen-akun') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('manajemen-akun') }}" class="block">Manajemen Akun</a>
         </li>
-        <li class="{{ Route::is('manajemen-produk-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-produk-fe') }}" class="block">Manajemen Produk</a>
+        <li class="{{ Route::is('manajemen-produk') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('manajemen-produk') }}" class="block">Manajemen Produk</a>
         </li>
         <li class="{{ Route::is('manajemen-withdrawal') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
           <a href="{{ route('manajemen-withdrawal') }}" class="block">Approval Withdraw</a>

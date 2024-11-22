@@ -49,21 +49,6 @@
         </tr>
          @endforeach
 
-        <!-- New example category with 0 products for delete testing -->
-        <tr class="border-b border-gray-300">
-          <td class="p-4 text-center border-r border-gray-300">
-            <a href="{{ route('kategori-fe') }}">Empty Category</a>
-          </td>
-          <td class="p-4 text-center border-r border-gray-300">Kategori tanpa produk</td>
-          <td class="p-4 text-center border-r border-gray-300" id="emptyCategoryProductCount">0</td>
-          <td class="p-4 text-center border-r border-gray-300">
-            <img src="https://placehold.co/48x48"alt="Icon" class="mx-auto w-9 h-9 object-cover">
-          </td>
-          <td class="p-4 text-center">
-            <button class="p-2" onclick="openEditCategoryModal()"><img src="{{ asset('assets/edit.png') }}" alt="Edit Icon"></button>
-            <button class="p-2" onclick="checkDeleteCategory()"><img src="{{ asset('assets/delete.png') }}" alt="Delete Icon"></button>
-          </td>
-        </tr>
       </tbody>
     </table>
   </div>

@@ -17,4 +17,8 @@ class Seller extends Model
     public function Withdrawal(){
         return $this->hasMany(Withdrawal::class);
     }
+
+    public function product(){
+        return $this->hasMany(Product::class);
+    }
 }

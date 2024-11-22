@@ -40,40 +40,46 @@
     </thead>
     <tbody id="productsBody">
       <!-- Data produk akan ditampilkan di sini berdasarkan filter kategori -->
+      @foreach ($products as $product)
       <tr class="border-b border-gray-300">
-        <td class="p-4 text-center align-middle border-r border-gray-300">Nama Produk</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">Rp0</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">Nama Seller</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">Status Produk</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">{{$product->name}}</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">{{$product->seller->name}}</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">{{$product->is_publish?"publish":"Not Publish"}}</td>
         <td class="p-4 text-center align-middle">
-          <button onclick="openDeleteConfirmModal()" class="text-white p-2 rounded">
-            <img src="{{ asset('assets/delete.png') }}" alt="Ikon Hapus">
+          <button onclick="openUnpublishConfirmModal({{$product->id}})" class="text-white p-2 rounded">
+            <img src="{{ asset('assets/Delete.png') }}" alt="Ikon Hapus">
           </button>
         </td>
       </tr>
+      @endforeach
+
+
     </tbody>
   </table>
 </div>
 
 <!-- Modal Konfirmasi Hapus -->
-<div id="deleteConfirmModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3">
-    <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Penghapusan</h3>
-    <p class="text-center">Apakah Anda yakin ingin menghapus produk ini?</p>
+<div id="UnpublishConfirmModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+  <form class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3" method="POST" id="unpublishForm">
+    @csrf
+    @method("PUT")
+    <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Unpublish</h3>
+    <p class="text-center">Apakah Anda yakin ingin Unpublish produk ini?</p>
     <div class="flex justify-evenly mt-6">
-        <button onclick="deleteProduct()" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Hapus</button>  
-        <button onclick="closeDeleteConfirmModal()" class="bg-gray-300 py-2 px-4 rounded-lg w-1/3">Batal</button>
+      <button onclick="UnpublishProduct()" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Unpublish</button>
+      <button onclick="closeUnpublishConfirmModal()" class="bg-gray-300 py-2 px-4 rounded-lg w-1/3">Batal</button>
     </div>
-  </div>
+  </form>
 </div>
 
 <!-- Modal Sukses Hapus -->
-<div id="successDeleteModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-<div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-    <h3 class="text-2xl mb-4 font-semibold text-center">Produk Berhasil Dihapus</h3>
-    <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+<div id="successUnpublishModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+    <h3 class="text-2xl mb-4 font-semibold text-center">Produk Berhasil Unpublish</h3>
+    <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
     <div class="flex justify-center mt-10">
-      <button onclick="closeSuccessDeleteModal()" type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3">Tutup</button>
+      <button onclick="closeSuccessUnpublishModal()" type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3">Tutup</button>
     </div>
   </div>
 </div>
@@ -90,29 +96,31 @@
   }
 
   // Modal Konfirmasi Hapus
-  function openDeleteConfirmModal() {
-    document.getElementById('deleteConfirmModal').classList.remove('hidden');
+  function openUnpublishConfirmModal(id) {
+    document.getElementById('UnpublishConfirmModal').classList.remove('hidden');
+    document.getElementById('unpublishForm').action = "{{route('manajemen-produk.unpublish','')}}/" + id;
+
   }
 
-  function closeDeleteConfirmModal() {
-    document.getElementById('deleteConfirmModal').classList.add('hidden');
+  function closeUnpublishConfirmModal() {
+    document.getElementById('UnpublishConfirmModal').classList.add('hidden');
   }
 
   // Modal Sukses Hapus
-  function openSuccessDeleteModal() {
-    document.getElementById('successDeleteModal').classList.remove('hidden');
+  function openSuccessUnpublishModal() {
+    document.getElementById('successUnpublishModal').classList.remove('hidden');
   }
 
-  function closeSuccessDeleteModal() {
-    document.getElementById('successDeleteModal').classList.add('hidden');
+  function closeSuccessUnpublishModal() {
+    document.getElementById('successUnpublishModal').classList.add('hidden');
   }
 
   // Fungsi Hapus Produk
-  function deleteProduct() {
-    closeDeleteConfirmModal();
+  function UnpublishProduct() {
+    closeUnpublishConfirmModal();
     // Simulasi penghapusan produk dengan delay sebelum modal sukses muncul
     setTimeout(() => {
-      openSuccessDeleteModal();
+      openSuccessUnpublishModal();
     }, 500);
   }
 </script>

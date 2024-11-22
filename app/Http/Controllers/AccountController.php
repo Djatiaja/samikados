@@ -9,35 +9,29 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use function PHPUnit\Framework\returnSelf;
 
-class AccountController extends Controller implements HasMiddleware
+class AccountController extends Controller 
 {
 
-    public static function middleware(): array
-    {
-        return [
-        
-        ];
-    }
-
     function index(){
-        $users = User::paginate(10);
+        $users = User::with('role')->get();
 
-        return view("account.index-be", compact("users"));
+        return view("admin.manajemen-akun", compact("users"));
     }
 
-    function suspend(Request $request){
-        
-        $data =$request->validate([
-            "id"=>"required"
-        ]);
-
-
-        $user = User::find($data["id"]);
-        $user->suspend_until = now()->addMonths(1);
+    function suspend($id){
+        $user = User::find($id);
+        $user->is_suspended = true;
         $user->save();
+        return redirect()->route("manajemen-akun")->with("success", "suspend");
+    }
 
-        return redirect()->back();
 
+    function unsuspend($id)
+    {
+        $user = User::find($id);
+        $user->is_suspended = false;
+        $user->save();
+        return redirect()->route("manajemen-akun")->with("success", "unsuspend");
     }
 
 
@@ -49,6 +43,6 @@ class AccountController extends Controller implements HasMiddleware
 
         $users = $query->paginate(10);
 
-        return view("account.index-be", compact("users"));
+        return view("admin.manajemen-akun", compact("users"));
     }
 }
