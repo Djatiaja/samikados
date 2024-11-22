@@ -11,4 +11,8 @@ class Request_status extends Model
     use HasFactory;
 
     protected $table="Request_status";
+
+    public function wallet(){
+        return $this->has(Wallet::class);
+    }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('cart_id')->references("id")->on("carts"); // FK
-            $table->foreignId('finishing_id')->references("id")->on("finishings"); // FK
+            $table->foreignId('product_finishing_id')->references("id")->on("product_finishings"); // FK
         });
     }
 

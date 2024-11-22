@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Faker\Provider\ar_EG\Payment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,5 +19,13 @@ class Order extends Model
     }
     public function order_status(){
         return $this->belongsTo(Order_status::class);
+    }
+
+    public function order_detail(){
+        return $this->hasMany(Order_detail::class);
+    }
+
+    public function payment(){
+        return $this->hasOne(Payment::class);
     }
 }

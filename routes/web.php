@@ -35,43 +35,49 @@ Route::view('/admin/produk-fe', 'produk-fe')->name('produk-fe');
 Route::view('/admin/detail-produk-fe', 'detail-produk-fe')->name('detail-produk-fe');
 // 
 
-Route::controller(AdminController::class)->prefix("/admin")->group(function(){
-    Route::get("/", "index")->name("dashboard");
+//                                                  ADMIN
+//jangan lupa tambahkan middleware ['auth', 'role:admin', 'verify'] ketika selesai
+Route::middleware([])->prefix('/admin')->group(function(){
+
+    Route::controller(AdminController::class)->prefix("")->group(function () {
+        Route::get("/", "index")->name("dashboard");
+    });
+
+    Route::controller(ProfileController::class)->prefix('/pengaturan-akun')->group(function () {
+        Route::get('/', 'index')->name('pengaturan-akun');
+        Route::put('/update/{id}', 'update')->name('pengaturan-akun.update');
+        Route::post('/tambah-admin', 'tambahAdmin')->name('pengaturan-akun.tambah-admin');
+        Route::post('/ganti-password', 'changePassword')->name('pengaturan-akun.changePassword');
+        Route::put('/update/photo/{id}', 'changePhoto')->name('pengaturan-akun.update-profile');
+    });
+
+    Route::controller(WithdrawalController::class)->prefix('/manajemen-withdrawal')->group(function () {
+        Route::get("/", "index")->name("manajemen-withdrawal");
+        Route::put("/update/{id}", "update")->name("manajemen-withdrawal.update");
+        Route::get("/search", "search")->name("manajemen-withdrawal.search");
+    });
+
+    Route::controller(CategoryController::class)->prefix("/manajemen-kategori")->group(function () {
+        Route::get('/', 'index')->name('manajemen-kategori');
+        Route::post("/store", "store")->name("manajemen-kategori.store");
+        Route::post("/update/{id}", "update")->name("manajemen-kategori.update");
+        Route::delete("/delete/{id}", "delete")->name("manajemen-kategori.delete");
+    });
+
+    Route::controller(AccountController::class)->prefix("/manajemen-akun")->group(function () {
+        Route::get("/", "index")->name("manajemen-akun");
+        Route::put("/suspend/{id}", "suspend")->name("manajemen-akun.suspend");
+        Route::put("/unsuspend/{id}", "unsuspend")->name("manajemen-akun.unsuspend");
+        Route::get("/search", "search")->name("manajemen-akun.search");
+    });
+
+    Route::controller(ProductController::class)->prefix("/manajemen-produk")->group(function () {
+        Route::get("/", "index")->name("manajemen-produk");
+        Route::put("/unpublish/{id}", "unpublish")->name("manajemen-produk.unpublish");
+        Route::get("/search", "search")->name("manajemen-produk.search");
+    });
 });
 
-Route::controller(ProfileController::class)->prefix('/admin/pengaturan-akun')->middleware(["auth", "verified", "role:admin"])->group(function () {
-    Route::get('/', 'index')->name('pengaturan-akun');
-    Route::put('/update/{id}', 'update')->name('pengaturan-akun.update');
-    Route::post('/tambah-admin', 'tambahAdmin')->name('pengaturan-akun.tambah-admin');
-    Route::post('/ganti-password', 'changePassword')->name('pengaturan-akun.changePassword');
-    Route::put('/update/photo/{id}', 'changePhoto')->name('pengaturan-akun.update-profile');
-});
-
-Route::controller(WithdrawalController::class)->prefix('/admin/manajemen-withdrawal')->middleware([])->group(function(){
-    Route::get("/", "index")->name("manajemen-withdrawal");
-    Route::put("/update/{id}", "update")->name("manajemen-withdrawal.update");
-    Route::get("/search", "search")->name("manajemen-withdrawal.search");
-});
-
-Route::controller(CategoryController::class)->prefix("/admin/manajemen-kategori")->group(function(){
-    Route::get('/', 'index')->name('manajemen-kategori');
-    Route::post("/store", "store")->name("manajemen-kategori.store");
-    Route::post("/update/{id}", "update")->name("manajemen-kategori.update");
-    Route::delete("/delete/{id}", "delete")->name("manajemen-kategori.delete");
-});
-
-Route::controller(AccountController::class)->prefix("/admin/manajemen-akun")->group(function(){
-    Route::get("/", "index")->name("manajemen-akun");
-    Route::put("/suspend/{id}", "suspend")->name("manajemen-akun.suspend");
-    Route::put("/unsuspend/{id}", "unsuspend")->name("manajemen-akun.unsuspend");
-    Route::get("/search", "search")->name("manajemen-akun.search");
-});
-
-Route::controller(ProductController::class)->prefix("/admin/manajemen-produk")->group(function () {
-    Route::get("/", "index")->name("manajemen-produk");
-    Route::put("/unpublish/{id}", "unpublish")->name("manajemen-produk.unpublish");
-    Route::get("/search", "search")->name("manajemen-produk.search");
-});
 
 
 require __DIR__ . '/auth.php';

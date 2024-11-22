@@ -27,8 +27,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('brand_id')->references("id")->on("brands");
-            $table->integer('category_id')->references("id")->on("categories");
-            $table->integer('seller_id')->references("id")->on("sellers");
+            $table->foreignId('category_id')->references("id")->on("categories");
+            $table->foreignId('seller_id')->references("id")->on("sellers");
         });
     }
 

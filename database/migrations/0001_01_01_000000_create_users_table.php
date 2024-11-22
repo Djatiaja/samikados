@@ -32,6 +32,7 @@ return new class extends Migration
             $table->boolean("is_suspended")->nullable();
             $table->rememberToken();
             $table->timestamps();
+            
             $table->unsignedBigInteger("role_id")->default("2");
             $table->foreign("role_id")->references("id")->on("roles");
         });

@@ -16,4 +16,8 @@ class City extends Model
     {
         return $this->belongsTo(Province::class);
     }
+
+    public function seller(){
+        return $this->belongsToMany(Seller::class);
+    }
 }

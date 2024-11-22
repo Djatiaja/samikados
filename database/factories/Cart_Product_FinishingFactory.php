@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Cart;
-use App\Models\Finishing;
+use App\Models\Product_finishing;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +20,7 @@ class Cart_Product_FinishingFactory extends Factory
     {
         return [
             "cart_id"=>Cart::all()->random(),
-            "finishing_id"=>Finishing::all()->random(),
+            "product_finishing_id"=>Product_finishing::all()->random(),
         ];
     }
 }

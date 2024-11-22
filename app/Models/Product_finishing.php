@@ -11,10 +11,17 @@ class Product_finishing extends Model
     use HasFactory;
 
     public function finishing(){
-        return $this->has(Product::class);
+        return $this->belongsTo(Product::class);
     }
 
     public function product(){
-        return $this->has(Finishing::class);
+        return $this->belongsTo(Finishing::class);
+    }
+
+    public function order_detail(){
+        return $this->hasMany(Order_detail::class);
+    }
+    public function cart_product_finishing(){
+        return $this->hasMany(Cart_product_finishing::class);
     }
 }

@@ -27,11 +27,31 @@ class Product extends Model
         'seller_id',
     ];
 
-    public function product(){
+    public function category(){
         return $this->belongsTo(Category::class);
     }
 
     public function seller(){
         return $this->belongsTo(Seller::class);
+    }
+
+    public function brand() {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function product_finishing(){
+        return $this->hasMany(Product_finishing::class);
+    }
+
+    public function order_detail(){
+        return $this->hasMany(Order_detail::class);
+    }
+
+    public function review(){
+        return $this->hasMany(Review::class);
+    }
+
+    public function cart(){
+        return $this->hasMany(Cart::class);
     }
 }

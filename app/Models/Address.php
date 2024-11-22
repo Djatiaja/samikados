@@ -13,7 +13,7 @@ class Address extends Model
     protected $table ="addresses";
 
     public function user()  {
-        $this->belongsTo(User::class);
+        $this->has(User::class);
     }
 
     public function city(){
