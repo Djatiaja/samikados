@@ -16,7 +16,7 @@ class ProductController extends Controller
         $search = $request->search;
         $query = Product::query();
 
-        $query->whereAny(['sku', 'name', 'description'], 'LIKE', "%$search%");
+        $query->whereAny(['name', 'description'], 'LIKE', "%$search%");
 
         $products = $query->paginate(10);
 

@@ -50,6 +50,7 @@ Route::controller(ProfileController::class)->prefix('/admin/pengaturan-akun')->m
 Route::controller(WithdrawalController::class)->prefix('/admin/manajemen-withdrawal')->middleware([])->group(function(){
     Route::get("/", "index")->name("manajemen-withdrawal");
     Route::put("/update/{id}", "update")->name("manajemen-withdrawal.update");
+    Route::get("/search", "search")->name("manajemen-withdrawal.search");
 });
 
 Route::controller(CategoryController::class)->prefix("/admin/manajemen-kategori")->group(function(){
