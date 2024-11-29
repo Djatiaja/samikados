@@ -16,10 +16,10 @@
     <!-- Ringkasan Laporan -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
       <!-- Total Pendapatan -->
-      <div class="bg-white p-6 rounded-lg shadow-md text-left border border-red-600 flex justify-between items-center">
+      <div class="bg-white p-6 rounded-lg shadow-md text-left border border-remid-600 flex justify-between items-center">
         <div>
-          <h3 class="text-lg font-semibold">Total Pendapatan</h3>
-          <p class="text-xl font-bold">Rp34.572.980</p>
+          <h3 class="text-lg font-semibold">Total Pendapatan Seller</h3>
+            <p class="text-xl font-bold">Rp {{ number_format($total_pendapatan, 0, ',', '.') }}</p>
         </div>
         <img src="{{ asset('assets/IncomeIcon.png') }}" alt="Income Icon" class="w-12 h-12">
       </div>
@@ -28,7 +28,7 @@
       <div class="bg-white p-6 rounded-lg shadow-md text-left border border-red-600 flex justify-between items-center">
         <div>
           <h3 class="text-lg font-semibold">Total Keuntungan</h3>
-          <p class="text-xl font-bold">Rp13.234.050</p>
+            <p class="text-xl font-bold">Rp {{ number_format($total_keuntungan, 0, ',', '.') }}</p>
         </div>
         <img src="{{ asset('assets/ProfitIcon.png') }}" alt="Profit Icon" class="w-12 h-12">
       </div>
@@ -36,8 +36,8 @@
       <!-- Total Kerugian -->
       <div class="bg-white p-6 rounded-lg shadow-md text-left border border-red-600 flex justify-between items-center">
         <div>
-          <h3 class="text-lg font-semibold">Total Kerugian</h3>
-          <p class="text-xl font-bold">Rp0</p>
+          <h3 class="text-lg font-semibold">Total Approve Withdraw</h3>
+            <p class="text-xl font-bold">Rp {{ number_format($total_approve, 0, ',', '.') }}</p>
         </div>
         <img src="{{ asset('assets/LossIcon.png') }}" alt="Loss Icon" class="w-12 h-12">
       </div>
@@ -60,13 +60,14 @@
     var salesChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni'],
+        labels: <?php echo json_encode(array_keys($pendapatans)) ?>,
         datasets: [{
-          label: 'Penjualan',
-          data: [1200000, 1500000, 1000000, 1800000, 2200000, 2500000],
-          borderColor: 'rgba(220, 53, 69, 1)', // Warna merah
-          borderWidth: 2,
-          fill: false
+          label: 'Pesanan',
+          data: <?php echo json_encode(array_values($pendapatans)) ?>,
+          borderColor: 'rgba(255, 99, 132, 1)',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          fill: true,
+          tension: 0.4
         }]
       },
       options: {

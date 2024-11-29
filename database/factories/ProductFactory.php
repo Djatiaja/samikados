@@ -33,8 +33,8 @@ class ProductFactory extends Factory
             "unit"=>fake()->numberBetween(0,100),
             "weight"=>fake()->numberBetween(1,20),
             "min_qty"=>fake()->numberBetween(1,10),
-            "buy_price"=>fake()->numberBetween(10,1000) * 1000,
-            "price"=>fake()->numberBetween(10,1000) * 1000,
+            "buy_price"=>fake()->numberBetween(10,100) * 1000,
+            "price"=>fake()->numberBetween(10,100) * 1000,
             "is_publish"=>fake()->randomElement([True,false])
         ];
     }

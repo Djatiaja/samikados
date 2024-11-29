@@ -111,8 +111,11 @@ class ProfileController extends Controller
             'username' => ['nullable', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+        if (!isset($data["username"])){
+            $data["username"] = User::generateUsername(null);
+        }
 
-        User::create(array_merge($data, ["role_id" => 1]));
+        User::create(array_merge($data, ["role_id" => 1, ] ));
         return  redirect()->route("pengaturan-akun")->with("success", "admin berhasil ditambahkan");
     }
 

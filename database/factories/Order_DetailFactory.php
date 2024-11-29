@@ -24,7 +24,7 @@ class Order_DetailFactory extends Factory
         $product = Product::all()->random();
 
         $finishing =fake()->randomElement([Product_finishing::where('product_id', 1)->inRandomOrder()->first(), null]);
-        $quantity = fake()->numberBetween(1, 100);
+        $quantity = fake()->numberBetween(1, 5);
         $weight = $product->weight * $quantity;
         $price = $product->price * $quantity + (isset($finishing)? $finishing->price:0);
         

@@ -20,7 +20,7 @@ class WithdrawalFactory extends Factory
     {
         return [
             "no_rekening"=>fake()->numerify('###############'),
-            "jumlah"=>fake()->numberBetween(100, 100000) * 1000,
+            "jumlah"=>fake()->numberBetween(100, 10000) * 1000,
             "status"=>fake()->randomElement(["Menunggu", "Disetujui", "Ditolak"]),
             "bank_id"=>Bank::all()->random(),
             "seller_id"=>Seller::all()->random()

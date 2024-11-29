@@ -31,7 +31,10 @@ class PaymentFactory extends Factory
             "payment_status_id"=>payment_status::all()->random(),
             "payment_detail_id"=>midtrans_status::all()->random(),
             "payment_code"=>Str::random(),
-            "amount"=>$order->grand_total
+            "amount"=>$order->grand_total ,
+            "aplication_fee" => $order->grand_total + 3000,
+            "grand_amount" => $order->grand_total + 3000,
+            "created_at"=> $this->faker->dateTimeBetween('-1 year', 'now')
         ];
     }
 }

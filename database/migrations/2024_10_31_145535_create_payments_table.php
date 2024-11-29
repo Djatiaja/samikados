@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('payment_code');
             $table->integer('amount');
+            $table->integer('aplication_fee');
+            $table->integer('grand_amount');
             $table->timestamps();
 
             $table->foreignId('payment_method_id')->references("id")->on("payment_methods");

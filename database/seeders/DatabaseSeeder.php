@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Country;
+use App\Models\notification;
 use App\Models\Payment;
 use App\Models\payment_method;
 use App\Models\User;
@@ -42,7 +43,9 @@ class DatabaseSeeder extends Seeder
             RequestStatusSeeder::class,
             WalletSeeder::class,
             BankSeeder::class,
-            WithdrawalSeeder::class
+            WithdrawalSeeder::class,
+            NotificationSeeder::class,
+            AdminSeed::class
         ]);
     }
 }
