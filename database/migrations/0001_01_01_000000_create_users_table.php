@@ -11,25 +11,44 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('username')->unique()->nullable();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable();
-            $table->string("photo")->nullable();
-            $table->string("provider_id")->nullable();
-            $table->string("provider")->nullable();
-            $table->string("provider_token")->nullable();
-            $table->rememberToken();
+            $table->string("name");
             $table->timestamps();
         });
 
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('username')->unique();
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->boolean("is_twoFactor")->default(false);
+            $table->string('password')->nullable();
+            $table->string("photo")->nullable()->default('https://placehold.co/600x400');
+            $table->string("provider_id")->nullable();
+            $table->string("provider")->nullable();
+            $table->string("provider_token")->nullable();
+            $table->boolean("is_suspended")->nullable();
+            $table->rememberToken();
+            $table->timestamps();
+            
+            $table->unsignedBigInteger("role_id")->default("2");
+            $table->foreign("role_id")->references("id")->on("roles");
+        });
+
         Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
+            $table->id();
+            $table->string('email');
             $table->string('token');
             $table->timestamp('created_at')->nullable();
+        });
+
+        Schema::create('otp_tokens', function (Blueprint $table) {
+            $table->id();
+            $table->string('email');
+            $table->string('token');
+            $table->timestamp('created_at');
         });
 
         Schema::create('sessions', function (Blueprint $table) {
@@ -49,6 +68,8 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('otp_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('roles');
     }
 };

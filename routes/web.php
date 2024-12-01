@@ -1,67 +1,87 @@
 <?php
 
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminReportController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProviderController;
-use Illuminate\Http\Request ;
+use App\Http\Controllers\TestNotificationController;
+use App\Http\Controllers\WithdrawalController;
+use App\Http\Middleware\VerifyMustHaveEmail;
+use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Expr\FuncCall;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect("/login");
 });
 
-//FE
-Route::get('/login-fe', function(){
-    return view('login-fe');
-})->name('login-fe');
 
-Route::get('/forgot-password-fe', function(){
-    return view('forgot-password-fe');
-})->name('forgot-password-fe');
+Route::get('/verification-otp', function () {
+    return view('auth.verification-otp');
+})->name('verification-otp')->middleware(VerifyMustHaveEmail::class);
 
-Route::get('/verification-otp-fe', function(){
-    return view('verification-otp-fe');
-})->name('verification-otp-fe');
-
-Route::get('/reset-password-fe', function(){
+Route::get('/reset-password-fe', function () {
     return view('reset-password-fe');
 })->name('reset-password-fe');
 
 //FE - Dashboard
-Route::view('/admin/dashboard-fe', 'dashboard-fe')->name('dashboard-fe');
-Route::view('/admin/manajemen-kategori-fe', 'manajemen-kategori-fe')->name('manajemen-kategori-fe');
-Route::view('/admin/manajemen-akun-fe', 'manajemen-akun-fe')->name('manajemen-akun-fe');
-Route::view('/admin/manajemen-produk-fe', 'manajemen-produk-fe')->name('manajemen-produk-fe');
-Route::view('/admin/mapproval-withdraw-fe', 'approval-withdraw-fe')->name('approval-withdraw-fe');
-Route::view('/admin/laporan-fe', 'laporan-fe')->name('laporan-fe');
-Route::view('/admin/notifikasi-fe', 'notifikasi-fe')->name('notifikasi-fe');
-Route::view('/admin/pengaturan-akun-fe', 'pengaturan-akun-fe')->name('pengaturan-akun-fe'); 
 Route::view('/admin/kategori-fe', 'kategori-fe')->name('kategori-fe');
 Route::view('/admin/produk-fe', 'produk-fe')->name('produk-fe');
 Route::view('/admin/detail-produk-fe', 'detail-produk-fe')->name('detail-produk-fe');
-// =======
-Route::get('/dashboard', function () {
-    // dd(Auth::user());
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//                                                  ADMIN
+//jangan lupa tambahkan middleware ['auth', 'role:admin', 'verify'] ketika selesai
+Route::middleware([])->prefix('/admin')->group(function(){
+
+    Route::controller(AdminController::class)->prefix("")->group(function () {
+        Route::get("/", "index")->name("dashboard");
+        Route::get("/laporan", "laporan")->name("admin-laporan");
+        Route::get("/notifikasi", "notifikasi")->name("admin-notifikasi");
+    });
+
+    Route::controller(ProfileController::class)->prefix('/pengaturan-akun')->group(function () {
+        Route::get('/', 'index')->name('pengaturan-akun');
+        Route::put('/update/{id}', 'update')->name('pengaturan-akun.update');
+        Route::post('/tambah-admin', 'tambahAdmin')->name('pengaturan-akun.tambah-admin');
+        Route::post('/ganti-password', 'changePassword')->name('pengaturan-akun.changePassword');
+        Route::put('/update/photo/{id}', 'changePhoto')->name('pengaturan-akun.update-profile');
+    });
+
+    Route::controller(WithdrawalController::class)->prefix('/manajemen-withdrawal')->group(function () {
+        Route::get("/", "index")->name("manajemen-withdrawal");
+        Route::put("/update/{id}", "update")->name("manajemen-withdrawal.update");
+        Route::get("/search", "search")->name("manajemen-withdrawal.search");
+    });
+
+    Route::controller(CategoryController::class)->prefix("/manajemen-kategori")->group(function () {
+        Route::get('/', 'index')->name('manajemen-kategori');
+        Route::post("/store", "store")->name("manajemen-kategori.store");
+        Route::post("/update/{id}", "update")->name("manajemen-kategori.update");
+        Route::delete("/delete/{id}", "delete")->name("manajemen-kategori.delete");
+    });
+
+    Route::controller(AccountController::class)->prefix("/manajemen-akun")->group(function () {
+        Route::get("/", "index")->name("manajemen-akun");
+        Route::put("/suspend/{id}", "suspend")->name("manajemen-akun.suspend");
+        Route::put("/unsuspend/{id}", "unsuspend")->name("manajemen-akun.unsuspend");
+        Route::get("/search", "search")->name("manajemen-akun.search");
+    });
+
+    Route::controller(ProductController::class)->prefix("/manajemen-produk")->group(function () {
+        Route::get("/", "index")->name("manajemen-produk");
+        Route::put("/unpublish/{id}", "unpublish")->name("manajemen-produk.unpublish");
+        Route::get("/search", "search")->name("manajemen-produk.search");
+    });
+
 });
 
-Route::get("/auth/{provider}/redirect", [ProviderController::class, 'redirect']);
-Route::get("/auth/{provider}/callback", [ProviderController::class, 'callback']);
+// ===================================          Seller          =================================
+Route::controller(TestNotificationController::class)->group(function(){
+    Route::get("/test-notification", "index");
+    Route::post("/test-notification", "store")->name('test-notify');
+});
 
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

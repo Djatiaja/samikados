@@ -26,9 +26,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'username',
         'photo',
         'email_verified_at',
+        'is_twoFactor',
+        "role_id",
         'provider_id',
         'provider',
         'provider_token',
+        "is_suspended"
     ];
 
     /**
@@ -38,7 +41,6 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $hidden = [
         'password',
-        'remember_token',
         'provider_token'    ];
 
     /**
@@ -65,5 +67,29 @@ class User extends Authenticatable implements MustVerifyEmail
             $username =self::generateUsername($newUsername);
         }
         return $username;
+    }
+
+    public function role(){
+        return $this->hasOne(Role::class, "id", "role_id");
+    }
+
+    public function seller(){
+        return $this->has(Seller::class);
+    }
+
+    public function address(){
+        return $this->belongsToMany(Address::class);
+    }
+
+    public function review(){
+        return $this->hasMany(Review::class);
+    }
+
+    public function cart(){
+        return $this->hasMany(Cart::class);
+    }
+
+    public function notification(){
+        return $this->hasMany(notification::class);
     }
 }

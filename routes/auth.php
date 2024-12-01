@@ -9,7 +9,14 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\OTPController;
+use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\TwoFactorController;
+use App\Http\Middleware\VerifyMustHaveEmail;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -23,7 +30,11 @@ Route::middleware('guest')->group(function () {
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-        ->name('password.request');
+        ->name('forgot-password');
+
+    Route::get('/verification-otp', function () {
+        return view('auth.verification-otp');
+    })->name('verification-otp')->middleware(VerifyMustHaveEmail::class);
 
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
         ->name('password.email');
@@ -33,6 +44,9 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
+
+    Route::post("forgot-password/verify", [OTPController::class, "verify"])->name("OTP.verify");
+    
 });
 
 Route::middleware('auth')->group(function () {
@@ -57,3 +71,10 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
+
+Route::get("/auth/{provider}/redirect", [ProviderController::class, 'redirect']);
+Route::get("/auth/{provider}/connect", [ProviderController::class, 'connect']);
+Route::get("/auth/{provider}/callback", [ProviderController::class, 'callback']);
+
+Route::get("/login/two-factor", [TwoFactorController::class, 'index'])->name("two-factor");
+Route::post("/login/two-factor", [TwoFactorController::class, 'verify'])->name("two-factor.verify");

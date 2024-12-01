@@ -13,8 +13,13 @@
                     <br>
                     {{Auth::user()}}
                     <img src="{{Auth::user()->photo}}" alt="">
+                    
+                    <a href="/auth/google/connect">
+                        <button>Google Connect</button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
+    

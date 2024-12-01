@@ -32,10 +32,10 @@
       @endif
 
       <div class="flex items-center space-x-4 mt-4 md:mt-0">
-        <a href="{{ route('notifikasi-fe') }}">
+        <a href="{{ route('admin-notifikasi') }}">
           <img src="{{ asset('assets/notification.png') }}" alt="Notification Icon" class="w-6 h-6">
         </a>
-        <a href="{{ route('pengaturan-akun-fe') }}">
+        <a href="{{ route('pengaturan-akun') }}">
           <img src="{{ asset('assets/profile.png') }}" alt="User Icon" class="w-6 h-6">
         </a>
         <span class="font-semibold">AdminSamikados</span>
@@ -49,23 +49,23 @@
     <!-- Menambahkan `pt-16` untuk jarak dari header -->
     <nav>
       <ul class="space-y-2">
-        <li class="{{ Route::is('dashboard-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('dashboard-fe') }}" class="block">Dashboard</a>
+        <li class="{{ Route::is('dashboard') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('dashboard') }}" class="block">Dashboard</a>
         </li>
-        <li class="{{ Route::is('manajemen-kategori-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-kategori-fe') }}" class="block">Manajemen Kategori</a>
+        <li class="{{ Route::is('manajemen-kategori') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('manajemen-kategori') }}" class="block">Manajemen Kategori</a>
         </li>
-        <li class="{{ Route::is('manajemen-akun-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-akun-fe') }}" class="block">Manajemen Akun</a>
+        <li class="{{ Route::is('manajemen-akun') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('manajemen-akun') }}" class="block">Manajemen Akun</a>
         </li>
-        <li class="{{ Route::is('manajemen-produk-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-produk-fe') }}" class="block">Manajemen Produk</a>
+        <li class="{{ Route::is('manajemen-produk') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('manajemen-produk') }}" class="block">Manajemen Produk</a>
         </li>
-        <li class="{{ Route::is('approval-withdraw-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('approval-withdraw-fe') }}" class="block">Approval Withdraw</a>
+        <li class="{{ Route::is('manajemen-withdrawal') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('manajemen-withdrawal') }}" class="block">Approval Withdraw</a>
         </li>
-        <li class="{{ Route::is('laporan-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('laporan-fe') }}" class="block">Laporan</a>
+        <li class="{{ Route::is('admin-laporan') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('admin-laporan') }}" class="block">Laporan</a>
         </li>
       </ul>
     </nav>

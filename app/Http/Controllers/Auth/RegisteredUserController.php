@@ -45,6 +45,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect(route('verification.notice', absolute: false));;
+        return redirect(route('verification.notice', absolute: false))->with("succes", "Akun berhasil dibuat");;
     }
 }
