@@ -13,10 +13,20 @@
 <div class="flex justify-between items-center mb-6">
     <h2 class="text-sm sm:text-md lg:text-2xl font-bold mb-4 md:mb-0">Manajemen Banner</h2>
     <button onclick="toggleAddBannerModal()" class="border border-black px-4 py-2 rounded-lg flex items-center space-x-2 text-sm sm:text-base">
-        <img src="{{ asset('assets/add (1).png') }}" alt="Add Icon" class="w-3 h-3 sm:w-6 sm:h-6">
+        <img src="{{ asset('assets/add (1).png') }}" alt="Add Icon" class="w-3 h-3">
         <span class="text-sm sm:text-md">Banner</span>
     </button>
 </div>
+
+<div class="mb-4">
+    <label for="entriesPerPage" class="mr-2">Entries per page:</label>
+    <select id="entriesPerPage" class="p-2 border border-gray-300 rounded-md" onchange="changeEntriesPerPage()">
+      <option value="10">10</option>
+      <option value="25" selected>25</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+  </div>
 
 <!-- Tabel Banner -->
 <div class="overflow-x-auto rounded-lg shadow-md">
@@ -46,18 +56,17 @@
                     </select>
                 </td>
                 <td class="p-4 text-center flex justify-center items-center h-full space-x-2">
-    <button onclick="toggleEditBannerModal()" class="p-1">
-        <div class="flex items-center justify-center h-full my-auto">
-            <img src="{{ asset('assets/edit.png') }}" alt="Edit Icon" class="w-6 h-6 lg:w-8 lg:h-8 object-cover">
-        </div>
-    </button>
-    <button onclick="toggleDeleteConfirmationModal()" class="p-1">
-        <div class="flex items-center justify-center h-full my-auto">
-            <img src="{{ asset('assets/delete.png') }}" alt="Delete Icon" class="w-6 h-6 lg:w-8 lg:h-8 object-cover">
-        </div>
-    </button>
-</td>
-
+                    <button onclick="toggleEditBannerModal()" class="p-1">
+                        <div class="flex items-center justify-center h-full my-auto">
+                            <img src="{{ asset('assets/edit.png') }}" alt="Edit Icon" class="w-6 h-6 lg:w-8 lg:h-8 object-cover">
+                        </div>
+                    </button>
+                    <button onclick="toggleDeleteConfirmationModal()" class="p-1">
+                        <div class="flex items-center justify-center h-full my-auto">
+                            <img src="{{ asset('assets/delete.png') }}" alt="Delete Icon" class="w-6 h-6 lg:w-8 lg:h-8 object-cover">
+                        </div>
+                    </button>
+                </td>
             </tr>
             <!-- Tambahkan lebih banyak baris sesuai kebutuhan -->
         </tbody>
