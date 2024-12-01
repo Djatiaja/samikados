@@ -23,6 +23,9 @@
             <input id="username"
                 class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600"
                 placeholder="Email / Username" type="text" name="loginParam" />
+            @if ($errors->has('email') || $errors->has('username'))
+                <span class="text-red-600 text-sm">{{ $errors->first('email') ?: $errors->first('username') }}</span>
+            @endif
         </div>
 
         <!-- Password -->
@@ -31,6 +34,9 @@
             <input id="password"
                 class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600"
                 placeholder="Password" type="password" name="password"/>
+            @if ($errors->has('password'))
+                <span class="text-red-600 text-sm">{{ $errors->first('password') }}</span>
+            @endif
         </div>
 
         <!-- Remember Me and Forgot Password -->

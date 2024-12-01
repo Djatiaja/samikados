@@ -18,16 +18,17 @@
         <p class="mb-4 text-sm text-gray-600">Kode OTP telah dikirim pada email Anda</p>
         
         <!-- OTP Input -->
-        <form>
+        <form action="{{route('OTP.verify')}}" method="post">
+            @csrf
             <div class="flex justify-center space-x-4 mb-4">
                 <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
-                    type="text" maxlength="1">
+                    type="text" maxlength="1" name="otp_1">
                 <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
-                    type="text" maxlength="1">
+                    type="text" maxlength="1" name="otp_2">
                 <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
-                    type="text" maxlength="1">
+                    type="text" maxlength="1" name="otp_3">
                 <input class="w-12 text-center p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600" 
-                    type="text" maxlength="1">
+                    type="text" maxlength="1" name="otp_4">
             </div>
 
             <p class="text-xs text-gray-500 text-center mb-4">Mohon tunggu 35 detik untuk mengirim ulang.</p>

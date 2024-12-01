@@ -32,7 +32,6 @@ class OTPController extends Controller
         $request->validate([
             "otp" => ["required", "min:4", "max:4"]
         ]);
-
         $user = User::where("users.email", Session::get("email"))
                 ->leftJoin("otp_tokens", "users.email", "=", "otp_tokens.email")
                 ->select("token","otp_tokens.expired_date", "users.*")

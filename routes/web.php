@@ -17,9 +17,6 @@ Route::get('/', function () {
     return redirect("/login");
 });
 
-Route::get('/forgot-password', function () {
-    return view('forgot-password');
-})->name('forgot-password');
 
 Route::get('/verification-otp', function () {
     return view('auth.verification-otp');

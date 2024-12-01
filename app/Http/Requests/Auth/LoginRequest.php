@@ -34,6 +34,15 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            'email.exists' => 'Email, username atau password yang kamu masukkan salah. Silakan coba lagi.',
+            'username.exists' => 'Email, username atau password yang kamu masukkan salah. Silakan coba lagi.',
+            'password.min' => 'Password harus memiliki minimal 8 karakter.'
+        ];
+    }
+
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -47,7 +56,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                $this->loginParamType => trans('auth.failed'),
+                $this->loginParamType => "Email, username atau password yang kamu masukkan salah. Silakan coba lagi.",
             ]);
         }
 

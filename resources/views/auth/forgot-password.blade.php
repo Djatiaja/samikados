@@ -1,25 +1,39 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
+@extends('layouts.auth')
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@section('title', 'Forgot Password')
 
-    <form method="POST" action="{{ route('password.email') }}">
+@section('header-subtitle', 'LOGIN')
+
+@section('content')
+<!-- Image Section (Hidden on mobile) -->
+<section class="w-full lg:w-fit mb-8 lg:mb-0 hidden lg:flex">
+    <figure class="">
+        <img src="{{ asset('assets/SamikadosLogo.png') }}" alt="Placeholder image" class="w-full">
+    </figure>
+</section>
+
+<!-- Reset Password Form -->
+<section class="w-full lg:w-1/3 bg-white p-8 shadow-xl rounded-lg">
+    <h2 class="text-xl lg:text-2xl font-bold mb-4 text-gray-800">RESET PASSWORD</h2>
+    <form action="{{route('password.email')}}" method="post">
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+
+        <!-- Email / Phone Input -->
+        <div class="mb-4">
+            <label for="reset" class="sr-only">Email</label>
+            <input id="reset"
+                class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600"
+                placeholder="Email / No. Telp" type="text" name="email"/>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
+        <!-- Submit Button -->
+        <button
+            class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg mb-4 transition duration-300 shadow-lg"
+            type="submit">
+            Berikutnya
+        </button>
+
     </form>
-</x-guest-layout>
+</section>
+@endsection
