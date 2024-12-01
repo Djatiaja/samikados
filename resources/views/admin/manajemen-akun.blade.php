@@ -4,9 +4,14 @@
 
 <!-- Jika halaman ini memerlukan search bar, gunakan section 'search' -->
 @section('search')
-<form action="{{route('manajemen-akun.search')}}" method="GET" class="relative">
-  <input type="text" name="search" placeholder="Cari Akun..." class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
-  <img src="{{ asset('assets/search.png') }}" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" alt="Search Icon">
+<form action="{{ route('manajemen-akun') }}" method="GET" class="relative">
+  @foreach (request()->except('search') as $key => $value)
+    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+  @endforeach
+  <input type="text" name="search" placeholder="Cari Akun..."
+    class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white" value="{{ Request::get('search') }}">
+  <img src="{{asset('assets/search.png') }}" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
+    alt="Search Icon">
 </form>
 @endsection
 
@@ -18,10 +23,12 @@
 <!-- Dropdown Filter -->
 <div class="mb-6">
   <label for="accountFilter" class="block mb-2 text-sm font-medium text-gray-700">Filter Akun:</label>
-  <select id="accountFilter" class="block w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" onchange="filterAccounts()">
-    <option value="all">Semua Akun</option>
-    <option value="customer">Akun Customer</option>
-    <option value="seller">Akun Seller</option>
+  <select id="accountFilter"
+    class="block w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+    onchange="filterAccounts()">
+    <option value="all" {{ Request::get('filter')=='all' ? 'selected' : '' }}>Semua Akun</option>
+    <option value="customer" {{ Request::get('filter')=='customer' ? 'selected' : '' }}>Akun Customer</option>
+    <option value="seller" {{ Request::get('filter')=='seller' ? 'selected' : '' }}>Akun Seller</option>
   </select>
 </div>
 
@@ -45,11 +52,14 @@
         <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->name}}</td>
         <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->email}}</td>
         <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->role->name}}</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->is_suspended ? 'suspend':'aktif'}}</td>
+        <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->is_suspended ? 'suspend':'aktif'}}
+        </td>
         <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->created_at->format('d-m-Y') }}</td>
         <td class="p-4 text-center align-middle">
-          <button class="p-4" onclick="openSuspendConfirmModal({{$user->id}})"><img src="{{ asset('assets/block.png') }}" alt="Suspend Icon"></button>
-          <button class="p-4" onclick="openUnsuspendConfirmModal({{$user->id}})"><img src="{{ asset('assets/checkmark.png') }}" alt="Unsuspend Icon"></button>
+          <button class="p-4" onclick="openSuspendConfirmModal({{$user->id}})"><img
+              src="{{ asset('assets/block.png') }}" alt="Suspend Icon"></button>
+          <button class="p-4" onclick="openUnsuspendConfirmModal({{$user->id}})"><img
+              src="{{ asset('assets/checkmark.png') }}" alt="Unsuspend Icon"></button>
         </td>
       </tr>
 
@@ -74,7 +84,8 @@
 </div>
 
 <!-- Modal Konfirmasi Unsuspend -->
-<div id="unsuspendConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div id="unsuspendConfirmModal"
+  class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
   <form class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3" method="POST" id="formUnsuspend">
     @csrf
     @method('PUT')
@@ -93,7 +104,8 @@
     <h3 class="text-2xl mb-4 font-semibold text-center">Akun Berhasil di-Suspend</h3>
     <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
     <div class="flex justify-center mt-10">
-      <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessSuspendModal()">Tutup</button>
+      <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3"
+        onclick="closeSuccessSuspendModal()">Tutup</button>
     </div>
   </div>
 </div>
@@ -105,7 +117,8 @@
     <h3 class="text-2xl mb-4 font-semibold text-center">Akun Berhasil di-Unsuspend</h3>
     <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
     <div class="flex justify-center mt-10">
-      <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessUnsuspendModal()">Tutup</button>
+      <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3"
+        onclick="closeSuccessUnsuspendModal()">Tutup</button>
     </div>
   </div>
 </div>
@@ -118,7 +131,15 @@
   function filterAccounts() {
     var filter = document.getElementById('accountFilter').value;
     // Mengubah URL untuk menyertakan filter yang dipilih dan mengirimkan request ke backend
-    window.location.href = '?filter=' + filter;
+    var searchQuery = "{{ Request::get('search') }}";
+    var href = '?filter=' + filter;
+    if (filter == 'all') {
+      href = '?';
+    }
+    if (searchQuery) {
+      href += '&search=' + searchQuery;
+    }
+    window.location.href = href;
   }
   // Modal Suspend
   function openSuspendConfirmModal(id) {

@@ -10,6 +10,35 @@ class WithdrawalController extends Controller
 {
     function index(){
         $withdrawals = Withdrawal::with(["seller", "Bank"])->get();
+
+        $search = request()->search;
+
+        if (isset($search)) {
+            $query = Withdrawal::query();
+
+            $query=Withdrawal::with('seller')->whereHas('seller', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            });
+        }
+
+        if (isset(request()->filter)) {
+            $withdrawals = $withdrawals->filter(function ($withdrawals) {
+                return $withdrawals->status === request()->filter;
+            });
+        }
+
+        if (isset(request()->sort)){
+            if (request()->sort === 'desc') {
+
+                $withdrawals = $withdrawals->sortByDesc('created_at');
+            } else {
+
+                $withdrawals = $withdrawals->sortBy('created_at');
+            }
+        }
+
+
+
         return view("admin.manajemen-withdrawal", compact('withdrawals'));
     }
 

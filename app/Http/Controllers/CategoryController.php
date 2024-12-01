@@ -10,6 +10,15 @@ class CategoryController extends Controller
 {
     function index(){
         $categories = Category::withCount("product")->get();
+
+        $search = request()->search;
+
+        if (isset($search)) {
+            $query = Category::query();
+
+            $query = Category::with('product')->where(['name', 'description'], 'like', '%' . $search . '%');
+            
+        }
         return view("admin.manajemen-kategori", compact("categories"));
     }  
     

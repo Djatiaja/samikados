@@ -14,6 +14,22 @@ class AccountController extends Controller
 
     function index(){
         $users = User::with('role')->get();
+        $search = request()->search;
+
+        if(isset($search)){
+            $query = User::query();
+
+            $query->whereAny(['username', 'name', 'email'], 'LIKE', "%$search%")->with('role');
+
+            $users = $query->paginate(10);
+        }
+
+        if(isset(request()->filter)){
+            $users = $users->filter(function($user){
+                return $user->role->name === request()->filter;
+            });
+
+        }
 
         return view("admin.manajemen-akun", compact("users"));
     }

@@ -23,7 +23,8 @@ class WithdrawalFactory extends Factory
             "jumlah"=>fake()->numberBetween(100, 10000) * 1000,
             "status"=>fake()->randomElement(["Menunggu", "Disetujui", "Ditolak"]),
             "bank_id"=>Bank::all()->random(),
-            "seller_id"=>Seller::all()->random()
+            "seller_id"=>Seller::all()->random(),
+            "created_at" => fake()->dateTimeThisMonth(),
         ];
     }
 }

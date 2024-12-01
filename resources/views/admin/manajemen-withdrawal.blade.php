@@ -4,7 +4,10 @@
 
 <!-- Search Bar -->
 @section('search')
-<form action="{{route('manajemen-withdrawal.search')}}" method="GET" class="relative">
+<form action="{{route('manajemen-withdrawal')}}" method="GET" class="relative">
+  @foreach (request()->except('search') as $key => $value)
+  <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+  @endforeach
   <input type="text" name="search" placeholder="Cari Nama Seller..."
     class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
   <img src="{{ asset('assets/search.png') }}" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
@@ -17,18 +20,20 @@
 
 <!-- Filter dan Tabel Permintaan Penarikan -->
 <div class="flex justify-between items-center mb-4">
-  <select class="block w-60 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
-    <option value="all">Semua</option>
-    <option value="pending">Menunggu</option>
-    <option value="approved">Disetujui</option>
-    <option value="rejected">Ditolak</option>
+  <select id="status_filter"
+    class="block w-60 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+    onchange="filter_status()">
+    <option value="all" {{ Request::get('filter') == '' ? 'selected' : '' }}>Semua</option>
+    <option value="Menunggu" {{ Request::get('filter') == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
+    <option value="Disetujui" {{ Request::get('filter') == 'Disetujui' ? 'selected' : '' }}>Disetujui</option>
+    <option value="Ditolak" {{ Request::get('filter') == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
   </select>
 
   <select id="sortOrder"
     class="block w-60 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
-    onchange="filterAndSortTable()">
-    <option value="terbaru">Terbaru</option>
-    <option value="terlama">Terlama</option>
+    onchange="change_order()">
+    <option value="desc" {{ Request::get('sort') == 'desc' ? 'selected' : '' }}>Terbaru</option>
+    <option value="asc" {{ Request::get('sort') == 'asc' ? 'selected' : '' }}>Terlama</option>
   </select>
 </div>
 
@@ -49,7 +54,8 @@
       @foreach ($withdrawals as $withdrawal)
       <tr class="border-b border-gray-300">
         <td class="p-4 text-center border-r border-gray-300">{{$withdrawal->seller->name}}</td>
-        <td class="p-4 text-center border-r border-gray-300">Rp{{ number_format($withdrawal->jumlah, 0, ',', '.') }}</td>
+        <td class="p-4 text-center border-r border-gray-300">Rp{{ number_format($withdrawal->jumlah, 0, ',', '.') }}
+        </td>
         <td class="p-4 text-center border-r border-gray-300">{{ $withdrawal->created_at->format('d-m-Y') }}</td>
         <td class="p-4 text-center border-r border-gray-300">{{$withdrawal->status}}</td>
         <td class="p-4 text-center border-r border-gray-300">
@@ -99,8 +105,7 @@
     <div class="flex justify-evenly mt-4">
       <button onclick="toggleApproveWithdrawModal()"
         class="border border-gray-300 px-4 py-2 rounded-lg w-36">Batal</button>
-      <button class="bg-green-600 text-white px-4 py-2 rounded-lg w-36"
-        type="submit">Setujui</button>
+      <button class="bg-green-600 text-white px-4 py-2 rounded-lg w-36" type="submit">Setujui</button>
     </div>
   </form>
 </div>
@@ -115,8 +120,7 @@
     <div class="flex justify-evenly mt-4">
       <button onclick="toggleWaitingWithdrawModal()"
         class="border border-gray-300 px-4 py-2 rounded-lg w-36">Batal</button>
-      <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg w-36"
-        type="submit">Setujui</button>
+      <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg w-36" type="submit">Setujui</button>
     </div>
   </form>
 </div>
@@ -241,6 +245,40 @@
 
   function toggleSuccessRejectModal() {
     document.getElementById("successRejectModal").classList.add("hidden");
+  }
+
+
+  function filter_status() {
+    var filter = document.getElementById('status_filter').value;
+
+    var searchQuery = "{{ Request::get('search') }}";
+    var sortBy = document.getElementById('sortOrder').value;
+    var href = '?filter=' + filter;
+    if (filter == 'all') {
+      href = '?';
+    }
+    if (searchQuery) {
+      href += '&search=' + searchQuery;
+    }
+
+    if (sortBy) {
+      href += '&sort=' + sortBy;
+    }
+    window.location.href = href;
+  }
+
+  function change_order() {
+    var filter = "{{ Request::get('filter')}}";
+    var searchQuery = "{{ Request::get('search') }}";
+    var sortBy = document.getElementById('sortOrder').value;
+    var href = '?sort=' + sortBy;
+    if (filter) {
+      href += '&filter=' + filter;
+    }
+    if (searchQuery) {
+      href += '&search=' + searchQuery;
+    }
+    window.location.href = href;
   }
 </script>
 @endpush
