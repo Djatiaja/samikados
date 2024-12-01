@@ -18,7 +18,7 @@
       <!-- Total Pendapatan -->
       <div class="bg-white p-6 rounded-lg shadow-md text-left border border-red-600 flex justify-between items-center">
         <div>
-          <h3 class="text-lg font-semibold">Total Pendapatan</h3>
+          <h3 class="text-lg font-semibold">Total Pendapatan Seller</h3>
           <p class="text-xl font-bold">Rp34.572.980</p>
         </div>
         <img src="{{ asset('assets/IncomeIcon.png') }}" alt="Income Icon" class="w-12 h-12">
@@ -36,10 +36,10 @@
       <!-- Total Kerugian -->
       <div class="bg-white p-6 rounded-lg shadow-md text-left border border-red-600 flex justify-between items-center">
         <div>
-          <h3 class="text-lg font-semibold">Total Kerugian</h3>
-          <p class="text-xl font-bold">Rp0</p>
+          <h3 class="text-lg font-semibold">Total Approved Withdraw</h3>
+          <p class="text-xl font-bold">Rp10.234.050</p>
         </div>
-        <img src="{{ asset('assets/LossIcon.png') }}" alt="Loss Icon" class="w-12 h-12">
+        <img src="{{ asset('assets/approved-withdraw.png') }}" alt="Loss Icon" class="w-12 h-12">
       </div>
     </div>
 

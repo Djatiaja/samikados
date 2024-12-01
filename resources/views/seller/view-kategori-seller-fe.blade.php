@@ -1,6 +1,6 @@
-@extends('layouts.view') <!-- Menggunakan layout utama dari view.blade.php -->
+@extends('layouts.view-seller')
 
-@section('title', 'Kategori Produk - Samikados')
+@section('title', 'View Kategori - Samikados')
 
 @section('searchbar')
 <div class="relative w-1/2 mx-auto">
@@ -90,53 +90,53 @@
     <p class="text-gray-700 text-sm sm:text-base lg:text-lg mb-8">MACAM - MACAM PRODUK</p>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
         <!-- Product 1 -->
-        <a href="{{ route('detail-produk-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
+        <a href="{{ route('detail-produk-seller-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
             <img src="https://placehold.co/200x200" alt="TUMBLR CUSTOM" class="w-full mb-2 sm:mb-4 lg:mb-6 rounded-md">
             <h4 class="font-bold text-sm sm:text-base lg:text-lg">TUMBLR CUSTOM</h4>
             <p class="text-xs sm:text-sm lg:text-base">Rp80.000</p>
             <p class="text-xs sm:text-sm lg:text-base">10RB+ Terjual</p>
         </a>
         <!-- Product 2 -->
-        <a href="{{ route('detail-produk-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
+        <a href="{{ route('detail-produk-seller-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
             <img src="https://placehold.co/200x200" alt="TUMBLR TRAVEL" class="w-full mb-2 sm:mb-4 lg:mb-6 rounded-md">
             <h4 class="font-bold text-sm sm:text-base lg:text-lg">TUMBLR TRAVEL</h4>
             <p class="text-xs sm:text-sm lg:text-base">Rp115.000</p>
             <p class="text-xs sm:text-sm lg:text-base">10RB+ Terjual</p>
         </a>
         <!-- Product 3 -->
-        <a href="{{ route('detail-produk-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
+        <a href="{{ route('detail-produk-seller-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
             <img src="https://placehold.co/200x200" alt="SMART TUMBLR LED" class="w-full mb-2 sm:mb-4 lg:mb-6 rounded-md">
             <h4 class="font-bold text-sm sm:text-base lg:text-lg">SMART TUMBLR LED</h4>
             <p class="text-xs sm:text-sm lg:text-base">Rp90.000</p>
             <p class="text-xs sm:text-sm lg:text-base">10RB+ Terjual</p>
         </a>
         <!-- Product 4 -->
-        <a href="{{ route('detail-produk-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
+        <a href="{{ route('detail-produk-seller-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
             <img src="https://placehold.co/200x200" alt="PIN PENITI 58mm" class="w-full mb-2 sm:mb-4 lg:mb-6 rounded-md">
             <h4 class="font-bold text-sm sm:text-base lg:text-lg">PIN PENITI 58mm</h4>
             <p class="text-xs sm:text-sm lg:text-base">Rp4.500</p>
             <p class="text-xs sm:text-sm lg:text-base">10RB+ Terjual</p>
         </a>
         <!-- Additional Products -->
-        <a href="{{ route('detail-produk-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
+        <a href="{{ route('detail-produk-seller-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
             <img src="https://placehold.co/200x200" alt="TOTEBAG PREMIUM" class="w-full mb-2 sm:mb-4 lg:mb-6 rounded-md">
             <h4 class="font-bold text-sm sm:text-base lg:text-lg">TOTEBAG PREMIUM</h4>
             <p class="text-xs sm:text-sm lg:text-base">Rp50.000</p>
             <p class="text-xs sm:text-sm lg:text-base">10RB+ Terjual</p>
         </a>
-        <a href="{{ route('detail-produk-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
+        <a href="{{ route('detail-produk-seller-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
             <img src="https://placehold.co/200x200" alt="MUG COUPLE DINO" class="w-full mb-2 sm:mb-4 lg:mb-6 rounded-md">
             <h4 class="font-bold text-sm sm:text-base lg:text-lg">MUG COUPLE DINO</h4>
             <p class="text-xs sm:text-sm lg:text-base">Rp40.000</p>
             <p class="text-xs sm:text-sm lg:text-base">10RB+ Terjual</p>
         </a>
-        <a href="{{ route('detail-produk-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
+        <a href="{{ route('detail-produk-seller-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
             <img src="https://placehold.co/200x200" alt="TUMBLR SPORT" class="w-full mb-2 sm:mb-4 lg:mb-6 rounded-md">
             <h4 class="font-bold text-sm sm:text-base lg:text-lg">TUMBLR SPORT</h4>
             <p class="text-xs sm:text-sm lg:text-base">Rp50.000</p>
             <p class="text-xs sm:text-sm lg:text-base">10RB+ Terjual</p>
         </a>
-        <a href="{{ route('detail-produk-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
+        <a href="{{ route('detail-produk-seller-fe') }}" class="bg-red-600 text-white p-2 sm:p-3 rounded-lg">
             <img src="https://placehold.co/200x200" alt="SPUNBOND CUSTOM" class="w-full mb-2 sm:mb-4 lg:mb-6 rounded-md">
             <h4 class="font-bold text-sm sm:text-base lg:text-lg">SPUNBOND CUSTOM</h4>
             <p class="text-xs sm:text-sm lg:text-base">Rp8.000</p>
@@ -148,6 +148,7 @@
 @endsection
 
 @section('scripts')
+<!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     var swiper = new Swiper(".multiple-slide-carousel", {
@@ -160,5 +161,4 @@
         } 
     });
 </script>
-
 @endsection

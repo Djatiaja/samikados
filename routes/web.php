@@ -32,6 +32,7 @@ Route::view('/admin/dashboard-fe', 'dashboard-fe')->name('dashboard-fe');
 Route::view('/admin/manajemen-kategori-fe', 'manajemen-kategori-fe')->name('manajemen-kategori-fe');
 Route::view('/admin/manajemen-akun-fe', 'manajemen-akun-fe')->name('manajemen-akun-fe');
 Route::view('/admin/manajemen-produk-fe', 'manajemen-produk-fe')->name('manajemen-produk-fe');
+Route::view('/admin/manajemen-banner-fe', 'manajemen-banner-fe')->name('manajemen-banner-fe');
 Route::view('/admin/mapproval-withdraw-fe', 'approval-withdraw-fe')->name('approval-withdraw-fe');
 Route::view('/admin/laporan-fe', 'laporan-fe')->name('laporan-fe');
 Route::view('/admin/notifikasi-fe', 'notifikasi-fe')->name('notifikasi-fe');
@@ -39,6 +40,38 @@ Route::view('/admin/pengaturan-akun-fe', 'pengaturan-akun-fe')->name('pengaturan
 Route::view('/admin/kategori-fe', 'kategori-fe')->name('kategori-fe');
 Route::view('/admin/produk-fe', 'produk-fe')->name('produk-fe');
 Route::view('/admin/detail-produk-fe', 'detail-produk-fe')->name('detail-produk-fe');
+Route::view('/admin/view-kategori-fe', 'view-kategori-fe')->name('view-kategori-fe');
+
+
+// =======
+
+// SELLER - FE
+Route::get('/register-seller-fe', function(){
+    return view('seller/register-seller-fe');
+})->name('register-seller-fe');
+
+Route::get('/login-seller-fe', function(){
+    return view('seller/login-seller-fe');
+})->name('login-seller-fe');
+
+Route::get('/verify-seller-fe', function(){
+    return view('seller/verify-email-fe');
+})->name('verify-seller-fe');
+
+Route::view('/seller/dashboard-fe', 'seller/dashboard-seller-fe')->name('dashboard-seller-fe');
+Route::view('/seller/pesanan-fe', 'seller/pesanan-seller-fe')->name('pesanan-seller-fe');
+Route::view('/seller/pengiriman-fe', 'seller/pengiriman-seller-fe')->name('pengiriman-seller-fe');
+Route::view('/seller/manajemen-produk-fe', 'seller/manajemen-produk-seller-fe')->name('manajemen-produk-seller-fe');
+Route::view('/seller/etalase-fe', 'seller/etalase-seller-fe')->name('etalase-seller-fe');
+Route::view('/seller/history-fe', 'seller/history-seller-fe')->name('history-seller-fe');
+Route::view('/seller/laporan-fe', 'seller/laporan-seller-fe')->name('laporan-seller-fe');
+Route::view('/seller/ajukan-penarikan-fe', 'seller/ajukan-penarikan-seller-fe')->name('ajukan-penarikan-seller-fe');
+Route::view('/seller/notifikasi-fe', 'seller/notifikasi-seller-fe')->name('notifikasi-seller-fe');
+Route::view('/seller/pengaturan-akun-fe', 'seller/pengaturan-akun-seller-fe')->name('pengaturan-akun-seller-fe');
+Route::view('/seller/view-fe', 'seller/seller-view-fe')->name('view-seller-fe');
+Route::view('/seller/detail-produk-fe', 'seller/detail-produk-seller-fe')->name('detail-produk-seller-fe');
+Route::view('/seller/view-kategori-seller-fe', 'seller/view-kategori-seller-fe')->name('view-kategori-seller-fe');
+
 // =======
 Route::get('/dashboard', function () {
     // dd(Auth::user());

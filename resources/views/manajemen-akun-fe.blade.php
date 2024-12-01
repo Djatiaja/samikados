@@ -18,7 +18,7 @@
 <!-- Dropdown Filter -->
 <div class="mb-6">
   <label for="accountFilter" class="block mb-2 text-sm font-medium text-gray-700">Filter Akun:</label>
-  <select id="accountFilter" class="block w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" onchange="filterAccounts()">
+  <select id="accountFilter" class="block w-1/2 md:w-1/4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" onchange="filterAccounts()">
     <option value="all">Semua Akun</option>
     <option value="customer">Akun Customer</option>
     <option value="seller">Akun Seller</option>
@@ -26,20 +26,19 @@
 </div>
 
 <!-- Tabel Akun -->
-<div id="accountsTable" class="overflow-auto rounded-lg shadow-md">
-  <table class="w-full table-auto border-collapse border border-gray-300">
+<div id="accountsTable" class="overflow-x-auto rounded-lg shadow-md">
+  <table class="min-w-full table-auto border-collapse border border-gray-300">
     <thead class="bg-red-600 text-white">
       <tr>
-        <th class="p-4 text-center border-r border-gray-300">Nama</th>
-        <th class="p-4 text-center border-r border-gray-300">Email</th>
-        <th class="p-4 text-center border-r border-gray-300">Tipe</th>
-        <th class="p-4 text-center border-r border-gray-300">Status</th>
-        <th class="p-4 text-center border-r border-gray-300">Tanggal Bergabung</th>
-        <th class="p-4 text-center">Aksi</th>
+        <th class="p-4 text-center border-r border-gray-300 min-w-[150px]md:min-w-0">Nama</th>
+        <th class="p-4 text-center border-r border-gray-300 min-w-[200px]md:min-w-0">Email</th>
+        <th class="p-4 text-center border-r border-gray-300 min-w-[100px]md:min-w-0">Tipe</th>
+        <th class="p-4 text-center border-r border-gray-300 min-w-[100px]md:min-w-0">Status</th>
+        <th class="p-4 text-center border-r border-gray-300 min-w-[150px]md:min-w-0">Tanggal Bergabung</th>
+        <th class="p-4 text-center border-gray-300 min-w-[100px]">Aksi</th>
       </tr>
     </thead>
     <tbody>
-      <!-- Ini adalah bagian yang perlu diisi oleh backend dengan data akun sesuai filter -->
       <!-- Contoh data statis di bawah ini hanya sebagai placeholder dan harus diganti oleh backend -->
       <tr class="border-b border-gray-300">
         <td class="p-4 text-center align-middle border-r border-gray-300">Nama Akun</td>
@@ -47,14 +46,19 @@
         <td class="p-4 text-center align-middle border-r border-gray-300">Customer</td>
         <td class="p-4 text-center align-middle border-r border-gray-300">Suspended</td>
         <td class="p-4 text-center align-middle border-r border-gray-300">Tanggal Bergabung</td>
-        <td class="p-4 text-center align-middle">
-            <button class="p-4" onclick="openSuspendConfirmModal()"><img src="{{ asset('assets/block.png') }}" alt="Suspend Icon"></button>
-            <button class="p-4" onclick="openUnsuspendConfirmModal()"><img src="{{ asset('assets/checkmark.png') }}" alt="Unsuspend Icon"></button>
+        <td class="p-4 text-center align-middle flex justify-center space-x-2">
+            <button class="p-1" onclick="openSuspendConfirmModal()">
+                <img src="{{ asset('assets/block.png') }}" alt="Suspend Icon" class="w-6 h-6">
+            </button>
+            <button class="p-1" onclick="openUnsuspendConfirmModal()">
+                <img src="{{ asset('assets/checkmark.png') }}" alt="Unsuspend Icon" class="w-6 h-6">
+            </button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+
 
 <!-- Modal Konfirmasi Suspend -->
 <div id="suspendConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -84,7 +88,7 @@
 <div id="successSuspendModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
   <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
     <h3 class="text-2xl mb-4 font-semibold text-center">Akun Berhasil di-Suspend</h3>
-    <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+    <img src="assets/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
     <div class="flex justify-center mt-10">
       <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessSuspendModal()">Tutup</button>
     </div>
@@ -95,7 +99,7 @@
 <div id="successUnsuspendModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
   <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
     <h3 class="text-2xl mb-4 font-semibold text-center">Akun Berhasil di-Unsuspend</h3>
-    <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+    <img src="assets/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
     <div class="flex justify-center mt-10">
       <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3" onclick="closeSuccessUnsuspendModal()">Tutup</button>
     </div>

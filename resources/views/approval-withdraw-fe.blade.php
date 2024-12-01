@@ -27,135 +27,192 @@
         <option value="terlama">Terlama</option>
     </select>
   </div>
+  <!-- Entries per page -->
+  <div class="mb-4">
+    <label for="entriesPerPage" class="mr-2">Entries per page:</label>
+    <select id="entriesPerPage" class="p-2 border border-gray-300 rounded-md" onchange="changeEntriesPerPage()">
+      <option value="10">10</option>
+      <option value="25" selected>25</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+  </div>
 
   <!-- Tabel Permintaan Penarikan -->
   <div class="overflow-auto rounded-lg shadow-md">
-    <table class="w-full table-auto border-collapse border border-gray-300">
-      <thead class="bg-red-600 text-white">
-        <tr>
-          <th class="p-4 text-center border-r border-gray-300">Nama Seller</th>
-          <th class="p-4 text-center border-r border-gray-300">Jumlah Penarikan</th>
-          <th class="p-4 text-center border-r border-gray-300">Tanggal Pengajuan</th>
-          <th class="p-4 text-center border-r border-gray-300">Status</th>
-          <th class="p-4 text-center">Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Contoh data penarikan -->
-        <tr class="border-b border-gray-300">
-          <td class="p-4 text-center border-r border-gray-300">RuangJayaPrint</td>
-          <td class="p-4 text-center border-r border-gray-300">Rp1.500.000</td>
-          <td class="p-4 text-center border-r border-gray-300">15/09/2024</td>
-          <td class="p-4 text-center border-r border-gray-300">Menunggu</td>
-          <td class="p-4 text-center border-r border-gray-300">
-            <select class="w-40 bg-red-600 text-white p-2 rounded-lg">
-                <option value="aktif">Menunggu</option>
-                <option value="nonaktif">Disetujui</option>
-                <option value="nonaktif">Ditolak</option>
-            </select>
+  <table class="w-full table-auto border-collapse border border-gray-300">
+    <thead class="bg-red-600 text-white">
+      <tr>
+        <th class="p-4 text-center border-r border-gray-300">Nama Seller</th>
+        <th class="p-4 text-center border-r border-gray-300">Jumlah Penarikan</th>
+        <th class="p-4 text-center border-r border-gray-300">Tanggal Pengajuan</th>
+        <th class="p-4 text-center border-r border-gray-300">Status</th>
+        <th class="p-4 text-center border-r border-gray-300">Aksi</th>
+        <th class="p-4 text-center">Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="border-b border-gray-300">
+        <td class="p-4 text-center border-r border-gray-300">RuangJayaPrint</td>
+        <td class="p-4 text-center border-r border-gray-300">Rp1.500.000</td>
+        <td class="p-4 text-center border-r border-gray-300">15/09/2024</td>
+        <td class="p-4 text-center border-r border-gray-300" id="statusText1">Menunggu</td>
+        <td class="p-4 text-center border-r border-gray-300">
+          <select class="status-dropdown w-40 text-white py-2 px-4 rounded-lg bg-orange-500" 
+                  onchange="confirmStatusChange(this)" data-current-status="pending">
+            <option value="pending" class="bg-orange-500 text-white">Menunggu</option>
+            <option value="approved" class="bg-green-500 text-white">Disetujui</option>
+            <option value="rejected" class="bg-red-500 text-white">Ditolak</option>
+          </select>
         </td>
-        </tr>
-        <!-- Tambahkan lebih banyak data jika diperlukan -->
-      </tbody>
-    </table>
+        <td class="p-4 text-center border-r border-gray-300">
+          <button onclick="toggleWithdrawDetailModal()" class="text-blue-500">Lihat Detail</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   </div>
 
+  <!-- Pagination -->
+  <nav class="flex items-center gap-x-4 min-w-max mt-4 justify-center">
+    <a id="prevButton" class="text-gray-500 hover:text-gray-900 p-4 inline-flex items-center" href="javascript:;" onclick="changePage('prev')" disabled>
+      <span>Back</span>
+    </a>
+    <a id="page1" class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-red-600 hover:bg-red-50" href="javascript:;" aria-current="page">1</a>
+    <a id="page2" class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-red-600 hover:bg-red-50" href="javascript:;">2</a>
+    <a id="page3" class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-red-600 hover:bg-red-50" href="javascript:;">3</a>
+    <a id="page4" class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-red-600 hover:bg-red-50" href="javascript:;">4</a>
+    <a class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-indigo-600 hover:bg-indigo-50" href="javascript:;">...</a>
+    <a id="page10" class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-indigo-600 hover:bg-indigo-50" href="javascript:;">10</a>
+    <a id="nextButton" class="text-gray-500 hover:text-gray-900 p-4 inline-flex items-center" href="javascript:;" onclick="changePage('next')">
+      <span>Next</span>
+    </a>
+  </nav>
+@endsection
 
-<!-- Modals -->
-<div id="withdrawDetailModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
-    <h3 class="text-xl font-bold mb-4 text-center">Detail Penarikan</h3>
-    <p><strong>Nama Seller:</strong> RuangJayaPrint</p>
-    <p><strong>Jumlah Penarikan:</strong> Rp1.500.000</p>
-    <p><strong>Tanggal Pengajuan:</strong> 15/09/2024</p>
-    <p><strong>Status:</strong> Menunggu</p>
-    <div class="flex justify-evenly mt-4">
-      <button onclick="toggleWithdrawDetailModal()" class="border border-gray-300 px-4 py-2 rounded-lg w-1/3">Tutup</button>
+@section('modal')
+<!-- Modal untuk Detail Penarikan -->
+<div id="withdrawDetailModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden z-20">
+<div class="bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/3">
+        <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 text-center">Detail Penarikan</h3>
+        <div class="grid grid-cols-[150px_50px_auto] gap-y-2 sm:gap-y-4 md:gap-y-6 px-4 sm:px-6 md:px-8">
+            <div class="font-semibold text-sm sm:text-base text-left">Nama Seller</div>
+            <div class="text-center">:</div>
+            <div class="text-sm sm:text-base">RuangJayaPrint</div>
+
+            <div class="font-semibold text-sm sm:text-base text-left">Jumlah Penarikan</div>
+            <div class="text-center">:</div>
+            <div class="text-sm sm:text-base">Rp1.500.000</div>
+
+            <div class="font-semibold text-sm sm:text-base text-left">Tanggal Pengajuan</div>
+            <div class="text-center">:</div>
+            <div class="text-sm sm:text-base">15/09/2024</div>
+        </div>
+        <div class="mt-6 sm:mt-8 text-center">
+            <button onclick="toggleWithdrawDetailModal()" class="w-full sm:w-40 bg-red-600 text-white px-4 py-2 rounded-lg text-sm sm:text-base">Tutup</button>
+        </div>
     </div>
-  </div>
 </div>
 
-<div id="approveWithdrawModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-  <div class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3">
-    <h3 class="text-xl font-bold mb-4">Konfirmasi Persetujuan</h3>
-    <p>Apakah Anda yakin ingin menyetujui penarikan ini?</p>
-    <div class="flex justify-evenly mt-4">
-      <button onclick="toggleApproveWithdrawModal()" class="border border-gray-300 px-4 py-2 rounded-lg w-36">Batal</button>
-      <button class="bg-green-600 text-white px-4 py-2 rounded-lg w-36" onclick="showSuccessApproveModal()">Setujui</button>
+<!-- Modal Konfirmasi Perubahan Status -->
+<div id="statusConfirmModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden z-20">
+    <div class="bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/3">
+        <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 text-center">Konfirmasi Perubahan Status</h3>
+        <p class="text-sm sm:text-base text-center mb-4 sm:mb-6">Apakah Anda yakin ingin mengubah status penarikan?</p>
+        <div class="flex justify-center space-x-6 sm:space-x-10 lg:space-x-16">
+        <button id="confirmNo" class="bg-gray-300 px-4 py-2 rounded-lg text-sm sm:text-base w-24 sm:w-32 lg:w-40">Tidak</button>
+            <button id="confirmYes" class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm sm:text-base w-24 sm:w-32 lg:w-40">Ya</button>
+        </div>
     </div>
-  </div>
 </div>
 
-<div id="rejectWithdrawModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-  <div class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3">
-    <h3 class="text-xl font-bold mb-4">Konfirmasi Penolakan</h3>
-    <p>Apakah Anda yakin ingin menolak penarikan ini?</p>
-    <div class="flex justify-evenly mt-4">
-      <button onclick="toggleRejectWithdrawModal()" class="border border-gray-300 px-4 py-2 rounded-lg w-36">Batal</button>
-      <button class="bg-red-600 text-white px-4 py-2 rounded-lg w-36" onclick="showSuccessRejectModal()">Tolak</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Sukses Approve -->
-<div id="successApproveModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-  <div class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3">
-    <h3 class="text-xl font-bold mb-4">Penarikan Disetujui</h3>
-    <p>Penarikan telah berhasil disetujui.</p>
-    <div class="flex justify-center mt-4">
-      <button onclick="toggleSuccessApproveModal()" class="bg-green-600 text-white px-4 py-2 rounded-lg w-36">Tutup</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Sukses Reject -->
-<div id="successRejectModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-  <div class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3">
-    <h3 class="text-xl font-bold mb-4">Penarikan Ditolak</h3>
-    <p>Penarikan telah berhasil ditolak.</p>
-    <div class="flex justify-center mt-4">
-      <button onclick="toggleSuccessRejectModal()" class="bg-red-600 text-white px-4 py-2 rounded-lg w-36">Tutup</button>
-    </div>
-  </div>
-</div>
 @endsection
 
 @push('scripts')
 <script>
-  // Toggle Modals
+  // Fungsi toggle untuk modals
   function toggleWithdrawDetailModal() {
-    document.getElementById("withdrawDetailModal").classList.toggle("hidden");
+    const modal = document.getElementById("withdrawDetailModal");
+    modal.classList.toggle("hidden")
   }
 
-  function toggleApproveWithdrawModal() {
-    document.getElementById("approveWithdrawModal").classList.toggle("hidden");
+  // Fungsi untuk konfirmasi perubahan status
+function confirmStatusChange(selectElement) {
+  const currentStatus = selectElement.dataset.currentStatus || "masuk";
+  const selectedStatus = selectElement.value;
+
+  if (currentStatus === selectedStatus) {
+    return; // Tidak ada perubahan
   }
 
-  function toggleRejectWithdrawModal() {
-    document.getElementById("rejectWithdrawModal").classList.toggle("hidden");
-  }
+  // Tampilkan modal konfirmasi
+  const modal = document.getElementById("statusConfirmModal");
+  modal.classList.remove("hidden");
 
-  // Toggle Success Modals
-  function showSuccessApproveModal() {
-    toggleApproveWithdrawModal();
-    setTimeout(() => {
-      document.getElementById("successApproveModal").classList.remove("hidden");
-    }, 500);
-  }
+  // Tindakan saat klik "Ya"
+  document.getElementById("confirmYes").onclick = function () {
+    // Ubah status
+    selectElement.dataset.currentStatus = selectedStatus;
 
-  function toggleSuccessApproveModal() {
-    document.getElementById("successApproveModal").classList.add("hidden");
-  }
+    // Update warna dropdown berdasarkan status
+    updateDropdownClass(selectElement, selectedStatus);
 
-  function showSuccessRejectModal() {
-    toggleRejectWithdrawModal();
-    setTimeout(() => {
-      document.getElementById("successRejectModal").classList.remove("hidden");
-    }, 500);
-  }
+    // Perbarui teks status di kolom tabel
+    const statusCell = selectElement.parentElement.previousElementSibling; // Elemen <td> status
+    switch (selectedStatus) {
+      case "pending":
+        statusCell.textContent = "Menunggu";
+        break;
+      case "approved":
+        statusCell.textContent = "Disetujui";
+        break;
+      case "rejected":
+        statusCell.textContent = "Ditolak";
+        break;
+    }
 
-  function toggleSuccessRejectModal() {
-    document.getElementById("successRejectModal").classList.add("hidden");
+    // Disable opsi lainnya
+    disableOtherOptions(selectElement, selectedStatus);
+
+    // Tutup modal
+    modal.classList.add("hidden");
+  };
+
+  // Tindakan saat klik "Tidak"
+  document.getElementById("confirmNo").onclick = function () {
+    // Kembalikan nilai dropdown ke status sebelumnya
+    selectElement.value = currentStatus;
+    modal.classList.add("hidden");
+  };
+}
+
+// Fungsi untuk memperbarui kelas dropdown berdasarkan status
+function updateDropdownClass(selectElement, status) {
+  switch (status) {
+    case "pending":
+      selectElement.className = "status-dropdown w-40 text-white py-2 px-4 rounded-lg bg-orange-500";
+      break;
+    case "approved":
+      selectElement.className = "status-dropdown w-40 text-white py-2 px-4 rounded-lg bg-green-500";
+      break;
+    case "rejected":
+      selectElement.className = "status-dropdown w-40 text-white py-2 px-4 rounded-lg bg-red-600";
+      break;
   }
+}
+
+// Fungsi untuk men-disable opsi yang tidak dipilih
+function disableOtherOptions(selectElement, selectedStatus) {
+  const options = selectElement.querySelectorAll("option");
+
+  options.forEach((option) => {
+    if (option.value !== selectedStatus) {
+      option.disabled = true; // Disable opsi yang tidak dipilih
+    } else {
+      option.disabled = false; // Pastikan opsi yang dipilih tetap bisa diakses
+    }
+  });
+}
+
 </script>
 @endpush

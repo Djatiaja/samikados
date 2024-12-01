@@ -10,61 +10,68 @@
 @endsection
 
 @section('content')
-  <div class="flex flex-col md:flex-row justify-between items-center mb-6">
-    <h2 class="text-2xl font-bold mb-4 md:mb-0">Manajemen Kategori</h2>
-    <button onclick="openAddCategoryModal()" class="border border-black px-4 py-2 rounded-lg flex items-center space-x-2">
-      <img src="{{ asset('assets/add (1).png') }}" alt="Add Icon">
-      <span>Kategori</span>
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-sm sm:text-md lg:text-2xl font-bold mb-4 md:mb-0">Manajemen Kategori</h2>
+    <button onclick="openAddCategoryModal()" class="border border-black px-4 py-2 rounded-lg flex items-center space-x-2 text-sm sm:text-base">
+        <img src="{{ asset('assets/add (1).png') }}" alt="Add Icon" class="w-3 h-3 sm:w-6 sm:h-6">
+        <span class="text-sm sm:text-md">Kategori</span>
     </button>
-  </div>
+</div>
 
-  <!-- Tabel Kategori -->
-  <div class="overflow-auto rounded-lg shadow-md">
-    <table class="w-full table-auto border-collapse border border-gray-300">
-      <thead class="bg-red-600 text-white">
+<!-- Tabel Kategori -->
+<div class="overflow-x-auto rounded-lg shadow-md">
+<table class="min-w-full w-full table-auto border-collapse border border-gray-300">
+    <thead class="bg-red-600 text-white">
         <tr>
-          <th class="p-4 text-center border-r border-gray-300">Nama Kategori</th>
-          <th class="p-4 text-center border-r border-gray-300">Deskripsi</th>
-          <th class="p-4 text-center border-r border-gray-300">Jumlah Produk</th>
-          <th class="p-4 text-center border-r border-gray-300">Icon</th>
-          <th class="p-4 text-center">Aksi</th>
+            <th class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg min-w-[150px]">Nama Kategori</th>
+            <th class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg min-w-[200px]">Deskripsi</th>
+            <th class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg min-w-[150px]">Jumlah Produk</th>
+            <th class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg min-w-[100px]">Icon</th>
+            <th class="p-4 text-center border-gray-300 text-sm sm:text-base lg:text-lg min-w-[120px]">Aksi</th>
         </tr>
-      </thead>
-      <tbody>
-        <!-- Example category with products -->
+    </thead>
+    <tbody>
         <tr class="border-b border-gray-300">
-          <td class="p-4 text-center border-r border-gray-300">
-            <a href="{{ route('kategori-fe') }}">Merchandise</a>
-          </td>
-          <td class="p-4 text-center border-r border-gray-300">Nikmati kualitas premium</td>
-          <td class="p-4 text-center border-r border-gray-300" id="productCount">20</td>
-          <td class="p-4 text-center border-r border-gray-300">
-            <img src="{{ asset('assets/printer.png') }}" alt="Icon" class="mx-auto w-9 h-9 object-cover">
-          </td>
-          <td class="p-4 text-center">
-            <button class="p-2" onclick="openEditCategoryModal()"><img src="{{ asset('assets/edit.png') }}" alt="Edit Icon"></button>
-            <button class="p-2" onclick="checkDeleteCategory(20)"><img src="{{ asset('assets/delete.png') }}" alt="Delete Icon"></button>
-          </td>
+            <td class="p-4 text-center border-r border-gray-300">
+                <a href="{{ route('kategori-fe') }}" class="text-sm sm:text-base lg:text-lg">Merchandise</a>
+            </td>
+            <td class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg">Nikmati kualitas premium</td>
+            <td class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg" id="productCount">20</td>
+            <td class="p-4 text-center border-r border-gray-300">
+                <img src="{{ asset('assets/printer.png') }}" alt="Icon" class="mx-auto w-8 h-8 sm:w-9 sm:h-9 object-cover">
+            </td>
+            <td class="p-4 text-center flex justify-center items-center space-x-2">
+                <button class="p-1" onclick="openEditCategoryModal()">
+                    <img src="{{ asset('assets/edit.png') }}" alt="Edit Icon" class="w-6 h-6 lg:w-8 lg:h-8">
+                </button>
+                <button class="p-1" onclick="checkDeleteCategory(20)">
+                    <img src="{{ asset('assets/delete.png') }}" alt="Delete Icon" class="w-6 h-6 lg:w-8 lg:h-8">
+                </button>
+            </td>
         </tr>
 
-        <!-- New example category with 0 products for delete testing -->
         <tr class="border-b border-gray-300">
-          <td class="p-4 text-center border-r border-gray-300">
-            <a href="{{ route('kategori-fe') }}">Empty Category</a>
-          </td>
-          <td class="p-4 text-center border-r border-gray-300">Kategori tanpa produk</td>
-          <td class="p-4 text-center border-r border-gray-300" id="emptyCategoryProductCount">0</td>
-          <td class="p-4 text-center border-r border-gray-300">
-            <img src="https://placehold.co/48x48"alt="Icon" class="mx-auto w-9 h-9 object-cover">
-          </td>
-          <td class="p-4 text-center">
-            <button class="p-2" onclick="openEditCategoryModal()"><img src="{{ asset('assets/edit.png') }}" alt="Edit Icon"></button>
-            <button class="p-2" onclick="checkDeleteCategory(0)"><img src="{{ asset('assets/delete.png') }}" alt="Delete Icon"></button>
-          </td>
+            <td class="p-4 text-center border-r border-gray-300">
+                <a href="{{ route('kategori-fe') }}" class="text-sm sm:text-base lg:text-lg">Empty Category</a>
+            </td>
+            <td class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg">Kategori tanpa produk</td>
+            <td class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg" id="emptyCategoryProductCount">0</td>
+            <td class="p-4 text-center border-r border-gray-300">
+                <img src="https://placehold.co/48x48" alt="Icon" class="mx-auto w-8 h-8 sm:w-9 sm:h-9 object-cover">
+            </td>
+            <td class="p-4 text-center flex justify-center items-center space-x-2">
+                <button class="p-1" onclick="openEditCategoryModal()">
+                    <img src="{{ asset('assets/edit.png') }}" alt="Edit Icon" class="w-6 h-6 lg:w-8 lg:h-8">
+                </button>
+                <button class="p-1" onclick="checkDeleteCategory(0)">
+                    <img src="{{ asset('assets/delete.png') }}" alt="Delete Icon" class="w-6 h-6 lg:w-8 lg:h-8">
+                </button>
+            </td>
         </tr>
-      </tbody>
-    </table>
-  </div>
+    </tbody>
+</table>
+
+</div>
 
 <!-- Modal: Add Category -->
 <div id="addCategoryModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
