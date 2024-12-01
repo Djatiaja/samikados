@@ -34,7 +34,7 @@ Route::view('/admin/detail-produk-fe', 'detail-produk-fe')->name('detail-produk-
 
 //                                                  ADMIN
 //jangan lupa tambahkan middleware ['auth', 'role:admin', 'verify'] ketika selesai
-Route::middleware(['auth', 'role:admin', 'verify'])->prefix('/admin')->group(function(){
+Route::middleware(['auth', 'role:admin', 'verifyUser'])->prefix('/admin')->group(function(){
 
     Route::controller(AdminController::class)->prefix("")->group(function () {
         Route::get("/", "index")->name("dashboard");
