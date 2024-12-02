@@ -17,7 +17,7 @@ class AdminSeed extends Seeder
             'name' => fake()->name(),
             'username' => "admin",
             'email' => "djamgt23@gmail.com",
-            'email_verified_at' => fake()->randomElement([now(), null]),
+            'email_verified_at' =>now(),
             'password' => "asdfasdf",
             'is_suspended' => false,
             "role_id" =>1,
