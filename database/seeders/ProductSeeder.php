@@ -14,6 +14,27 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $produkPercetakan = [
+            "Kartu Nama Premium",
+            "Banner Vinyl Outdoor",
+            "Flyer Full Color",
+            "Poster Custom Design",
+            "Brosur Lipat 3",
+            "Sticker Die Cut",
+            "Undangan Pernikahan Eksklusif",
+            "Buku Agenda Custom",
+            "Box Kemasan Cetak",
+            "Notebook Hardcover"
+        ];
+
+        foreach ($produkPercetakan as $key => $value) {
+            Product::factory()->create([
+                'name' => $value
+            ]);
+        }
+
+
         Product::factory()->count(50)->create();
 
         $categories=[
@@ -27,5 +48,6 @@ class ProductSeeder extends Seeder
                 'description'=>$value
             ]);
         }
+
     }
 }
