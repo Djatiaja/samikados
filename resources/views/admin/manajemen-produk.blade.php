@@ -8,7 +8,7 @@
   @foreach (request()->except('search') as $key => $value)
   <input type="hidden" name="{{ $key }}" value="{{ $value }}">
   @endforeach
-  <input type="text" name="search" placeholder="Cari Produk..."
+  <input type="text" name="search" placeholder="Cari Produk..." value="{{ Request::get('search') }}"
     class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
   <img src="{{ asset('assets/search.png') }}" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
     alt="Search Icon">

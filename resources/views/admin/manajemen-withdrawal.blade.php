@@ -104,7 +104,7 @@
     <input type="text" name="status" class="hidden" value="Disetujui">
     <div class="flex justify-evenly mt-4">
       <button onclick="toggleApproveWithdrawModal()"
-        class="border border-gray-300 px-4 py-2 rounded-lg w-36">Batal</button>
+        class="border border-gray-300 px-4 py-2 rounded-lg w-36" type="button">Batal</button>
       <button class="bg-green-600 text-white px-4 py-2 rounded-lg w-36" type="submit">Setujui</button>
     </div>
   </form>
@@ -119,7 +119,7 @@
     <input type="text" name="status" class="hidden" value="Menunggu">
     <div class="flex justify-evenly mt-4">
       <button onclick="toggleWaitingWithdrawModal()"
-        class="border border-gray-300 px-4 py-2 rounded-lg w-36">Batal</button>
+        class="border border-gray-300 px-4 py-2 rounded-lg w-36" type="button">Batal</button>
       <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg w-36" type="submit">Setujui</button>
     </div>
   </form>
@@ -134,7 +134,7 @@
     <p>Apakah Anda yakin ingin menolak penarikan ini?</p>
     <div class="flex justify-evenly mt-4">
       <button onclick="toggleRejectWithdrawModal()"
-        class="border border-gray-300 px-4 py-2 rounded-lg w-36">Batal</button>
+        class="border border-gray-300 px-4 py-2 rounded-lg w-36" type="button">Batal</button>
       <button class="bg-red-600 text-white px-4 py-2 rounded-lg w-36" type="submit">Tolak</button>
     </div>
   </form>
@@ -172,7 +172,7 @@
 <!-- Modal Sukses Reject -->
 @if (session('success') == 'Ditolak')
 
-<div id="successRejectModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+<div id="successRejectModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
   <div class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3">
     <h3 class="text-xl font-bold mb-4">Penarikan Ditolak</h3>
     <p>Penarikan telah berhasil ditolak.</p>

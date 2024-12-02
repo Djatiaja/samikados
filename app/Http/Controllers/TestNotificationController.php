@@ -25,7 +25,7 @@ class TestNotificationController extends Controller
                 $notification->user_id = $admin->id;
                 $notification->save();
         }
-        
+            
         return redirect('/test-notification');
     }
 }
