@@ -172,7 +172,7 @@
 <!-- Modal Sukses Reject -->
 @if (session('success') == 'Ditolak')
 
-<div id="successRejectModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+<div id="successRejectModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
   <div class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3">
     <h3 class="text-xl font-bold mb-4">Penarikan Ditolak</h3>
     <p>Penarikan telah berhasil ditolak.</p>
