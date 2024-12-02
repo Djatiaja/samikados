@@ -28,26 +28,31 @@ Samikados
 3. setup .env file
     Chat developer for .env file 
 
-4. generate session key
+4. change branch to dev
+    ```bash
+    git checkout dev
+    ```
+
+5. generate session key
 
     ```bash
     php artisan key:generate
     ```
 
-5. generate storage 
+6. generate storage 
 
-```bash
-php artisan storage:link    
-```
+    ```bash
+    php artisan storage:link    
+    ```
 
 
-5. migrate database
+7. migrate database
 
     ```bash
     php artisan migrate:fresh --seed
     ```
 
-6. start project
+8. start project
 
     ```bash
     php artisan serve
@@ -61,7 +66,7 @@ php artisan storage:link
     npm run dev
     ```
 
-7. Administrator account
+9. Administrator account
 
     username: `admin`
 
