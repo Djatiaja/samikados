@@ -16,7 +16,7 @@ class ProviderController extends Controller
 
 
     function connect($provider){
-        session()->put("intended_url", "dashboard");
+        session()->put("intended_url", "/admin/pengaturan-akun");
         return Socialite::driver($provider)->redirect();
     }
 
