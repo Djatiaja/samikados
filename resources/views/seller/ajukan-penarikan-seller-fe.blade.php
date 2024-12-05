@@ -184,198 +184,201 @@
 
 @push('scripts')
 <script>
-    // <!-- Function toggleWithdrawModal -->
+    // Define the accounts variable
+    const accounts = {};
+
+    // Function to toggle the withdrawal modal
     function toggleWithdrawModal() {
-    document.getElementById("withdrawModal").classList.toggle("hidden");
+        document.getElementById("withdrawModal").classList.toggle("hidden");
     }
 
-    // <!-- Function toggleAddAccountModal -->
+    // Function to toggle the add account modal
     function toggleAddAccountModal() {
-    document.getElementById("addAccountModal").classList.toggle("hidden");
+        document.getElementById("addAccountModal").classList.toggle("hidden");
     }
 
-    // <!-- Function updateAccountList -->
+    // Function to update the account list based on selected bank
     function updateAccountList() {
-    const bank = document.getElementById("bankSelect").value;
-    const accountSelect = document.getElementById("accountSelect");
-    const accountNameField = document.getElementById("accountNameField");
+        const bank = document.getElementById("bankSelect").value;
+        const accountSelect = document.getElementById("accountSelect");
+        const accountNameField = document.getElementById("accountNameField");
 
-    // Reset dropdown dan nama rekening
-    accountSelect.innerHTML = '<option value="">Pilih Rekening</option>';
-    accountNameField.value = "";
+        // Reset dropdown and account name
+        accountSelect.innerHTML = '<option value="">Pilih Rekening</option>';
+        accountNameField.value = "";
 
-    if (bank && accounts[bank]) {
-        accounts[bank].forEach((account) => {
-        const option = document.createElement("option");
-        option.value = account.accountNumber;
-        option.textContent = account.accountNumber;
-        accountSelect.appendChild(option);
-        });
+        if (bank && accounts[bank]) {
+            accounts[bank].forEach((account) => {
+                const option = document.createElement("option");
+                option.value = account.accountNumber;
+                option.textContent = account.accountNumber;
+                accountSelect.appendChild(option);
+            });
+        }
     }
-    }
 
-    // <!-- Function populateAccountName -->
+    // Function to populate the account name based on selected account number
     function populateAccountName() {
-    const bank = document.getElementById("bankSelect").value;
-    const accountNumber = document.getElementById("accountSelect").value;
-    const accountNameField = document.getElementById("accountNameField");
+        const bank = document.getElementById("bankSelect").value;
+        const accountNumber = document.getElementById("accountSelect").value;
+        const accountNameField = document.getElementById("accountNameField");
 
-    // Reset nama pemilik rekening
-    accountNameField.value = "";
+        // Reset account owner name
+        accountNameField.value = "";
 
-    if (bank && accountNumber && accounts[bank]) {
-        const account = accounts[bank].find(acc => acc.accountNumber === accountNumber);
-        if (account) {
-        accountNameField.value = account.accountName;
+        if (bank && accountNumber && accounts[bank]) {
+            const account = accounts[bank].find(acc => acc.accountNumber === accountNumber);
+            if (account) {
+                accountNameField.value = account.accountName;
+            }
         }
     }
-    }
 
-    // <!-- Function validateWithdrawal -->
+    // Function to validate withdrawal amount
     function validateWithdrawal() {
-    const maxAmount = 10000000; // Rp10.000.000
-    const amount = parseInt(document.getElementById("withdrawAmount").value) || 0;
-    const submitButton = document.getElementById("submitWithdraw");
-    const info = document.getElementById("maxAmountInfo");
-    const amountError = document.getElementById("amountError");
+        const maxAmount = 10000000; // Rp10.000.000
+        const amount = parseInt(document.getElementById("withdrawAmount").value) || 0;
+        const submitButton = document.getElementById("submitWithdraw");
+        const info = document.getElementById("maxAmountInfo");
+        const amountError = document.getElementById("amountError");
 
-    // Reset pesan error
-    amountError.textContent = "";
-
-    if (amount > maxAmount) {
-        amountError.textContent = "Jumlah penarikan melebihi batas maksimal.";
-        submitButton.disabled = true;
-    } else if (amount <= 0) {
-        amountError.textContent = "Jumlah penarikan harus lebih dari 0.";
-        submitButton.disabled = true;
-    } else {
+        // Reset error message
         amountError.textContent = "";
-        submitButton.disabled = false;
-    }
-    }
 
-    // <!-- Function submitWithdrawal -->
-    function submitWithdrawal(event) {
-    event.preventDefault();
-
-    const bank = document.getElementById("bankSelect").value.trim();
-    const accountNumber = document.getElementById("accountSelect").value.trim();
-    const amount = document.getElementById("withdrawAmount").value.trim();
-
-    const bankError = document.getElementById("bankError");
-    const accountError = document.getElementById("accountError");
-    const amountError = document.getElementById("amountError");
-
-    let hasError = false;
-
-    // Reset error messages
-    bankError.textContent = "";
-    accountError.textContent = "";
-    amountError.textContent = "";
-
-    // Validate inputs
-    if (!bank) {
-        bankError.textContent = "Nama bank wajib diisi.";
-        hasError = true;
-    }
-
-    if (!accountNumber) {
-        accountError.textContent = "Nomor rekening wajib dipilih.";
-        hasError = true;
-    }
-
-    if (!amount || amount <= 0) {
-        amountError.textContent = "Jumlah penarikan harus lebih dari 0.";
-        hasError = true;
-    }
-
-    if (!hasError) {
-        toggleWithdrawModal();
-        showSuccessModal();
-    }
-    }
-
-    // <!-- Function showSuccessModal -->
-    function showSuccessModal() {
-    const successModal = document.getElementById("successModal");
-    successModal.classList.remove("hidden");
-    }
-
-    // <!-- Function closeSuccessModal -->
-    function closeSuccessModal() {
-    const successModal = document.getElementById("successModal");
-    successModal.classList.add("hidden");
-    }
-
-    // <!-- Function addNewAccount -->
-    function addNewAccount(event) {
-    event.preventDefault();
-
-    const bank = document.getElementById("newBank").value.trim();
-    const accountNumber = document.getElementById("newAccountNumber").value.trim();
-    const accountName = document.getElementById("accountName").value.trim();
-
-    const bankError = document.getElementById("bankError");
-    const accountNumberError = document.getElementById("accountNumberError");
-    const accountNameError = document.getElementById("accountNameError");
-
-    let hasError = false;
-
-    // Reset error messages
-    bankError.textContent = "";
-    accountNumberError.textContent = "";
-    accountNameError.textContent = "";
-
-    // Validate bank input
-    if (!bank) {
-        bankError.textContent = "Nama bank wajib diisi.";
-        hasError = true;
-    }
-
-    // Validate account number input (only numbers allowed)
-    if (!accountNumber) {
-        accountNumberError.textContent = "Nomor rekening wajib diisi.";
-        hasError = true;
-    } else if (!/^\d+$/.test(accountNumber)) {
-        accountNumberError.textContent = "Nomor rekening harus berupa angka.";
-        hasError = true;
-    }
-
-    // Validate account name input
-    if (!accountName) {
-        accountNameError.textContent = "Nama pemilik rekening wajib diisi.";
-        hasError = true;
-    }
-
-    if (!hasError) {
-        // Add account if no errors
-        if (!accounts[bank]) {
-        accounts[bank] = [];
+        if (amount > maxAmount) {
+            amountError.textContent = "Jumlah penarikan melebihi batas maksimal.";
+            submitButton.disabled = true;
+        } else if (amount <= 0) {
+            amountError.textContent = "Jumlah penarikan harus lebih dari 0.";
+            submitButton.disabled = true;
+        } else {
+            amountError.textContent = "";
+            submitButton.disabled = false;
         }
-        accounts[bank].push({ accountNumber, accountName });
-
-        // Reset form inputs
-        document.getElementById("newBank").value = "";
-        document.getElementById("newAccountNumber").value = "";
-        document.getElementById("accountName").value = "";
-
-        toggleAddAccountModal();
-
-        // Show success modal
-        showAddAccountSuccessModal();
-    }
     }
 
-    // <!-- Function showAddAccountSuccessModal -->
+    // Function to submit withdrawal request
+    function submitWithdrawal(event) {
+        event.preventDefault();
+
+        const bank = document.getElementById("bankSelect").value.trim();
+        const accountNumber = document.getElementById("accountSelect").value.trim();
+        const amount = document.getElementById("withdrawAmount").value.trim();
+
+        const bankError = document.getElementById("bankError");
+        const accountError = document.getElementById("accountError");
+        const amountError = document.getElementById("amountError");
+
+        let hasError = false;
+
+        // Reset error messages
+        bankError.textContent = "";
+        accountError.textContent = "";
+        amountError.textContent = "";
+
+        // Validate inputs
+        if (!bank) {
+            bankError.textContent = "Nama bank wajib diisi.";
+            hasError = true;
+        }
+
+        if (!accountNumber) {
+            accountError.textContent = "Nomor rekening wajib dipilih.";
+            hasError = true;
+        }
+
+        if (!amount || amount <= 0) {
+            amountError.textContent = "Jumlah penarikan harus lebih dari 0.";
+            hasError = true;
+        }
+
+        if (!hasError) {
+            toggleWithdrawModal();
+            showSuccessModal();
+        }
+    }
+
+    // Function to show success modal
+    function showSuccessModal() {
+        const successModal = document.getElementById("successModal");
+        successModal.classList.remove("hidden");
+    }
+
+    // Function to close success modal
+    function closeSuccessModal() {
+        const successModal = document.getElementById("successModal");
+        successModal.classList.add("hidden");
+    }
+
+    // Function to add a new account
+    function addNewAccount(event) {
+        event.preventDefault();
+
+        const bank = document.getElementById("newBank").value.trim();
+        const accountNumber = document.getElementById("newAccountNumber").value.trim();
+        const accountName = document.getElementById("accountName").value.trim();
+
+        const bankError = document.getElementById("bankError");
+        const accountNumberError = document.getElementById("accountNumberError");
+        const accountNameError = document.getElementById("accountNameError");
+
+        let hasError = false;
+
+        // Reset error messages
+        bankError.textContent = "";
+        accountNumberError.textContent = "";
+        accountNameError.textContent = "";
+
+        // Validate bank input
+        if (!bank) {
+            bankError.textContent = "Nama bank wajib diisi.";
+            hasError = true;
+        }
+
+        // Validate account number input (only numbers allowed)
+        if (!accountNumber) {
+            accountNumberError.textContent = "Nomor rekening wajib diisi.";
+            hasError = true;
+        } else if (!/^\d+$/.test(accountNumber)) {
+            accountNumberError.textContent = "Nomor rekening harus berupa angka.";
+            hasError = true;
+        }
+
+        // Validate account name input
+        if (!accountName) {
+            accountNameError.textContent = "Nama pemilik rekening wajib diisi.";
+            hasError = true;
+        }
+
+        if (!hasError) {
+            // Add account if no errors
+            if (!accounts[bank]) {
+                accounts[bank] = [];
+            }
+            accounts[bank].push({ accountNumber, accountName });
+
+            // Reset form inputs
+            document.getElementById("newBank").value = "";
+            document.getElementById("newAccountNumber").value = "";
+            document.getElementById("accountName").value = "";
+
+            toggleAddAccountModal();
+
+            // Show success modal
+            showAddAccountSuccessModal();
+        }
+    }
+
+    // Function to show add account success modal
     function showAddAccountSuccessModal() {
-    const modal = document.getElementById("addAccountSuccessModal");
-    modal.classList.remove("hidden");
+        const modal = document.getElementById("addAccountSuccessModal");
+        modal.classList.remove("hidden");
     }
 
-    // <!-- Function closeAddAccountSuccessModal -->
+    // Function to close add account success modal
     function closeAddAccountSuccessModal() {
-    const modal = document.getElementById("addAccountSuccessModal");
-    modal.classList.add("hidden");
+        const modal = document.getElementById("addAccountSuccessModal");
+        modal.classList.add("hidden");
     }
 </script>
 @endpush

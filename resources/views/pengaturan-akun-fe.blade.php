@@ -16,7 +16,7 @@
         <div class="space-y-4 w-5/6 mt-8">
             <div class="bg-gray-100 p-5 mb-90 rounded-lg">AdminSamikados</div>
             <div class="bg-gray-100 p-5 mb-90 rounded-lg">adminsamikados@gmail.com</div>
-            <div class="bg-gray-100 p-5 mb-90 rounded-lg">**********</div>
+            <div class="bg-gray-100 p-5 mb-90 rounded-lg">Super Admin</div>
         </div>
         <button class="mt-10 w-full md:w-96 bg-red-600 text-white py-3 rounded-lg mb-4" onclick="openEditModal()">Edit Profil</button>
     </div>
