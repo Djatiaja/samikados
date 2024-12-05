@@ -69,14 +69,27 @@
         </td>
         <td class="p-4 text-center border-r border-gray-300">{{ $withdrawal->created_at->format('d-m-Y') }}</td>
         <td class="p-4 text-center border-r border-gray-300">{{$withdrawal->status}}</td>
-        <td class="p-4 text-center border-r border-gray-300">
-          <select class="w-40 bg-red-600 text-white p-2 rounded-lg" name="Status" onchange="change_status(
-                                                                this.options[this.selectedIndex].value,
-                                                                {{$withdrawal->id}})">
-            <option value="Menunggu" {{ $withdrawal->status == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
-            <option value="Disetujui" {{ $withdrawal->status == 'Disetujui' ? 'selected' : '' }}>Disetujui</option>
-            <option value="Ditolak" {{ $withdrawal->status == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
-          </select>
+        <td class="p-4 text-center border-r border-gray-300 flex justify-center items-center">
+          @if ($withdrawal->status === "Menunggu")
+            <select class="w-40 bg-yellow-600 text-center text-white p-2 rounded-lg" name="Status" onchange="change_status(
+                                                                  this.options[this.selectedIndex].value,
+                                                                  {{$withdrawal->id}})">
+              <option value="Menunggu" {{ $withdrawal->status == 'Menunggu' ? 'selected' : '' }} class="bg-yellow-600">Menunggu</option>
+              <option value="Disetujui" {{ $withdrawal->status == 'Disetujui' ? 'selected' : '' }} class="bg-green-600">Disetujui</option>
+              <option value="Ditolak" {{ $withdrawal->status == 'Ditolak' ? 'selected' : '' }} class="bg-red-600">Ditolak</option>
+            </select>
+            @else
+                @if ($withdrawal->status == 'Disetujui')
+                  <div class="w-40 bg-green-600 text-white p-2 rounded-lg text-center">{{$withdrawal->status}}</div>
+                @elseif ($withdrawal->status == 'Ditolak')
+                  <div class="w-40 bg-red-600 text-white p-2 rounded-lg text-center">{{$withdrawal->status}}</div>
+                @else
+                  <div class="w-40 bg-yellow-600 text-white p-2 rounded-lg text-center">{{$withdrawal->status}}</div>
+              @endif
+          @endif
+
+
+
         </td>
         <td class="p-4 text-center border-r border-gray-300">
           <button onclick="toggleWithdrawDetailModal()" class="text-blue-500">Lihat Detail</button>
@@ -120,7 +133,7 @@
 @endsection
 
 <!-- Modals -->
-<div id="withdrawDetailModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+<div id="withdrawDetailModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
   <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
     <h3 class="text-xl font-bold mb-4 text-center">Detail Penarikan</h3>
     <p><strong>Nama Seller:</strong> RuangJayaPrint</p>
@@ -136,7 +149,7 @@
   </div>
 </div>
 
-<div id="approveWithdrawModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+<div id="approveWithdrawModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
   <form class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3" id="approvedFormModal" method="POST">
     @csrf
     @method('PUT')
@@ -151,7 +164,7 @@
   </form>
 </div>
 
-<div id="waitingWithdrawModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+<div id="waitingWithdrawModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
   <form class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3" id="waitingFormModal" method="POST">
     @csrf
     @method('PUT')
@@ -166,7 +179,7 @@
   </form>
 </div>
 
-<div id="rejectWithdrawModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+<div id="rejectWithdrawModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
   <form class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3" id="rejectedFormModal" method="POST">
     @csrf
     @method('PUT')
@@ -187,7 +200,7 @@
 <!-- Modal Sukses Approve -->
 @if (session('success') == 'Disetujui')
 <div id="successApproveModal"
-  class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden z-20">
+  class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50 z-20">
   <div class="bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/3">
     <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 text-center">Penarikan Disetujui</h3>
     <p class="text-sm sm:text-base text-center mb-4 sm:mb-6">Penarikan telah berhasil disetujui.</p>
@@ -201,7 +214,7 @@
 
 @if (session('success') == 'Menunggu')
 <div id="successApproveModal"
-  class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden z-20">
+  class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50 z-20">
   <div class="bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/3">
     <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 text-center">Penarikan Menunggu</h3>
     <p class="text-sm sm:text-base text-center mb-4 sm:mb-6">Penarikan telah berhasil diubah menjadi menunggu.</p>
@@ -217,7 +230,7 @@
 <!-- Modal Sukses Reject -->
 @if (session('success') == 'Ditolak')
 <div id="successRejectModal"
-  class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden z-20">
+  class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50 z-20">
   <div class="bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/3">
     <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 text-center">Penarikan Ditolak</h3>
     <p class="text-sm sm:text-base text-center mb-4 sm:mb-6">Penarikan telah berhasil ditolak.</p>

@@ -129,9 +129,9 @@
 
         <!-- Ikon Profil -->
         <a href="{{ route('pengaturan-akun') }}">
-          <img src="{{ asset('assets/profile.png') }}" alt="User Icon" class="w-6 h-6">
+          <img src="{{ asset(Auth::user()->photo) }}" alt="User Icon" class="w-10 h-10 rounded-full">
         </a>
-        <span class="font-semibold">AdminSamikados</span>
+        <span class="font-semibold">{{Auth::user()->name}}</span>
       </div>
     </div>
   </header>
@@ -153,8 +153,8 @@
         <li class="{{ Route::is('manajemen-produk') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
           <a href="{{ route('manajemen-produk') }}" class="block">Manajemen Produk</a>
         </li>
-        <li class="{{ Route::is('manajemen-banner-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-banner-fe') }}" class="block">Manajemen Banner</a>
+        <li class="{{ Route::is('manajemen-banner') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('manajemen-banner') }}" class="block">Manajemen Banner</a>
         </li>
         <li class="{{ Route::is('manajemen-withdrawal') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
           <a href="{{ route('manajemen-withdrawal') }}" class="block">Approval Withdraw</a>

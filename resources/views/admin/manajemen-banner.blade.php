@@ -12,7 +12,7 @@
 @section('content')
 <div class="flex justify-between items-center mb-6">
     <h2 class="text-sm sm:text-md lg:text-2xl font-bold mb-4 md:mb-0">Manajemen Banner</h2>
-    <button onclick="toggleAddBannerModal()" class="border border-black px-4 py-2 rounded-lg flex items-center space-x-2 text-sm sm:text-base">
+    <button onclick="openAddBanner()" class="border border-black px-4 py-2 rounded-lg flex items-center space-x-2 text-sm sm:text-base">
         <img src="{{ asset('assets/add (1).png') }}" alt="Add Icon" class="w-3 h-3">
         <span class="text-sm sm:text-md">Banner</span>
     </button>
@@ -21,12 +21,12 @@
 <div class="mb-4">
     <label for="entriesPerPage" class="mr-2">Entries per page:</label>
     <select id="entriesPerPage" class="p-2 border border-gray-300 rounded-md" onchange="changeEntriesPerPage()">
-      <option value="10">10</option>
-      <option value="25" selected>25</option>
-      <option value="50">50</option>
-      <option value="100">100</option>
+        <option value="10">10</option>
+        <option value="25" selected>25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
     </select>
-  </div>
+</div>
 
 <!-- Tabel Banner -->
 <div class="overflow-x-auto rounded-lg shadow-md">
@@ -41,18 +41,20 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($banners as $banner)
+
             <tr class="border-b border-gray-300">
-                <td class="p-4 text-center border-r border-gray-300">Banner PayDay Sale</td>
-                <td class="p-4 text-center border-r border-gray-300">Banner PayDay Sale promosi diskon 10% belanja diatas Rp500.000</td>
+                <td class="p-4 text-center border-r border-gray-300">{{$banner->name}}</td>
+                <td class="p-4 text-center border-r border-gray-300">{{$banner->description}}</td>
                 <td class="p-4 text-center border-r border-gray-300">
                     <div class="flex justify-center">
-                        <img src="https://placehold.co/48x48" alt="Gambar Banner" onclick="toggleImageModal()" class="cursor-pointer">
+                        <img src="{{asset($banner->picture)}}" alt="Gambar Banner" onclick="toggleImageModal()" class="cursor-pointer">
                     </div>
                 </td>
                 <td class="p-4 text-center border-r border-gray-300">
-                    <select class="status-dropdown w-40 text-white py-2 px-4 rounded-lg bg-green-500" data-current-status="aktif" onchange="confirmStatusChange(this)">
-                        <option value="aktif">Aktif</option>
-                        <option value="nonaktif">Nonaktif</option>
+                    <select class="status-dropdown w-40 text-white py-2 px-4 rounded-lg {{$banner->is_active?'bg-green-500':'bg-red-500'}}" onchange="confirmStatusChange(this)">
+                        <option value="aktif" {{ $banner->is_active ? 'selected' : '' }} class="bg-green-500 text-white">Aktif</option>
+                        <option value="nonaktif" {{ !$banner->is_active ? 'selected' : '' }} class="bg-red-500 text-white">Nonaktif</option>
                     </select>
                 </td>
                 <td class="p-4 text-center flex justify-center items-center h-full space-x-2">
@@ -68,6 +70,8 @@
                     </button>
                 </td>
             </tr>
+            @endforeach
+
             <!-- Tambahkan lebih banyak baris sesuai kebutuhan -->
         </tbody>
     </table>
@@ -92,26 +96,26 @@
 </div>
 @endsection
 
-@section('modals')
-<!-- Add Banner Modal -->
-<div id="addBannerModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden z-20">
+@section('modal')
+<div id="addModalBanner" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-20 ">
     <div class="bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/3">
         <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 text-center">Tambah Banner Baru</h3>
-        <form class="space-y-4">
+        <form class="space-y-4" action="{{route("manajemen-banner.store")}}" method="post" id="addForm" enctype="multipart/form-data">
+            @csrf
             <label class="block">
                 <span class="text-gray-700 font-semibold">Nama Banner</span>
-                <input type="text" placeholder="Masukkan Nama Banner" class="w-full mt-1 p-2 sm:p-3 md:p-4 border border-gray-300 rounded-lg">
+                <input type="text" placeholder="Masukkan Nama Banner" class="w-full mt-1 p-2 sm:p-3 md:p-4 border border-gray-300 rounded-lg" name="name">
             </label>
             <label class="block">
                 <span class="text-gray-700 font-semibold">Deskripsi Banner</span>
-                <textarea class="w-full p-2 sm:p-3 md:p-4 border border-gray-300 rounded-lg" rows="3" placeholder="Masukkan deskripsi banner"></textarea>
+                <textarea class="w-full p-2 sm:p-3 md:p-4 border border-gray-300 rounded-lg" rows="3" placeholder="Masukkan deskripsi banner" name="description"></textarea>
             </label>
             <label class="block">
                 <span class="text-gray-700 font-semibold">Gambar Banner</span>
-                <input type="file" multiple class="w-full mt-1 p-2 sm:p-3 md:p-4 border border-gray-300 rounded-lg">
+                <input type="file" multiple class="w-full mt-1 p-2 sm:p-3 md:p-4 border border-gray-300 rounded-lg" name="picture" accept="image/*">
             </label>
             <div class="flex justify-evenly mt-4">
-                <button type="button" onclick="toggleAddBannerModal()" class="bg-gray-300 px-4 py-2 rounded-lg text-sm sm:text-base w-24 sm:w-32 lg:w-40">Batal</button>
+                <button type="button" onclick="closeAddBanner()" class="bg-gray-300 px-4 py-2 rounded-lg text-sm sm:text-base w-24 sm:w-32 lg:w-40">Batal</button>
                 <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm sm:text-base w-24 sm:w-32 lg:w-40">Tambah Banner</button>
             </div>
         </form>
@@ -123,11 +127,15 @@
 
 @push('scripts')
 <script>
-  // Tambahkan fungsi JavaScript yang diperlukan di sini
-  function toggleAddBannerModal() {
-    document.getElementById("addBannerModal").classList.toggle("hidden");
-  }
+    function openAddBanner() {
+        document.getElementById("addModalBanner").classList.remove("hidden");
+    }
 
-  // Tambahkan fungsi lainnya sesuai kebutuhan
+    function closeAddBanner() {
+        document.getElementById("addModalBanner").classList.add("hidden");
+        document.getElementById("addForm").reset();
+    }
+
+    // Tambahkan fungsi lainnya sesuai kebutuhan
 </script>
 @endpush

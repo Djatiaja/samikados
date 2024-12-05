@@ -66,8 +66,8 @@
           data: <?php echo json_encode(array_values($pendapatans)) ?>,
           borderColor: 'rgba(255, 99, 132, 1)',
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          fill: true,
-          tension: 0.4
+          borderWidth: 2,
+          fill: false,
         }]
       },
       options: {

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminReportController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -29,9 +30,8 @@ Route::get('/reset-password-fe', function () {
 //FE - Dashboard
 Route::view('/admin/dashboard-fe', 'dashboard-fe')->name('dashboard-fe');
 Route::view('/admin/manajemen-kategori-fe', 'manajemen-kategori-fe')->name('manajemen-kategori-fe');
-Route::view('/admin/manajemen-akun-fe', 'manajemen-akun-fe')->name('manajemen-akun-fe');
+Route::view('/admin/manajemen-akun', 'manajemen-akun')->name('manajemen-akun');
 Route::view('/admin/manajemen-produk-fe', 'manajemen-produk-fe')->name('manajemen-produk-fe');
-Route::view('/admin/manajemen-banner-fe', 'manajemen-banner-fe')->name('manajemen-banner-fe');
 Route::view('/admin/mapproval-withdraw-fe', 'approval-withdraw-fe')->name('approval-withdraw-fe');
 Route::view('/admin/laporan-fe', 'laporan-fe')->name('laporan-fe');
 Route::view('/admin/notifikasi-fe', 'notifikasi-fe')->name('notifikasi-fe');
@@ -117,6 +117,10 @@ Route::middleware(['auth', 'role:admin', 'verifyUser'])->prefix('/admin')->group
         Route::get("/search", "search")->name("manajemen-produk.search");
     });
 
+    Route::controller(BannerController::class)->prefix("/manajemen-banner")->group(function () {
+        Route::get("/", "index")->name("manajemen-banner");
+        Route::post("/store", "store")->name("manajemen-banner.store");
+    }); 
 });
 
 // ===================================          Seller          =================================
