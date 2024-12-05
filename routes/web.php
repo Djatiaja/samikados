@@ -75,7 +75,7 @@ Route::view('/seller/view-kategori-seller-fe', 'seller/view-kategori-seller-fe')
 
 //                                                  ADMIN
 //jangan lupa tambahkan middleware ['auth', 'role:admin', 'verify'] ketika selesai
-Route::middleware([])->prefix('/admin')->group(function(){
+Route::middleware(['auth', 'role:admin', 'verifyUser'])->prefix('/admin')->group(function(){
 
     Route::controller(AdminController::class)->prefix("")->group(function () {
         Route::get("/", "index")->name("dashboard");
