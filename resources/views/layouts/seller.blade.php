@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', 'Admin Dashboard - Samikados')</title>
+  <title>@yield('title', 'Seller Dashboard - Samikados')</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   @stack('styles')
 
@@ -101,21 +101,25 @@
 </head>
 
 <body class="bg-gray-100 flex flex-col min-h-screen">
-  <!-- overlay sidebar -->
+  <!-- Overlay untuk sidebar -->
   <div id="overlay"></div>
+
   <!-- Header -->
   @section('header')
   <header id="mainHeader" class="bg-gradient-to-r from-red-600 to-black p-4 text-white fixed top-0 left-0 right-0 z-10">
     <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-      <h1 class="text-3xl font-bold">SAMIKADOS <a href="{{route('produk-fe')}}"><span class="text-lg">ADMIN</span></a></h1>
+      <!-- Logo -->
+      <h1 class="text-3xl font-bold">
+        SAMIKADOS <a href="{{route('view-seller-fe')}}"><span class="text-lg">SELLER</span></a>
+      </h1>
 
-      <!-- Search Bar, hanya tampil jika ada section 'search' -->
       @hasSection('search')
         <div class="relative w-full md:w-1/2 lg:w-1/3 mt-4 md:mt-0">
           @yield('search')
         </div>
       @endif
 
+      <!-- Tombol Toggle, Notifikasi, dan Profil -->
       <div class="flex items-center space-x-4 mt-4 md:mt-0">
         <!-- Tombol toggle sidebar untuk mobile -->
         <button id="toggleSidebar" class="lg:hidden p-2 rounded">
@@ -123,44 +127,49 @@
         </button>
 
         <!-- Ikon Notifikasi -->
-        <a href="{{ route('admin-notifikasi') }}">
+        <a href="{{ route('notifikasi-seller-fe') }}">
           <img src="{{ asset('assets/notification.png') }}" alt="Notification Icon" class="w-6 h-6">
         </a>
 
         <!-- Ikon Profil -->
-        <a href="{{ route('pengaturan-akun') }}">
+        <a href="{{ route('pengaturan-akun-seller-fe') }}">
           <img src="{{ asset('assets/profile.png') }}" alt="User Icon" class="w-6 h-6">
         </a>
-        <span class="font-semibold">AdminSamikados</span>
+
+        <!-- Nama Pengguna -->
+        <span class="font-semibold">RuangJayaPrint</span>
       </div>
     </div>
   </header>
   @show
 
   <!-- Sidebar -->
-  <aside  id="sidebar" class="bg-white shadow-md h-screen w-64 fixed pt-16 p-6 z-9">
+  <aside id="sidebar" class="bg-white shadow-md h-screen w-64 fixed pt-16 p-6 z-9">
     <nav>
       <ul class="space-y-2 mt-10">
-        <li class="{{ Route::is('dashboard') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('dashboard') }}" class="block">Dashboard</a>
+        <li class="{{ Route::is('dashboard-seller-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('dashboard-seller-fe') }}" class="block">Dashboard</a>
         </li>
-        <li class="{{ Route::is('manajemen-kategori') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-kategori') }}" class="block">Manajemen Kategori</a>
+        <li class="{{ Route::is('pesanan-seller-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('pesanan-seller-fe') }}" class="block">Pesanan</a>
         </li>
-        <li class="{{ Route::is('manajemen-akun') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-akun') }}" class="block">Manajemen Akun</a>
+        <li class="{{ Route::is('pengiriman-seller-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('pengiriman-seller-fe') }}" class="block">Pengiriman</a>
         </li>
-        <li class="{{ Route::is('manajemen-produk') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-produk') }}" class="block">Manajemen Produk</a>
+        <li class="{{ Route::is('manajemen-produk-seller-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('manajemen-produk-seller-fe') }}" class="block">Manajemen Produk</a>
         </li>
-        <li class="{{ Route::is('manajemen-banner-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-banner-fe') }}" class="block">Manajemen Banner</a>
+        <li class="{{ Route::is('etalase-seller-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('etalase-seller-fe') }}" class="block">Etalase</a>
         </li>
-        <li class="{{ Route::is('manajemen-withdrawal') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('manajemen-withdrawal') }}" class="block">Approval Withdraw</a>
+        <li class="{{ Route::is('history-seller-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('history-seller-fe') }}" class="block">History</a>
         </li>
-        <li class="{{ Route::is('admin-laporan') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
-          <a href="{{ route('admin-laporan') }}" class="block">Laporan</a>
+        <li class="{{ Route::is('laporan-seller-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('laporan-seller-fe') }}" class="block">Laporan</a>
+        </li>
+        <li class="{{ Route::is('ajukan-penarikan-seller-fe') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+          <a href="{{ route('ajukan-penarikan-seller-fe') }}" class="block">Ajukan Penarikan</a>
         </li>
       </ul>
     </nav>
@@ -171,11 +180,12 @@
     @yield('content')
   </div>
 
+  <!-- Placeholder untuk Modal -->
   @yield('modal')
 
   <!-- Footer -->
   @section('footer')
-  <footer class="bg-gradient-to-r from-red-600 z-10 to-black p-4 text-white text-center w-full mt-auto">
+  <footer class="bg-gradient-to-r from-red-600 to-black p-4 text-white text-center w-full mt-auto z-10">
     <p>&copy; 2024 Samikados. All Rights Reserved.</p>
   </footer>
   @show

@@ -2,16 +2,10 @@
 
 @section('title', 'Manajemen Produk - Admin Dashboard')
 
-<!-- Jika halaman ini memerlukan search bar, gunakan section 'search' -->
 @section('search')
-<form action="{{route('manajemen-produk')}}" method="GET" class="relative">
-  @foreach (request()->except('search') as $key => $value)
-  <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-  @endforeach
-  <input type="text" name="search" placeholder="Cari Produk..." value="{{ Request::get('search') }}"
-    class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
-  <img src="{{ asset('assets/search.png') }}" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
-    alt="Search Icon">
+<form action="#" method="GET" class="relative">
+  <input type="text" name="search" placeholder="Cari Produk..." class="w-full pl-12 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
+  <img src="{{ asset('assets/search.png') }}" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" alt="Search Icon">
 </form>
 @endsection
 
@@ -23,13 +17,11 @@
 <!-- Dropdown Kategori -->
 <div class="mb-6">
   <label for="categoryFilter" class="block mb-2 text-sm font-medium text-gray-700">Pilih Kategori Produk:</label>
-  <select id="categoryFilter"
-    class="block w-full md:w-1/4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
-    onchange="filterByCategory()">
-    <option value="all" {{ Request::get('category') == '' ? 'selected' : '' }}>Semua Kategori</option>
-    @foreach ($categories as $category)
-    <option value="{{ $category->name }}" {{ Request::get('category') == $category->name ? 'selected' : '' }}>{{ $category->name }}</option>
-    @endforeach
+  <select id="categoryFilter" class="block w-full md:w-1/4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" onchange="filterByCategory()">
+    <option value="all">Semua Kategori</option>
+    <option value="merchandise">Merchandise</option>
+    <option value="kanvas">Kanvas</option>
+    <option value="tshirt">T-Shirt</option>
   </select>
 </div>
 <!-- Entries per page -->
@@ -44,27 +36,24 @@
   </div>
 
 <!-- Tabel Produk -->
-<div id="productsTable" class="overflow-x-auto rounded-lg shadow-md">
-  <table class="min-w-full table-auto border-collapse border border-gray-300">
+<div id="accountsTable" class="overflow-x-auto rounded-lg shadow-md">
+<table class="min-w-full table-auto border-collapse border border-gray-300">
     <thead class="bg-red-600 text-white">
-      <tr>
+        <tr>
             <th class="p-4 text-center border-r border-gray-300 min-w-[150px] md:min-w-0">Nama Produk</th>
             <th class="p-4 text-center border-r border-gray-300 min-w-[200px] md:min-w-0">Harga</th>
             <th class="p-4 text-center border-r border-gray-300 min-w-[100px] md:min-w-0">Seller</th>
             <th class="p-4 text-center border-r border-gray-300 min-w-[100px] md:min-w-0">Status</th>
             <th class="p-4 text-center border-gray-300 min-w-[100px] md:min-w-0">Aksi</th>
-      </tr>
+        </tr>
     </thead>
-    <tbody id="productsBody">
-      <!-- Data produk akan ditampilkan di sini berdasarkan filter kategori -->
-      @foreach ($products as $product)
-      <tr class="border-b border-gray-300">
-        <td class="p-4 text-center align-middle border-r border-gray-300">{{$product->name}}</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">Rp. {{ number_format($product->price, 0, ',',
-          '.') }}</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">{{$product->seller->name}}</td>
-        <td class="p-4 text-center align-middle border-r border-gray-300">{{$product->is_publish?"publish":"Not Publish"}}</td>
-        <td class="p-4 text-center align-middle flex justify-center">
+    <tbody>
+        <tr class="border-b border-gray-300">
+            <td class="p-4 text-center align-middle border-r border-gray-300">Nama Produk</td>
+            <td class="p-4 text-center align-middle border-r border-gray-300">Rp0</td>
+            <td class="p-4 text-center align-middle border-r border-gray-300">Nama Seller</td>
+            <td class="p-4 text-center align-middle border-r border-gray-300">Published</td>
+            <td class="p-4 text-center align-middle flex justify-center">
                 <label for="toggleFour" class="flex items-center cursor-pointer select-none text-dark dark:text-white">
                     <div class="relative">
                         <input type="checkbox" id="toggleFour" class="peer sr-only" onchange="togglePublish(this)" />
@@ -72,13 +61,10 @@
                         <div class="absolute flex items-center justify-center w-6 h-6 transition bg-white rounded-full left-1 top-1 dark:bg-red-600 peer-checked:translate-x-full peer-checked:bg-white"></div>
                     </div>
                 </label>
-        </td>
-      </tr>
-      @endforeach
-
-
+            </td>
+       <!-- Tambahkan lebih banyak baris sesuai kebutuhan -->
     </tbody>
-  </table>
+</table>
 </div>
 <!-- Pagination -->
 <div class="overflow-x-auto mt-4">
@@ -101,18 +87,15 @@
 
 @section('modal')
 <!-- Modal Konfirmasi Publish -->
-<div id="UnpublishConfirmModal"
-  class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <form class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3" method="POST" id="unpublishForm">
-    @csrf
-    @method("PUT")
-    <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Unpublish</h3>
-    <p class="text-center">Apakah Anda yakin ingin Unpublish produk ini?</p>
-    <div class="flex justify-evenly mt-6">
-      <button onclick="UnpublishProduct()" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Unpublish</button>
-      <button onclick="closeUnpublishConfirmModal()" class="bg-gray-300 py-2 px-4 rounded-lg w-1/3">Batal</button>
+<div id="publishConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+        <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Publish</h3>
+        <p class="text-center">Apakah Anda yakin ingin mempublish produk ini?</p>
+        <div class="flex justify-evenly mt-6">
+            <button onclick="confirmPublish()" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Ya</button>
+            <button onclick="closePublishConfirmModal()" class="bg-gray-300 py-2 px-4 rounded-lg w-1/3">Batal</button>
+        </div>
     </div>
-  </form>
 </div>
 
 <!-- Modal Konfirmasi Unpublish -->
@@ -126,64 +109,56 @@
         </div>
     </div>
 </div>
-<!-- Modal Sukses Hapus -->
-<div id="successUnpublishModal"
-  class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-    <h3 class="text-2xl mb-4 font-semibold text-center">Produk Berhasil Unpublish</h3>
-    <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
-    <div class="flex justify-center mt-10">
-      <button onclick="closeSuccessUnpublishModal()" type="button"
-        class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3">Tutup</button>
-    </div>
-  </div>
-</div>
 @endsection
 
 @push('scripts')
 <script>
-  // Filter Produk Berdasarkan Kategori
   function filterByCategory() {
     var selectedCategory = document.getElementById('categoryFilter').value;
-    // Mengubah URL dengan parameter filter dan mengirimkan permintaan ke backend
-    var searchQuery = "{{ Request::get('search') }}";
-    var href = '?category=' + selectedCategory;
-    if (selectedCategory == 'all') {
-      href = '?';
-    }
-    if (searchQuery) {
-      href += '&search=' + searchQuery;
-    }
-    window.location.href = href;
+    window.location.href = '?category=' + selectedCategory;
   }
 
-  // Modal Konfirmasi Hapus
-  function openUnpublishConfirmModal(id) {
-    document.getElementById('UnpublishConfirmModal').classList.remove('hidden');
-    document.getElementById('unpublishForm').action = "{{route('manajemen-produk.unpublish','')}}/" + id;
+  let currentCheckbox; 
+  let currentRow; 
 
+  function togglePublish(checkbox) {
+    currentCheckbox = checkbox; 
+    currentRow = checkbox.closest('tr'); 
+    const statusCell = currentRow.querySelector('td:nth-child(4)'); 
+
+    if (checkbox.checked) {
+      openPublishConfirmModal();
+    } else {
+      openUnpublishConfirmModal();
+    }
+  }
+
+  function openPublishConfirmModal() {
+    document.getElementById('publishConfirmModal').classList.remove('hidden');
+  }
+
+  function closePublishConfirmModal() {
+    document.getElementById('publishConfirmModal').classList.add('hidden');
+  }
+
+  function confirmPublish() {
+    const statusCell = currentRow.querySelector('td:nth-child(4)');
+    statusCell.textContent = 'Published'; // Update status
+    closePublishConfirmModal();
+  }
+
+  function openUnpublishConfirmModal() {
+    document.getElementById('unpublishConfirmModal').classList.remove('hidden');
   }
 
   function closeUnpublishConfirmModal() {
-    document.getElementById('UnpublishConfirmModal').classList.add('hidden');
+    document.getElementById('unpublishConfirmModal').classList.add('hidden');
   }
 
-  // Modal Sukses Hapus
-  function openSuccessUnpublishModal() {
-    document.getElementById('successUnpublishModal').classList.remove('hidden');
-  }
-
-  function closeSuccessUnpublishModal() {
-    document.getElementById('successUnpublishModal').classList.add('hidden');
-  }
-
-  // Fungsi Hapus Produk
-  function UnpublishProduct() {
+  function confirmUnpublish() {
+    const statusCell = currentRow.querySelector('td:nth-child(4)');
+    statusCell.textContent = 'Unpublished'; // Update status
     closeUnpublishConfirmModal();
-    // Simulasi penghapusan produk dengan delay sebelum modal sukses muncul
-    setTimeout(() => {
-      openSuccessUnpublishModal();
-    }, 500);
   }
 </script>
 @endpush
