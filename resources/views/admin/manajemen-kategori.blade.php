@@ -50,7 +50,7 @@
                 <a href="{{ route('kategori-fe') }}" class="text-sm sm:text-base lg:text-lg">{{$category->name}}</a>
             </td>
             <td class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg">{{$category->description}}</td>
-            <td class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg" id="productCount">20</td>
+            <td class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg" id="productCount">{{$category->product_count}}</td>
             <td class="p-4 text-center border-r border-gray-300">
                 <img src="{{ asset($category->icon) }}" alt="Icon" class="mx-auto w-8 h-8 sm:w-9 sm:h-9 object-cover">
             </td>
