@@ -65,13 +65,17 @@
         <td class="p-4 text-center align-middle border-r border-gray-300">{{$product->seller->name}}</td>
         <td class="p-4 text-center align-middle border-r border-gray-300">{{$product->is_publish?"publish":"Not Publish"}}</td>
         <td class="p-4 text-center align-middle flex justify-center">
-                <label for="toggleFour" class="flex items-center cursor-pointer select-none text-dark dark:text-white">
+          <form action="{{route('manajemen-produk.unpublish',$product->id)}}/" method="post" id="toggleStatusForm{{$product->id}}">
+                @csrf
+                @method("PUT")
+                <label for="toggleFour{{$product->id}}" class="flex items-center cursor-pointer select-none text-dark dark:text-white">
                     <div class="relative">
-                        <input type="checkbox" id="toggleFour" class="peer sr-only" onchange="togglePublish(this)" />
+                        <input type="checkbox" id="toggleFour{{$product->id}}" class="peer sr-only" onchange="togglePublish(this, {{$product->id}})" {{ $product->is_publish ?'checked' : '' }}/>
                         <div class="block h-8 rounded-full bg-gray-300 w-14 peer-checked:bg-red-600"></div>
                         <div class="absolute flex items-center justify-center w-6 h-6 transition bg-white rounded-full left-1 top-1 dark:bg-red-600 peer-checked:translate-x-full peer-checked:bg-white"></div>
                     </div>
                 </label>
+          </form>
         </td>
       </tr>
       @endforeach
@@ -101,32 +105,30 @@
 
 @section('modal')
 <!-- Modal Konfirmasi Publish -->
-<div id="UnpublishConfirmModal"
-  class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <form class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3" method="POST" id="unpublishForm">
-    @csrf
-    @method("PUT")
-    <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Unpublish</h3>
-    <p class="text-center">Apakah Anda yakin ingin Unpublish produk ini?</p>
+<div id="publishConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+    <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Publish</h3>
+    <p class="text-center">Apakah Anda yakin ingin mempublish produk ini?</p>
     <div class="flex justify-evenly mt-6">
-      <button onclick="UnpublishProduct()" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Unpublish</button>
-      <button onclick="closeUnpublishConfirmModal()" class="bg-gray-300 py-2 px-4 rounded-lg w-1/3">Batal</button>
+      <button  class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3" id="publishConfirmModalConfirmButton">Ya</button>
+      <button  class="bg-gray-300 py-2 px-4 rounded-lg w-1/3" id="publishConfirmModalCancelButton">Batal</button>
     </div>
-  </form>
+  </div>
 </div>
 
 <!-- Modal Konfirmasi Unpublish -->
 <div id="unpublishConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-        <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Unpublish</h3>
-        <p class="text-center">Apakah Anda yakin ingin mengunpublish produk ini?</p>
-        <div class="flex justify-evenly mt-6">
-            <button onclick="confirmUnpublish()" class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3">Ya</button>
-            <button onclick="closeUnpublishConfirmModal()" class="bg-gray-300 py-2 px-4 rounded-lg w-1/3">Batal</button>
-        </div>
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+    <h3 class="text-2xl mb-4 font-semibold text-center">Konfirmasi Unpublish</h3>
+    <p class="text-center">Apakah Anda yakin ingin mengunpublish produk ini?</p>
+    <div class="flex justify-evenly mt-6">
+      <button class="bg-red-600 text-white py-2 px-4 rounded-lg w-1/3" id="unpublishConfirmModalConfirmButton" type="button">Ya</button>
+      <button class="bg-gray-300 py-2 px-4 rounded-lg w-1/3" id="unpublishConfirmModalCancelButton" type="button">Batal</button>
     </div>
+  </div>
 </div>
-<!-- Modal Sukses Hapus -->
+
+<!-- Modal Sukses Unpublish -->
 <div id="successUnpublishModal"
   class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
   <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
@@ -134,6 +136,20 @@
     <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
     <div class="flex justify-center mt-10">
       <button onclick="closeSuccessUnpublishModal()" type="button"
+        class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3">Tutup</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Sukses Publish -->
+<div id="successPublishModal"
+  class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+    <h3 class="text-2xl mb-4 font-semibold text-center">Produk Berhasil publish</h3>
+    <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+    <div class="flex justify-center mt-10">
+      <button onclick="closeSuccessPublishModal()" type="button"
         class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3">Tutup</button>
     </div>
   </div>
@@ -157,16 +173,45 @@
     window.location.href = href;
   }
 
+  function togglePublish(checkbox, id) {
+      var currentCheckbox = checkbox;
+      var currentRow = checkbox.closest('tr');
+      if (checkbox.checked) {
+        openPublishConfirmModal();
+        document.getElementById("publishConfirmModalConfirmButton").onclick = function() { submitForm(id); };
+        document.getElementById("publishConfirmModalCancelButton").onclick = function() { closePublishConfirmModal(id); };
+            } else {
+        openUnpublishConfirmModal();
+        document.getElementById("unpublishConfirmModalConfirmButton").onclick = function() { submitForm(id); };
+        document.getElementById("unpublishConfirmModalCancelButton").onclick = function() { closeUnpublishConfirmModal(id); };
+      }
+    }
+
+  function openPublishConfirmModal() {
+      document.getElementById('publishConfirmModal').classList.remove('hidden');
+    }
+
+  function closePublishConfirmModal(id) {
+    document.getElementById('publishConfirmModal').classList.add('hidden');
+    console.log("toggleStatusForm" + id)
+
+    document.getElementById("toggleFour"+id).checked = !document.getElementById("toggleFour"+id).checked;
+  }
+  function submitForm(id){
+    document.getElementById("toggleStatusForm"+id).submit();
+  }
+
+
   // Modal Konfirmasi Hapus
-  function openUnpublishConfirmModal(id) {
-    document.getElementById('UnpublishConfirmModal').classList.remove('hidden');
-    document.getElementById('unpublishForm').action = "{{route('manajemen-produk.unpublish','')}}/" + id;
+  function openUnpublishConfirmModal() {
+    document.getElementById('unpublishConfirmModal').classList.remove('hidden');
 
   }
-
-  function closeUnpublishConfirmModal() {
-    document.getElementById('UnpublishConfirmModal').classList.add('hidden');
+  function closeUnpublishConfirmModal(id) {
+    document.getElementById('unpublishConfirmModal').classList.add('hidden');
+    document.getElementById("toggleFour" + id).checked = !document.getElementById("toggleFour" + id).checked;
   }
+
 
   // Modal Sukses Hapus
   function openSuccessUnpublishModal() {
@@ -176,14 +221,16 @@
   function closeSuccessUnpublishModal() {
     document.getElementById('successUnpublishModal').classList.add('hidden');
   }
+  
+  function closeSuccessPublishModal() {
+    document.getElementById('successUnpublishModal').classList.add('hidden');
+  }
 
   // Fungsi Hapus Produk
   function UnpublishProduct() {
-    closeUnpublishConfirmModal();
-    // Simulasi penghapusan produk dengan delay sebelum modal sukses muncul
-    setTimeout(() => {
-      openSuccessUnpublishModal();
-    }, 500);
+
   }
+
+
 </script>
 @endpush

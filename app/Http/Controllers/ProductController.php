@@ -43,7 +43,7 @@ class ProductController extends Controller
     function unpublish($id){
         $product = Product::find($id);
         $product->update([
-            "is_publish" => false
+            "is_publish" => ! $product->is_publish
         ]);
         $product->save();
         return redirect()->route("manajemen-produk");
