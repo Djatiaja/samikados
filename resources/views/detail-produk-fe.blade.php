@@ -39,46 +39,46 @@
             <div class="lg:w-1/2 lg:pl-12 mt-8 lg:mt-0">
                 <!-- Harga -->
                 <div class="border-b pb-4 mb-4">
-                    <h3 class="text-xl font-bold">Harga</h3>
-                    <p class="text-2xl font-bold text-center">Rp4.500</p>
+                    <h3 class="text-lg sm:text-xl lg:text-2xl font-bold">Harga</h3>
+                    <p class="text-xl sm:text-2xl lg:text-3xl font-bold text-center">Rp4.500</p>
                 </div>
 
                 <!-- Catatan -->
                 <div class="border-b pb-4 mb-4">
-                    <h3 class="text-xl font-bold">Catatan</h3>
-                    <textarea class="w-3/4 h-28 border p-2 rounded-lg mt-2" placeholder="Masukkan catatan untuk produk Anda"></textarea>
-                    <p class="text-gray-500 mt-1">Contoh: packing pakai selongsong</p>
+                    <h3 class="text-lg sm:text-xl lg:text-2xl font-bold">Catatan</h3>
+                    <textarea class="w-full sm:w-3/4 h-24 sm:h-28 border p-2 rounded-lg mt-2 text-sm sm:text-base lg:text-lg" placeholder="Masukkan catatan untuk produk Anda"></textarea>
+                    <p class="text-gray-500 mt-1 text-xs sm:text-sm lg:text-base">Contoh: packing pakai selongsong</p>
                 </div>
 
                 <!-- Ukuran -->
                 <div class="border-b pb-4 mb-4">
-                    <h3 class="text-xl font-bold">Ukuran</h3>
-                    <p class="text-gray-500 mb-2">Masukkan ukuran untuk produk Anda</p>
+                    <h3 class="text-lg sm:text-xl lg:text-2xl font-bold">Ukuran</h3>
+                    <p class="text-gray-500 mb-2 text-xs sm:text-sm lg:text-base">Masukkan ukuran untuk produk Anda</p>
                     <div class="flex items-center">
-                        <input type="text" class="border p-2 w-1/2 lg:w-2/12 mr-2 rounded-lg" placeholder="Panjang">
-                        <span class="mx-2">X</span>
-                        <input type="text" class="border p-2 w-1/2 lg:w-2/12 rounded-lg" placeholder="Lebar">
-                        <span class="ml-2">cm</span>
+                        <input type="text" class="border p-2 w-1/2 sm:w-1/3 lg:w-2/12 mr-2 rounded-lg text-sm sm:text-base lg:text-lg" placeholder="Panjang">
+                        <span class="mx-2 text-sm sm:text-base lg:text-lg">X</span>
+                        <input type="text" class="border p-2 w-1/2 sm:w-1/3 lg:w-2/12 rounded-lg text-sm sm:text-base lg:text-lg" placeholder="Lebar">
+                        <span class="ml-2 text-sm sm:text-base lg:text-lg">cm</span>
                     </div>
                 </div>
 
                 <!-- Finishing -->
                 <div class="border-b pb-4 mb-4">
-                    <h3 class="text-xl font-bold mb-2">Finishing</h3>
-                    <select class="w-full lg:w-3/4 border p-2 mb-2 rounded-lg">
-                        <option>Tidak Ada yang Dipilih</option>
-                        <option>Tanpa Finishing</option>
-                        <option>Finishing + Paperbag</option>
+                    <h3 class="text-lg sm:text-xl lg:text-2xl font-bold mb-2">Finishing</h3>
+                    <select id="finishingSelect" class="w-full sm:w-3/4 border p-2 mb-2 rounded-lg text-sm sm:text-base lg:text-lg" onchange="updatePrice()">
+                        <option value="">Tidak Ada yang Dipilih</option>
+                        <option value="0">Tanpa Finishing</option>
+                        <option value="10000">Finishing + Paperbag (+ Rp10.000)</option>
                     </select>
+                    <p id="additionalPrice" class="text-sm sm:text-base lg:text-lg mt-2">Harga Tambahan: Rp0</p>
                 </div>
-
                 <!-- Jumlah -->
                 <div class="border-b pb-4 mb-4">
-                    <h3 class="text-xl font-bold">Jumlah</h3>
+                    <h3 class="text-lg sm:text-xl lg:text-2xl font-bold">Jumlah</h3>
                     <div class="flex items-center mt-2">
-                        <button class="bg-white px-4 py-2 rounded-lg" id="decrease">-</button>
-                        <span id="quantity" class="px-4">1</span>
-                        <button class="bg-white px-4 py-2 rounded-lg" id="increase">+</button>
+                        <button class="bg-white px-4 py-2 rounded-lg text-sm sm:text-base lg:text-lg" id="decrease">-</button>
+                        <span id="quantity" class="px-4 text-sm sm:text-base lg:text-lg">1</span>
+                        <button class="bg-white px-4 py-2 rounded-lg text-sm sm:text-base lg:text-lg" id="increase">+</button>
                     </div>
                 </div>
             </div>
@@ -189,5 +189,18 @@
             quantity++;
             quantitySpan.textContent = quantity;
         });
+
+        function updatePrice() {
+        const select = document.getElementById('finishingSelect');
+        const additionalPriceText = document.getElementById('additionalPrice');
+        const selectedValue = select.value;
+
+        // Update the additional price based on the selected option
+        if (selectedValue) {
+            additionalPriceText.textContent = `Harga Tambahan: Rp${selectedValue}`;
+        } else {
+            additionalPriceText.textContent = 'Harga Tambahan: Rp0';
+        }
+    }
     </script>
 @endsection

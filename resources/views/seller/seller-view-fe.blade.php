@@ -1,6 +1,6 @@
-@extends('layouts.view')
+@extends('layouts.view-seller')
 
-@section('title', 'Admin View Product - Samikados')
+@section('title', 'Seller View Product - Samikados')
 
 @section('searchbar')
 <div class="relative w-1/2 mx-auto">
@@ -10,8 +10,8 @@
 @endsection
 
 @section('content')
-    <!-- Full-width Banner with Swiper Carousel -->
-    <section class="relative my-8" style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); width: 100vw;">
+ <!-- Full-width Banner with Swiper Carousel -->
+ <section class="relative my-8" style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); width: 100vw;">
         <button id="prevBtn" class="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white text-black p-3 rounded-full mx-2">
             <i class="fas fa-chevron-left"></i>
         </button>
@@ -41,58 +41,57 @@
         </button>
     </section>
 
-    <!-- Categories -->
+<!-- Categories -->
 <main class="container mx-auto mt-8">
     <h2 class="text-md sm:text-lg md:text-xl font-bold">PILIH KATEGORI ANDA</h2>
     <section class="text-center mt-4 mb-6 border border-gray-300 shadow-lg p-6 rounded-lg">
-        <div class="grid grid-cols-3 md:grid-cols-5 gap-4 max-h-72 overflow-y-auto">
-            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
-                <img src="https://placehold.co/100x100" alt="Icon for Merchandise" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
-                <span class="text-xs sm:text-sm lg:text-md">MERCHANDISE</span>
-            </a>
-            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+        <div class="grid grid-cols-5 gap-4 max-h-72 overflow-y-auto">
+            <div class="flex flex-col items-center">
+                <a href="{{route('view-kategori-seller-fe')}}"><img src="https://placehold.co/100x100" alt="Icon for Merchandise" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
+                <span class="text-xs sm:text-base lg:text-md">MERCHANDISE</span></a>
+            </div>
+            <div class="flex flex-col items-center">
                 <img src="https://placehold.co/100x100" alt="Icon for T-Shirt" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
-                <span class="text-xs sm:text-sm lg:text-md">T-SHIRT</span>
-            </a>
-            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <span class="text-xs sm:text-base lg:text-md">T-SHIRT</span>
+            </div>
+            <div class="flex flex-col items-center">
                 <img src="https://placehold.co/100x100" alt="Icon for Kanvas" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
-                <span class="text-xs sm:text-sm lg:text-md">KANVAS</span>
-            </a>
-            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <span class="text-xs sm:text-base lg:text-md">KANVAS</span>
+            </div>
+            <div class="flex flex-col items-center">
                 <img src="https://placehold.co/100x100" alt="Icon for Indoor" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
-                <span class="text-xs sm:text-sm lg:text-md">INDOOR</span>
-            </a>
-            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <span class="text-xs sm:text-base lg:text-md">INDOOR</span>
+            </div>
+            <div class="flex flex-col items-center">
                 <img src="https://placehold.co/100x100" alt="Icon for Akrilik" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
-                <span class="text-xs sm:text-sm lg:text-md">AKRILIK</span>
-            </a>
-            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <span class="text-xs sm:text-base lg:text-md">AKRILIK</span>
+            </div>
+            <div class="flex flex-col items-center">
                 <img src="https://placehold.co/100x100" alt="Icon for UV Print" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
-                <span class="text-xs sm:text-sm lg:text-md">UV PRINT</span>
-            </a>
-            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <span class="text-xs sm:text-base lg:text-md">UV PRINT</span>
+            </div>
+            <div class="flex flex-col items-center">
                 <img src="https://placehold.co/100x100" alt="Icon for A3" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
-                <span class="text-xs sm:text-sm lg:text-md">A3</span>
-            </a>
-            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <span class="text-xs sm:text-base lg:text-md">A3</span>
+            </div>
+            <div class="flex flex-col items-center">
                 <img src="https://placehold.co/100x100" alt="Icon for Display" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
-                <span class="text-xs sm:text-sm lg:text-md">DISPLAY</span>
-            </a>
-            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <span class="text-xs sm:text-base lg:text-md">DISPLAY</span>
+            </div>
+            <div class="flex flex-col items-center">
                 <img src="https://placehold.co/100x100" alt="Icon for Reklame" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
-                <span class="text-xs sm:text-sm lg:text-md">REKLAME</span>
-            </a>
-            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <span class="text-xs sm:text-base lg:text-md">REKLAME</span>
+            </div>
+            <div class="flex flex-col items-center">
                 <img src="https://placehold.co/100x100" alt="Icon for Stiker" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
-                <span class="text-xs sm:text-sm lg:text-md">STIKER</span>
-            </a>
+                <span class="text-xs sm:text-base lg:text-md">STIKER</span>
+            </div>
         </div>
     </section>
 </main>
 
-
-    <!-- Products -->
-    <section class="container grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto">
+<!-- Products -->
+<section class="container grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto">
         <div class="p-4 mx-auto">
             <a href="{{route('detail-produk-seller-fe')}}">
                 <img src="https://placehold.co/400x400" alt="Product image 1" class="w-full mb-2">
@@ -139,8 +138,8 @@
 @endsection
 
 @section('scripts')
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // Initialize Swiper
         var swiper = new Swiper('.centered-slide-carousel', {
@@ -157,8 +156,8 @@
             },
             breakpoints: {
                 1920: { slidesPerView: 4, spaceBetween: 30 },
-                1028: { slidesPerView: 2, spaceBetween: 10 },
-                990: { slidesPerView: 1, spaceBetween: 0 }
+                1028: { slidesPerView: 3, spaceBetween: 10 },
+                990: { slidesPerView: 2, spaceBetween: 0 }
             }
         });
     </script>
