@@ -18,8 +18,8 @@
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-md sm:text-lg lg:text-2xl font-bold">SAMIKADOS</h1>
             @yield('searchbar')
-            <a href="{{ route('dashboard') }}">
-                <span class="text-xs sm:text-sm lg:text-lg">ADMIN</span>
+            <a href="{{ route('dashboard-seller-fe') }}">
+                <span class="text-xs sm:text-sm lg:text-lg">SELLER</span>
             </a>
         </div>
     </header>
@@ -32,10 +32,13 @@
     <!-- Footer -->
     <footer class="bg-gradient-to-r from-red-600 to-black p-8 mt-auto shadow-lg text-white">
         <div class="container mx-auto flex flex-col lg:flex-row justify-between">
+            <!-- Company Info -->
             <section class="mb-8 lg:mb-0">
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold">SAMIKADOS</h2>
                 <p class="text-md sm:text-lg lg:text-xl">SOLUSI TEPAT, PRINT DI MANA SAJA</p>
             </section>
+
+            <!-- Contact Information -->
             <section class="mb-8 lg:mb-0">
                 <h3 class="text-md sm:text-lg lg:text-xl font-bold">HUBUNGI KAMI</h3>
                 <address class="text-sm sm:text-base lg:text-lg">
@@ -46,13 +49,17 @@
                     <a href="tel:+622154399642" class="text-white underline">(021) 54399642</a>
                 </address>
                 <h3 class="text-md sm:text-lg lg:text-xl font-bold mt-4">OPERASIONAL</h3>
-                <p>Senin - Jumat: 08.30 s/d 21.00 WIB</p>
-                <p>Sabtu: 08.30 s/d 15.00 WIB</p>
-                <p>Minggu / Tanggal Merah: Libur</p>
+                <p class="text-sm sm:text-base lg:text-lg">
+                    Senin - Jumat: 08.30 s/d 21.00 WIB<br>
+                    Sabtu: 08.30 s/d 15.00 WIB<br>
+                    Minggu / Tanggal Merah: Libur
+                </p>
             </section>
+
+            <!-- Payment Information -->
             <section>
                 <h3 class="text-md sm:text-lg lg:text-xl font-bold">PEMBAYARAN</h3>
-                <img src="{{ asset('/assets/MidtransLogo.png') }}" alt="Payment placeholder" class="w-24 h-15 mt-2">
+                <img src="{{ asset('/assets/MidtransLogo.png') }}" alt="Payment placeholder" class="w-24 h-15">
             </section>
         </div>
     </footer>

@@ -44,9 +44,12 @@ class WithdrawalController extends Controller
 
     function update(Request $request, $id){
         $data = $request->validate([
-            'status' => ['required','in:Menunggu,Ditolak,Disetujui']
+            'status' => ['required','in:Ditolak,Disetujui']
         ]);
         $withdrawal = Withdrawal::find($id);
+        if($withdrawal->status !== "Menunggu"){
+            return redirect()->route("manajemen-withdrawal")->with("failed", "status");
+        }
         $withdrawal->update($data);
         $withdrawal->save();
 

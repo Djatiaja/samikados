@@ -18,7 +18,7 @@
       <!-- Total Pendapatan -->
       <div class="bg-white p-6 rounded-lg shadow-md text-left border border-remid-600 flex justify-between items-center">
         <div>
-          <h3 class="text-lg font-semibold">Total Pendapatan Seller</h3>
+          <h3 class="text-lg font-semibold">Total Pendapatan Seller Seller</h3>
             <p class="text-xl font-bold">Rp {{ number_format($total_pendapatan, 0, ',', '.') }}</p>
         </div>
         <img src="{{ asset('assets/IncomeIcon.png') }}" alt="Income Icon" class="w-12 h-12">
@@ -39,7 +39,7 @@
           <h3 class="text-lg font-semibold">Total Approve Withdraw</h3>
             <p class="text-xl font-bold">Rp {{ number_format($total_approve, 0, ',', '.') }}</p>
         </div>
-        <img src="{{ asset('assets/LossIcon.png') }}" alt="Loss Icon" class="w-12 h-12">
+        <img src="{{ asset('assets/approved-withdraw.png') }}" alt="Loss Icon" class="w-12 h-12">
       </div>
     </div>
 
@@ -66,8 +66,8 @@
           data: <?php echo json_encode(array_values($pendapatans)) ?>,
           borderColor: 'rgba(255, 99, 132, 1)',
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          fill: true,
-          tension: 0.4
+          borderWidth: 2,
+          fill: false,
         }]
       },
       options: {
