@@ -71,29 +71,36 @@
         <td class="p-4 text-center border-r border-gray-300">{{$withdrawal->status}}</td>
         <td class="p-4 text-center border-r border-gray-300 flex justify-center items-center">
           @if ($withdrawal->status === "Menunggu")
-            <select class="w-40 bg-yellow-600 text-center text-white p-2 rounded-lg" name="Status" onchange="change_status(
+          <select class="w-40 bg-yellow-600 text-center text-white p-2 rounded-lg" name="Status" onchange="change_status(
                                                                   this.options[this.selectedIndex].value,
                                                                   {{$withdrawal->id}})">
-              <option value="Menunggu" {{ $withdrawal->status == 'Menunggu' ? 'selected' : '' }} class="bg-yellow-600">Menunggu</option>
-              <option value="Disetujui" {{ $withdrawal->status == 'Disetujui' ? 'selected' : '' }} class="bg-green-600">Disetujui</option>
-              <option value="Ditolak" {{ $withdrawal->status == 'Ditolak' ? 'selected' : '' }} class="bg-red-600">Ditolak</option>
-            </select>
+            <option value="Menunggu" {{ $withdrawal->status == 'Menunggu' ? 'selected' : '' }}
+              class="bg-yellow-600">Menunggu</option>
+            <option value="Disetujui" {{ $withdrawal->status == 'Disetujui' ? 'selected' : '' }}
+              class="bg-green-600">Disetujui</option>
+            <option value="Ditolak" {{ $withdrawal->status == 'Ditolak' ? 'selected' : '' }} class="bg-red-600">Ditolak
+            </option>
+          </select>
+          @else
+          @if ($withdrawal->status == 'Disetujui')
+            <div class="w-40 bg-green-600 text-white p-2 rounded-lg text-center">{{$withdrawal->status}}</div>
+            @elseif ($withdrawal->status == 'Ditolak')
+            <div class="w-40 bg-red-600 text-white p-2 rounded-lg text-center">{{$withdrawal->status}}</div>
             @else
-                @if ($withdrawal->status == 'Disetujui')
-                  <div class="w-40 bg-green-600 text-white p-2 rounded-lg text-center">{{$withdrawal->status}}</div>
-                @elseif ($withdrawal->status == 'Ditolak')
-                  <div class="w-40 bg-red-600 text-white p-2 rounded-lg text-center">{{$withdrawal->status}}</div>
-                @else
-                  <div class="w-40 bg-yellow-600 text-white p-2 rounded-lg text-center">{{$withdrawal->status}}</div>
-              @endif
+            <div class="w-40 bg-yellow-600 text-white p-2 rounded-lg text-center">{{$withdrawal->status}}</div>
+            @endif
           @endif
 
 
 
         </td>
         <td class="p-4 text-center border-r border-gray-300">
-          <button onclick="toggleWithdrawDetailModal()" class="text-blue-500">Lihat Detail</button>
+          <button onclick="openDetail({{$withdrawal->id}})" class="text-blue-500" id="buttonDetail{{$withdrawal->id}}">Lihat
+            Detail</button>
         </td>
+
+        <td class="hidden">Hidden Data 1</td>
+        <td class="hidden">Hidden Data 2</td>
       </tr>
       @endforeach
     </tbody>
@@ -133,23 +140,42 @@
 @endsection
 
 <!-- Modals -->
-<div id="withdrawDetailModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
-    <h3 class="text-xl font-bold mb-4 text-center">Detail Penarikan</h3>
-    <p><strong>Nama Seller:</strong> RuangJayaPrint</p>
-    <p><strong>Jumlah Penarikan:</strong> Rp1.500.000</p>
-    <p><strong>Bank:</strong> BNI</p>
-    <p><strong>No Rekening:</strong> 234567890</p>
-    <p><strong>Tanggal Pengajuan:</strong> 15/09/2024</p>
-    <p><strong>Status:</strong> Menunggu</p>
-    <div class="flex justify-evenly mt-4">
-      <button onclick="toggleWithdrawDetailModal()"
-        class="border border-gray-300 px-4 py-2 rounded-lg w-1/3">Tutup</button>
+<div id="withdrawDetailModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden z-20">
+  <div class="bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/3">
+    <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 text-center">Detail Penarikan</h3>
+    <div class="grid grid-cols-[150px_50px_auto] gap-y-2 sm:gap-y-4 md:gap-y-6 px-4 sm:px-6 md:px-8">
+      <div class="font-semibold text-sm sm:text-base text-left">Nama Seller</div>
+      <div class="text-center">:</div>
+      <div class="text-sm sm:text-base" id="detailNamaSeller">RuangJayaPrint</div>
+
+      <div class="font-semibold text-sm sm:text-base text-left">Jumlah Penarikan</div>
+      <div class="text-center">:</div>
+      <div class="text-sm sm:text-base" id="detailJumlahPenarikan">Rp1.500.000</div>
+
+      <div class="font-semibold text-sm sm:text-base text-left">Bank</div>
+      <div class="text-center">:</div>
+      <div class="text-sm sm:text-base" id="detailBank">BCA</div>
+
+      <div class="font-semibold text-sm sm:text-base text-left">No Rekening</div>
+      <div class="text-center">:</div>
+      <div class="text-sm sm:text-base" id="detailNoRekening">1234567890</div>
+
+      <div class="font-semibold text-sm sm:text-base text-left">Tanggal Pengajuan</div>
+      <div class="text-center">:</div>
+      <div class="text-sm sm:text-base" id="detailTanggalPengajuan">15/09/2024</div>
+
+      <div class="font-semibold text-sm sm:text-base text-left">Status</div>
+      <div class="text-center">:</div>
+      <div class="text-sm sm:text-base" id="detailStatus">Menunggu</div>
+    </div>
+    <div class="mt-6 sm:mt-8 text-center">
+      <button onclick="closeDetail()" class="w-full sm:w-40 bg-red-600 text-white px-4 py-2 rounded-lg text-sm sm:text-base">Tutup</button>
     </div>
   </div>
 </div>
 
-<div id="approveWithdrawModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+<div id="approveWithdrawModal"
+  class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
   <form class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3" id="approvedFormModal" method="POST">
     @csrf
     @method('PUT')
@@ -164,7 +190,8 @@
   </form>
 </div>
 
-<div id="waitingWithdrawModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+<div id="waitingWithdrawModal"
+  class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
   <form class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3" id="waitingFormModal" method="POST">
     @csrf
     @method('PUT')
@@ -179,7 +206,8 @@
   </form>
 </div>
 
-<div id="rejectWithdrawModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+<div id="rejectWithdrawModal"
+  class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
   <form class="bg-white p-6 rounded-lg shadow-lg text-center w-1/3" id="rejectedFormModal" method="POST">
     @csrf
     @method('PUT')
@@ -229,8 +257,7 @@
 
 <!-- Modal Sukses Reject -->
 @if (session('success') == 'Ditolak')
-<div id="successRejectModal"
-  class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50 z-20">
+<div id="successRejectModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50 z-20">
   <div class="bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/3">
     <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 text-center">Penarikan Ditolak</h3>
     <p class="text-sm sm:text-base text-center mb-4 sm:mb-6">Penarikan telah berhasil ditolak.</p>
@@ -260,8 +287,22 @@
   }
 
   // Toggle Modals
-  function toggleWithdrawDetailModal() {
-    document.getElementById("withdrawDetailModal").classList.toggle("hidden");
+  function openDetail(id) {
+    document.getElementById("withdrawDetailModal").classList.remove("hidden");
+    var detailButton = document.getElementById("buttonDetail" + id);
+    var row = detailButton.closest("tr");
+    var data = row.getElementsByTagName('td');
+    console.log("test");
+    document.getElementById("detailNamaSeller").innerText = data[0].innerText;
+    document.getElementById("detailJumlahPenarikan").innerText = data[1].innerText;
+    document.getElementById("detailTanggalPengajuan").innerText = data[2].innerText;
+    document.getElementById("detailStatus").innerText = data[3].querySelector('select, div').innerText;
+    document.getElementById("detailBank").innerText = data[4].innerText;
+    document.getElementById("detailNoRekening").innerText = data[5].innerText;
+  }
+
+  function closeDetail() {
+    document.getElementById("withdrawDetailModal").classList.add("hidden");
   }
 
   function toggleApproveWithdrawModal(id) {
