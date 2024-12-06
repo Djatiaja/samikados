@@ -14,7 +14,9 @@ class WalletSeeder extends Seeder
      */
     public function run(): void
     {
-        $payments= Payment::all();
+        $payments = Payment::with("payment_status")->whereHas("payment_status", function($payment_status) {
+            return $payment_status->where("name", "success");
+        })->get();
 
         foreach ($payments as $payment) {
             Wallet::factory()->create([

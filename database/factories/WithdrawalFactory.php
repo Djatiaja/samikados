@@ -18,12 +18,24 @@ class WithdrawalFactory extends Factory
      */
     public function definition(): array
     {
+        $seller = Seller::all()->random();
+        $seller = Seller::with("wallet")->find($seller->id);
+        $amount = $seller->wallet->where("is_deposit", false)->sum("amount");
+
+        $status = fake()->randomElement(["Menunggu", "Disetujui", "Ditolak"]);
+        if($status === "Disetujui"){
+            $seller->wallet->each(function ($wallet) {
+                $wallet->is_deposit = true;
+                $wallet->save();
+            });
+        }
+        
         return [
             "no_rekening"=>fake()->numerify('###############'),
-            "jumlah"=>fake()->numberBetween(100, 10000) * 1000,
-            "status"=>fake()->randomElement(["Menunggu", "Disetujui", "Ditolak"]),
+            "jumlah"=>$amount,
+            "status"=> $status,
             "bank_id"=>Bank::all()->random(),
-            "seller_id"=>Seller::all()->random(),
+            "seller_id"=>$seller->id,
             "created_at" => fake()->dateTimeThisMonth(),
         ];
     }

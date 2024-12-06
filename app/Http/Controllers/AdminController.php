@@ -62,16 +62,23 @@ class AdminController extends Controller
 
     function laporan()
     {
-        $transaksi = Payment::with('payment_status')->whereHas('payment_status', function ($query) {
+        $transaksis = Payment::with('payment_status')->whereHas('payment_status', function ($query) {
             $query->where('name', "success");
-        })->get();
+        })->with("order")->get();
         $withdrawal = Withdrawal::where('status', 'Disetujui')->get();
 
-        $total_pendapatan = $transaksi->sum('amount');
-        $total_keuntungan = $transaksi->sum('aplication_fee');
+        $total_pendapatan = $transaksis->sum(function($transaksi){
+            return $transaksi->order->order_detail->sum(function($detail){
+            return $detail->product->buy_price * $detail->quantity;
+            });
+        });
+
+        $total_keuntungan = $transaksis->sum(function($transaksi){
+            return $transaksi->order->aplication_fee;
+        });
         $total_approve = $withdrawal->sum('jumlah');
 
-        $pendapatan_perbulan = $transaksi
+        $pendapatan_perbulan = $transaksis
             ->whereBetween(
                 "created_at",
                 [now()->subYear()->startOfMonth()->addMonth(), now()->endOfMonth()]
@@ -97,7 +104,11 @@ class AdminController extends Controller
 
         $pendapatans = array_fill_keys(array_values($nama_bulan), 0);
         foreach ($pendapatan_perbulan as $bulan => $value) {
-            $pendapatans[$nama_bulan[strval($bulan)]] = $value->sum('amount');
+            $pendapatans[$nama_bulan[strval($bulan)]] =  $value->sum(function($transaksi){
+                                                                    return $transaksi->order->order_detail->sum(function($detail){
+                                                                    return $detail->product->buy_price * $detail->quantity;
+                                                                    });
+        });;
         }
 
         return view('admin.laporan', compact("total_pendapatan", "total_keuntungan", "total_approve", "pendapatans"));

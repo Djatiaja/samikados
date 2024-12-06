@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("delivery_code");
             $table->string("tracking_code");
             $table->integer("delivery_price");
+            $table->integer("aplication_fee");
             $table->integer("grand_total");
             $table->timestamps();
 
