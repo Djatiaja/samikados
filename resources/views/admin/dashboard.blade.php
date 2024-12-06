@@ -61,12 +61,12 @@
   <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
       <h3 class="text-base sm:text-lg lg:text-xl font-bold mb-4 sm:mb-0">Grafik Pesanan Bulanan</h3>
       <!-- Filter Tahun -->
-      <select id="yearFilter" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-red-600">
+      <!-- <select id="yearFilter" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-red-600">
           <option value="2024" selected>2024</option>
           <option value="2023">2023</option>
           <option value="2022">2022</option>
           <option value="2021">2021</option>
-      </select>
+      </select> -->
     </div>
     <canvas id="orderChart"></canvas>
   </div>
