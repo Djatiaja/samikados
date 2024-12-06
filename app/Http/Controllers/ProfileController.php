@@ -30,17 +30,14 @@ class ProfileController extends Controller
     function update(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'username' => ['nullable', 'string', 'max:255'],
-            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'username' => ['nullable', 'string', 'max:255', 'unique:users,username,' . Auth::user()->id],
+            'name' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users,email,'. Auth::user()->id ],
         ]);
+
         $user = User::find(Auth::user()->id);
 
-        $user->update(
-            [
-                'name' => $data['username'] ?? $user->name,
-                'email' => $data['email'] ?? $user->email
-            ]
-        );
+        $user->update($data);
 
         // if ($data['email']) {
         //     $user->update([
@@ -49,7 +46,7 @@ class ProfileController extends Controller
         // }
 
         $user->save();
-        return Redirect::route('pengaturan-akun')->with('status', 'profile-updated');
+        return Redirect::route('pengaturan-akun')->with('success', 'update_profile');
     }
 
     function changePassword(Request $request)
@@ -68,7 +65,7 @@ class ProfileController extends Controller
         $user->password = Hash::make($data['password']);
         $user->save();
 
-        return Redirect::route('pengaturan-akun')->with('status', 'password-updated');
+        return Redirect::route('pengaturan-akun')->with('success', 'update_password');
     }
 
     function changePhoto(Request $request)
@@ -101,7 +98,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return redirect()->route("pengaturan-akun")->with("success", "photo profile berhasil diganti");
+        return redirect()->route("pengaturan-akun")->with("success", "update_photo");
     }
 
     function tambahAdmin(Request $request) {
@@ -115,8 +112,8 @@ class ProfileController extends Controller
             $data["username"] = User::generateUsername(null);
         }
 
-        User::create(array_merge($data, ["role_id" => 1, ] ));
-        return  redirect()->route("pengaturan-akun")->with("success", "admin berhasil ditambahkan");
+        User::create(array_merge($data, ["role_id" => 1, "email_verified_at"=>now()] ));
+        return  redirect()->route("pengaturan-akun")->with("success", "add_admin");
     }
 
 }

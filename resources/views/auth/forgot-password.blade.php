@@ -24,7 +24,7 @@
             <label for="reset" class="sr-only">Email</label>
             <input id="reset"
                 class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-600"
-                placeholder="Email / No. Telp" type="text" name="email"/>
+                placeholder="Email" type="text" name="email"/>
         </div>
 
         <!-- Submit Button -->

@@ -32,6 +32,9 @@
     <!-- Action Buttons -->
     <section class="mt-32 space-y-4 flex flex-col items-center justify-center">
         <button class="w-2/5 bg-red-600 text-white py-3 rounded-xl" onclick="openAddAdminModal()">Tambah Akun</button>
+        <!-- <a href="/auth/google/connect" class="w-2/5 bg-red-600 text-white py-3 rounded-xl" >
+            <button class="w-full text-center">Koneksi Google</button>
+        </a> -->
         <button class="w-2/5 bg-red-600 text-white py-3 rounded-xl" onclick="openChangePasswordModal()">Ganti
             Password</button>
         <form action="/logout" method="POST" class="w-2/5 text-white py-3 ">
@@ -50,17 +53,23 @@
                 <div class="mb-4">
                     <label class="block mb-2 text-gray-700">Username</label>
                     <input type="text" id="editUsername" class="w-full p-2 border border-gray-300 rounded-lg"
-                        placeholder="Enter new username" name="username">
+                        placeholder="Enter new username" name="username" value="{{ $user->username }}">
                     <p id="editUsernameError" class="text-red-500 text-sm hidden">Username harus diisi.</p>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 text-gray-700">Name</label>
+                    <input type="text" id="editname" class="w-full p-2 border border-gray-300 rounded-lg"
+                        placeholder="Enter new name" name="name" value="{{ $user->name }}">
+                    <p id="editnameError" class="text-red-500 text-sm hidden">name harus diisi.</p>
                 </div>
                 <div class="mb-4">
                     <label class="block mb-2 text-gray-700">Email</label>
                     <input type="email" id="editEmail" class="w-full p-2 border border-gray-300 rounded-lg"
-                        placeholder="Enter new email" name="email">
+                        placeholder="Enter new email" name="email" value="{{ $user->email }}">
                     <p id="editEmailError" class="text-red-500 text-sm hidden">Email harus diisi.</p>
                 </div>
                 <div class="flex justify-evenly mt-10">
-                    <button type="submit" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg">Simpan</button>
+                    <button type="button" onclick="openConfirmModal()" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg">Simpan</button>
                     <button type="button" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg"
                         onclick="closeEditModal()">Batal</button>
                 </div>
@@ -81,18 +90,20 @@
             </div>
         </div>
     </div>
-
+    @if (Session::get('success') === "update_profile")
     <!-- Modal Data Berhasil Diubah -->
-    <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-            <h3 class="text-2xl mb-4 font-semibold text-center">Data Berhasil Diubah</h3>
-            <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
-            <div class="flex justify-center mt-10">
-                <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3"
-                    onclick="closeSuccessModal()">Tutup</button>
+        <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+                <h3 class="text-2xl mb-4 font-semibold text-center">Data Berhasil Diubah</h3>
+                <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+                <div class="flex justify-center mt-10">
+                    <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3"
+                        onclick="closeSuccessModal()">Tutup</button>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
+
 
     <div id="addAdminModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
@@ -130,7 +141,7 @@
                     <p id="addAdminPasswordError" class="text-red-500 text-sm hidden">Konfirmasi password harus diisi.</p>
                 </div>
                 <div class="flex justify-evenly mt-10">
-                    <button type="submit" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg">Tambah Admin</button>
+                    <button type="button" onclick="openConfirmAddModal()" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg">Tambah Admin</button>
                     <button type="button" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg"
                         onclick="closeAddAdminModal()">Batal</button>
                 </div>
@@ -153,18 +164,21 @@
         </div>
     </div>
 
-    <!-- Modal Sukses Tambah Admin -->
-    <div id="successAddAdminModal"
-        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-            <h3 class="text-2xl mb-4 font-semibold text-center">Admin Baru Berhasil Ditambahkan</h3>
-            <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
-            <div class="flex justify-center mt-10">
-                <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3"
-                    onclick="closeSuccessAddAdminModal()">Tutup</button>
+    @if (Session::get('success') === "add_admin")
+        <!-- Modal Sukses Tambah Admin -->
+        <div id="successAddAdminModal"
+            class=" fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+                <h3 class="text-2xl mb-4 font-semibold text-center">Admin Baru Berhasil Ditambahkan</h3>
+                <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+                <div class="flex justify-center mt-10">
+                    <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3"
+                        onclick="closeSuccessAddAdminModal()">Tutup</button>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
+
 
     <!-- Modal Ganti Password -->
     <div id="changePasswordModal"
@@ -193,7 +207,7 @@
                     </p>
                 </div>
                 <div class="flex justify-evenly mt-10">
-                    <button type="submit" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg"
+                    <button type="button" onclick="openConfirmChangePasswordModal()" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg"
                        >Ganti Password</button>
                     <button type="button" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg"
                         onclick="closeChangePasswordModal()">Batal</button>
@@ -217,18 +231,20 @@
         </div>
     </div>
 
-    <!-- Modal Sukses Ganti Password -->
-    <div id="successChangePasswordModal"
-        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-            <h3 class="text-2xl mb-4 font-semibold text-center">Password Berhasil Diubah</h3>
-            <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
-            <div class="flex justify-center mt-10">
-                <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3"
-                    onclick="closeSuccessChangePasswordModal()">Tutup</button>
+    @if (Session::get('success') === "update_password")
+        <!-- Modal Sukses Ganti Password -->
+        <div id="successChangePasswordModal"
+            class=" fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+                <h3 class="text-2xl mb-4 font-semibold text-center">Password Berhasil Diubah</h3>
+                <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+                <div class="flex justify-center mt-10">
+                    <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3"
+                        onclick="closeSuccessChangePasswordModal()">Tutup</button>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <!-- Modal Ganti Foto Profil -->
     <div id="photoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -243,7 +259,7 @@
                     <p id="photoError" class="text-red-500 text-sm hidden mt-2">Silakan pilih foto terlebih dahulu.</p>
                 </div>
                 <div class="flex justify-evenly mt-10">
-                    <button type="submit" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg"
+                    <button type="button" onclick="openConfirmPhotoModal()" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg"
                         >Ganti Foto</button>
                     <button type="button" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg"
                         onclick="closePhotoModal()">Batal</button>
@@ -251,6 +267,7 @@
             </form>
         </div>
     </div>
+
 
     <!-- Modal Konfirmasi Ganti Foto -->
     <div id="confirmPhotoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -265,18 +282,19 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal Sukses Ganti Foto -->
-    <div id="successPhotoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-            <h3 class="text-2xl mb-4 font-semibold text-center">Foto Berhasil Diubah</h3>
-            <img src="icon/Done (1).gif" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
-            <div class="flex justify-center mt-10">
-                <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3"
-                    onclick="closeSuccessPhotoModal()">Tutup</button>
+    @if (Session::get('success') === "update_photo")
+        <!-- Modal Sukses Ganti Foto -->
+        <div id="successPhotoModal" class=" fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+                <h3 class="text-2xl mb-4 font-semibold text-center">Foto Berhasil Diubah</h3>
+                <img src="{{asset('assets/SuccessAnimation.gif')}}" alt="Success Icon" class="mx-auto mb-5 mt-6 w-2/12">
+                <div class="flex justify-center mt-10">
+                    <button type="button" class="bg-red-600 text-white py-3 px-4 rounded-lg w-1/3"
+                        onclick="closeSuccessPhotoModal()">Tutup</button>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
 @endsection
 @push('scripts')
@@ -287,6 +305,8 @@
 
         function closeEditModal() {
             document.getElementById("editModal").classList.add("hidden");
+            document.getElementById("editProfileForm").reset();
+
         }
 
         function openConfirmModal() {
@@ -306,11 +326,7 @@
         }
 
         function submitForm() {
-            closeConfirmModal();
-            closeEditModal();
-            setTimeout(function() {
-                openSuccessModal();
-            }, 500);
+            document.getElementById("editProfileForm").submit();
         }
 
         // Functions to manage 'Tambah Akun' modal
@@ -320,6 +336,7 @@
 
         function closeAddAdminModal() {
             document.getElementById("addAdminModal").classList.add("hidden");
+            document.getElementById("addAdminForm").reset();
         }
 
         // Functions to manage 'Konfirmasi Tambah Admin' modal
@@ -342,11 +359,7 @@
 
         // Function to submit 'Tambah Admin' form
         function submitAddAdminForm() {
-            closeConfirmAddModal();
-            closeAddAdminModal();
-            setTimeout(function() {
-                openSuccessAddModal();
-            }, 500);
+            document.getElementById("addAdminForm").submit();
         }
 
         // Functions to manage 'Ganti Password' modal
@@ -356,6 +369,7 @@
 
         function closeChangePasswordModal() {
             document.getElementById("changePasswordModal").classList.add("hidden");
+            document.getElementById("changePasswordForm").reset();
         }
 
         // Functions to manage 'Konfirmasi Ganti Password' modal
@@ -378,11 +392,7 @@
 
         // Function to submit 'Ganti Password' form
         function submitChangePasswordForm() {
-            closeConfirmChangePasswordModal();
-            closeChangePasswordModal();
-            setTimeout(function() {
-                openSuccessChangePasswordModal();
-            }, 500);
+            document.getElementById("changePasswordForm").submit();
         }
 
         // Function to open the photo picker modal
@@ -393,21 +403,11 @@
         // Function to close the photo picker modal
         function closePhotoModal() {
             document.getElementById("photoModal").classList.add("hidden");
+            document.getElementById("uploadPhotoForm").reset();
         }
 
         // Function to open the confirmation modal
         function openConfirmPhotoModal() {
-            const fileInput = document.getElementById("newProfilePhoto");
-            const errorText = document.getElementById("photoError");
-
-            if (fileInput.files.length === 0) {
-                // Tampilkan pesan error
-                errorText.classList.remove("hidden");
-                return;
-            }
-
-            // Sembunyikan pesan error jika ada file yang dipilih
-            errorText.classList.add("hidden");
             document.getElementById("confirmPhotoModal").classList.remove("hidden");
         }
 
@@ -418,11 +418,7 @@
 
         // Function to submit the photo change form
         function submitPhotoForm() {
-            closeConfirmPhotoModal();
-            closePhotoModal();
-            setTimeout(function() {
-                openSuccessPhotoModal();
-            }, 500);
+            document.getElementById("uploadPhotoForm").submit();
         }
 
         // Function to open the success modal

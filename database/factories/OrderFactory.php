@@ -23,7 +23,7 @@ class OrderFactory extends Factory
     {
         $subtotal= 0;
         $delivery_price= fake()->numberBetween(10, 100) * 1000;
-        $total = 0 +$delivery_price;
+        $total = 0 +$delivery_price + 3000;
         
         return [
             "user_id"=>User::all()->random(),
@@ -35,6 +35,7 @@ class OrderFactory extends Factory
             "delivery_code"=>Str::random(),
             "tracking_code"=>Str::random(),
             "delivery_price"=> $delivery_price,
+            "aplication_fee"=> 3000,
             "grand_total"=> $total,
             "order_status_id"=>Order_status::all()->random(),
             "created_at" => Carbon::now()->subDays(rand(0, 365)),  // Random date in the past year

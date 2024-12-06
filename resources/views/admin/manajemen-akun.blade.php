@@ -24,25 +24,35 @@
 <div class="mb-6">
   <label for="accountFilter" class="block mb-2 text-sm font-medium text-gray-700">Filter Akun:</label>
   <select id="accountFilter"
-    class="block w-1/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+    class="block w-1/2 md:w-1/4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
     onchange="filterAccounts()">
     <option value="all" {{ Request::get('filter')=='all' ? 'selected' : '' }}>Semua Akun</option>
     <option value="customer" {{ Request::get('filter')=='customer' ? 'selected' : '' }}>Akun Customer</option>
     <option value="seller" {{ Request::get('filter')=='seller' ? 'selected' : '' }}>Akun Seller</option>
   </select>
 </div>
+<!-- Entries per page -->
+<div class="mb-4">
+    <label for="entriesPerPage" class="mr-2">Entries per page:</label>
+    <select id="entriesPerPage" class="p-2 border border-gray-300 rounded-md" onchange="changeEntriesPerPage()">
+      <option value="10">10</option>
+      <option value="25" selected>25</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+  </div>
 
 <!-- Tabel Akun -->
-<div id="accountsTable" class="overflow-auto rounded-lg shadow-md">
-  <table class="w-full table-auto border-collapse border border-gray-300">
+<div id="accountsTable" class="overflow-x-auto rounded-lg shadow-md">
+  <table class="min-w-full table-auto border-collapse border border-gray-300">
     <thead class="bg-red-600 text-white">
       <tr>
-        <th class="p-4 text-center border-r border-gray-300">Nama</th>
-        <th class="p-4 text-center border-r border-gray-300">Email</th>
-        <th class="p-4 text-center border-r border-gray-300">Tipe</th>
-        <th class="p-4 text-center border-r border-gray-300">Status</th>
-        <th class="p-4 text-center border-r border-gray-300">Tanggal Bergabung</th>
-        <th class="p-4 text-center">Aksi</th>
+        <th class="p-4 text-center border-r border-gray-300 min-w-[150px]md:min-w-0">Nama</th>
+        <th class="p-4 text-center border-r border-gray-300 min-w-[200px]md:min-w-0">Email</th>
+        <th class="p-4 text-center border-r border-gray-300 min-w-[100px]md:min-w-0">Tipe</th>
+        <th class="p-4 text-center border-r border-gray-300 min-w-[100px]md:min-w-0">Status</th>
+        <th class="p-4 text-center border-r border-gray-300 min-w-[150px]md:min-w-0">Tanggal Bergabung</th>
+        <th class="p-4 text-center border-gray-300 min-w-[100px]">Aksi</th>
       </tr>
     </thead>
     <tbody>
@@ -55,11 +65,15 @@
         <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->is_suspended ? 'suspend':'aktif'}}
         </td>
         <td class="p-4 text-center align-middle border-r border-gray-300">{{$user->created_at->format('d-m-Y') }}</td>
-        <td class="p-4 text-center align-middle">
-          <button class="p-4" onclick="openSuspendConfirmModal({{$user->id}})"><img
-              src="{{ asset('assets/block.png') }}" alt="Suspend Icon"></button>
-          <button class="p-4" onclick="openUnsuspendConfirmModal({{$user->id}})"><img
-              src="{{ asset('assets/checkmark.png') }}" alt="Unsuspend Icon"></button>
+        <td class="p-4 text-center align-middle flex justify-center space-x-2">
+          <button class="p-1" onclick="openSuspendConfirmModal({{$user->id}})">
+                <img
+              src="{{ asset('assets/block.png') }}" alt="Suspend Icon" class="w-6 h-6">
+            </button>
+          <button class="p-1" onclick="openUnsuspendConfirmModal({{$user->id}})">
+                <img
+              src="{{ asset('assets/checkmark.png') }}" alt="Unsuspend Icon" class="w-6 h-6">
+            </button>
         </td>
       </tr>
 
@@ -68,6 +82,27 @@
     </tbody>
   </table>
 </div>
+
+<!-- Pagination -->
+<div class="overflow-x-auto mt-4">
+      <nav class="flex items-center gap-x-4 justify-center">
+          <a id="prevButton" class="text-gray-500 hover:text-gray-900 p-4 inline-flex items-center" href="javascript:;" onclick="changePage('prev')" disabled>
+              <span>Back</span>
+          </a>
+          <a id="page1" class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-red-600 hover:bg-red-50" href="javascript:;" aria-current="page">1</a>
+          <a id="page2" class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-red-600 hover:bg-red-50" href="javascript:;">2</a>
+          <a id="page3" class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-red-600 hover:bg-red-50" href="javascript:;">3</a>
+          <a id="page4" class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-red-600 hover:bg-red-50" href="javascript:;">4</a>
+          <a class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-indigo-600 hover:bg-indigo-50" href="javascript:;">...</a>
+          <a id="page10" class="w-10 h-10 text-gray-500 p-2 inline-flex items-center justify-center border border-gray-200 bg-gray-50 rounded-full transition-all duration-150 hover:text-indigo-900 hover:border-indigo-600 hover:bg-indigo-50" href="javascript:;">10</a>
+          <a id="nextButton" class="text-gray-500 hover:text-gray-900 p-4 inline-flex items-center" href="javascript:;" onclick="changePage('next')">
+              <span>Next</span>
+          </a>
+      </nav>
+  </div>
+@endsection
+
+@section('modal')
 
 <!-- Modal Konfirmasi Suspend -->
 <div id="suspendConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

@@ -3,8 +3,8 @@
 @section('title', 'Admin View Product - Samikados')
 
 @section('searchbar')
-<div class="relative w-1/2">
-    <input type="text" placeholder="Search..." class="w-full pl-10 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
+<div class="relative w-1/2 mx-auto">
+    <input type="text" placeholder="Search..." class=" text-xs sm:text-sm lg:text-lg w-full pl-10 text-black pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-white">
     <img src="{{ asset('assets/search.png') }}" class="absolute left-3 top-1/2 transform -translate-y-1/2" alt="Search Icon">
 </div>
 @endsection
@@ -42,59 +42,59 @@
     </section>
 
     <!-- Categories -->
-    <main class="container mx-auto mt-8">
-        <h2 class="text-lg lg:text-xl font-bold">PILIH KATEGORI ANDA</h2>
-        <section class="text-center mt-2 mb-6 border border-gray-300 shadow-lg p-6 rounded-lg">
-            <div class="grid grid-cols-3 lg:grid-cols-5 gap-3 max-h-72 overflow-y-scroll">
-                <div class="flex flex-col items-center">
-                    <img src="https://placehold.co/100x100" alt="Icon for Merchandise" class="mb-2" width="100" height="100">
-                    <span class="text-sm lg:text-base">MERCHANDISE</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <img src="https://placehold.co/100x100" alt="Icon for T-Shirt" class="mb-2" width="100" height="100">
-                    <span class="text-sm lg:text-base">T-SHIRT</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <img src="https://placehold.co/100x100" alt="Icon for Kanvas" class="mb-2" width="100" height="100">
-                    <span class="text-sm lg:text-base">KANVAS</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <img src="https://placehold.co/100x100" alt="Icon for Indoor" class="mb-2" width="100" height="100">
-                    <span class="text-sm lg:text-base">INDOOR</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <img src="https://placehold.co/100x100" alt="Icon for Akrilik" class="mb-2" width="100" height="100">
-                    <span class="text-sm lg:text-base">AKRILIK</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <img src="https://placehold.co/100x100" alt="Icon for UV Print" class="mb-2" width="100" height="100">
-                    <span class="text-sm lg:text-base">UV PRINT</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <img src="https://placehold.co/100x100" alt="Icon for A3" class="mb-2" width="100" height="100">
-                    <span class="text-sm lg:text-base">A3</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <img src="https://placehold.co/100x100" alt="Icon for Display" class="mb-2" width="100" height="100">
-                    <span class="text-sm lg:text-base">DISPLAY</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <img src="https://placehold.co/100x100" alt="Icon for Reklame" class="mb-2" width="100" height="100">
-                    <span class="text-sm lg:text-base">REKLAME</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <img src="https://placehold.co/100x100" alt="Icon for Stiker" class="mb-2" width="100" height="100">
-                    <span class="text-sm lg:text-base">STIKER</span>
-                </div>
+<main class="container mx-auto mt-8">
+    <h2 class="text-md sm:text-lg md:text-xl font-bold">PILIH KATEGORI ANDA</h2>
+    <section class="text-center mt-4 mb-6 border border-gray-300 shadow-lg p-6 rounded-lg">
+        <div class="grid grid-cols-3 md:grid-cols-5 gap-4 max-h-72 overflow-y-auto">
+            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <img src="https://placehold.co/100x100" alt="Icon for Merchandise" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
+                <span class="text-xs sm:text-sm lg:text-md">MERCHANDISE</span>
+            </a>
+            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <img src="https://placehold.co/100x100" alt="Icon for T-Shirt" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
+                <span class="text-xs sm:text-sm lg:text-md">T-SHIRT</span>
+            </a>
+            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <img src="https://placehold.co/100x100" alt="Icon for Kanvas" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
+                <span class="text-xs sm:text-sm lg:text-md">KANVAS</span>
+            </a>
+            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <img src="https://placehold.co/100x100" alt="Icon for Indoor" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
+                <span class="text-xs sm:text-sm lg:text-md">INDOOR</span>
+            </a>
+            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <img src="https://placehold.co/100x100" alt="Icon for Akrilik" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
+                <span class="text-xs sm:text-sm lg:text-md">AKRILIK</span>
+            </a>
+            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <img src="https://placehold.co/100x100" alt="Icon for UV Print" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
+                <span class="text-xs sm:text-sm lg:text-md">UV PRINT</span>
+            </a>
+            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <img src="https://placehold.co/100x100" alt="Icon for A3" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
+                <span class="text-xs sm:text-sm lg:text-md">A3</span>
+            </a>
+            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <img src="https://placehold.co/100x100" alt="Icon for Display" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
+                <span class="text-xs sm:text-sm lg:text-md">DISPLAY</span>
+            </a>
+            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <img src="https://placehold.co/100x100" alt="Icon for Reklame" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
+                <span class="text-xs sm:text-sm lg:text-md">REKLAME</span>
+            </a>
+            <a href="{{ route('view-kategori-fe') }}" class="flex flex-col items-center">
+                <img src="https://placehold.co/100x100" alt="Icon for Stiker" class="mb-2 w-10 h-10 sm:w-16 sm:h-16 lg:w-24 lg:h-24">
+                <span class="text-xs sm:text-sm lg:text-md">STIKER</span>
+            </a>
+        </div>
+    </section>
+</main>
 
-            </div>
-        </section>
-    </main>
 
     <!-- Products -->
     <section class="container grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto">
         <div class="p-4 mx-auto">
-            <a href="{{route('detail-produk-fe')}}">
+            <a href="{{route('detail-produk-seller-fe')}}">
                 <img src="https://placehold.co/400x400" alt="Product image 1" class="w-full mb-2">
                 <div class="text-sm lg:text-base">STIKER VINYL CHINA</div>
                 <div class="text-gray-500 text-sm lg:text-base">Rp72.800</div>

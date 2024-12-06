@@ -45,7 +45,8 @@ class DatabaseSeeder extends Seeder
             BankSeeder::class,
             WithdrawalSeeder::class,
             NotificationSeeder::class,
-            AdminSeed::class
+            AdminSeed::class,
+            BannerSeeder::class,
         ]);
     }
 }

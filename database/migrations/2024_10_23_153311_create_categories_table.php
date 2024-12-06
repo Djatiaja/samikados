@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("description");
             $table->string("icon");
             $table->string("banner")->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
