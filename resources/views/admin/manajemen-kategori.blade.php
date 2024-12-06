@@ -21,7 +21,7 @@
     </button>
 </div>
 <!-- Entries per page -->
-<div class="mb-4">
+<!-- <div class="mb-4">
     <label for="entriesPerPage" class="mr-2">Entries per page:</label>
     <select id="entriesPerPage" class="p-2 border border-gray-300 rounded-md" onchange="changeEntriesPerPage()">
       <option value="10">10</option>
@@ -29,7 +29,7 @@
       <option value="50">50</option>
       <option value="100">100</option>
     </select>
-  </div>
+  </div> -->
 <!-- Tabel Kategori -->
 <div class="overflow-x-auto rounded-lg shadow-md">
 <table class="min-w-full w-full table-auto border-collapse border border-gray-300">
@@ -88,7 +88,7 @@
 </div>
 
 <!-- Pagination -->
-<div class="overflow-x-auto mt-4">
+<!-- <div class="overflow-x-auto mt-4">
       <nav class="flex items-center gap-x-4 justify-center">
           <a id="prevButton" class="text-gray-500 hover:text-gray-900 p-4 inline-flex items-center" href="javascript:;" onclick="changePage('prev')" disabled>
               <span>Back</span>
@@ -103,7 +103,7 @@
               <span>Next</span>
           </a>
       </nav>
-  </div>
+  </div> -->
 @endsection
 
 @section('modal')
