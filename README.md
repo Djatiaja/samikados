@@ -49,7 +49,7 @@ Samikados
 7. migrate database
 
     ```bash
-    php artisan migrate:fresh --seed
+    php artisan migrate --seed
     ```
 
 8. start project
