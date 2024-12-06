@@ -58,12 +58,12 @@
                     </select>
                 </td>
                 <td class="p-4 text-center flex justify-center items-center h-full space-x-2">
-                    <button onclick="toggleEditBannerModal()" class="p-1">
+                    <button onclick="openEditBannerModal({{$banner->id}})" class="p-1" id="editBanner{{$banner->id}}">
                         <div class="flex items-center justify-center h-full my-auto">
                             <img src="{{ asset('assets/edit.png') }}" alt="Edit Icon" class="w-6 h-6 lg:w-8 lg:h-8 object-cover">
                         </div>
                     </button>
-                    <button onclick="toggleDeleteConfirmationModal()" class="p-1">
+                    <button onclick="openDeleteConfirmModal({{$banner->id}})" class="p-1">
                         <div class="flex items-center justify-center h-full my-auto">
                             <img src="{{ asset('assets/delete.png') }}" alt="Delete Icon" class="w-6 h-6 lg:w-8 lg:h-8 object-cover">
                         </div>
@@ -122,6 +122,50 @@
     </div>
 </div>
 
+<div id="editBannerModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-20 ">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+        <h3 class="text-2xl mb-4 font-semibold text-center">Edit Banner</h3>
+        <form action="" method="POST" id="FormEdit" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-700">Nama Banner</label>
+                <input type="text" id="editBannerName" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Nama Kategori" name="name">
+                <p id="editBannerNameError" class="text-red-500 text-sm hidden">Nama harus diisi.</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-700">Deskripsi</label>
+                <textarea id="editBannerDescription" class="w-full p-2 border border-gray-300 rounded-lg" rows="3" placeholder="Deskripsi Kategori" name="description"></textarea>
+                <p id="editBannerDescriptionError" class="text-red-500 text-sm hidden">Deskripsi harus diisi.</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-gray-700">Gambar</label>
+                <input type="file" id="editBannerGambar" class="w-full p-2 border border-gray-300 rounded-lg" name="picture" accept="image/*">
+                <p id="editBannerIconError" class="text-red-500 text-sm hidden">Gambar harus dipilih.</p>
+            </div>
+            <div class="flex justify-evenly">
+                <button type="submit" class="w-1/3 bg-red-600 text-white py-2 px-4 rounded-lg">Edit Kategori</button>
+                <button type="button" onclick="closeEditBannerModal()" class="w-1/3 bg-gray-300 py-2 px-4 rounded-lg">Batal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Confirm Delete Category -->
+<div id="deleteConfirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <form action="" id="FormDelete" method="POST">
+        @csrf
+        @method('DELETE')
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-fit">
+            <h3 class="text-2xl mb-6 font-semibold text-center">Konfirmasi Hapus Banner</h3>
+            <p class="text-center">Apakah Anda yakin ingin menghapus Banner ini?</p>
+            <div class="flex justify-evenly mt-6">
+                <button onclick="submitDeleteBanner()" class="bg-red-600 w-1/3 text-white py-2 px-4 mx-2 rounded-lg">Ya</button>
+                <button onclick="closeDeleteConfirmModal()" class="bg-gray-300 w-1/3 py-2 px-4 mx-2 rounded-lg">Batal</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 <!-- Modal lainnya (Edit, Delete, dll) disesuaikan dengan gaya yang sama seperti di Manajemen Kategori -->
 @endsection
 
@@ -135,6 +179,31 @@
         document.getElementById("addModalBanner").classList.add("hidden");
         document.getElementById("addForm").reset();
     }
+
+    function openEditBannerModal(id) {
+        document.getElementById('editBannerModal').classList.remove('hidden');
+        var editButton = document.getElementById("editBanner" + id);
+        var row = editButton.closest("tr");
+        var data = row.getElementsByTagName('td');
+
+        document.getElementById("FormEdit").action = "{{route('manajemen-banner.update', '')}}/" + id;
+        document.getElementById("editBannerName").value = data[0].innerText;
+        document.getElementById("editBannerDescription").value = data[1].innerText;
+    }
+
+    function closeEditBannerModal() {
+        document.getElementById('editBannerModal').classList.add('hidden');
+    }
+
+    function openDeleteConfirmModal(id) {
+        document.getElementById('deleteConfirmModal').classList.remove('hidden');
+        document.getElementById('FormDelete').action = '{{route('manajemen-banner.delete', '')}}/' + id;
+    }
+
+    function closeDeleteConfirmModal() {
+        document.getElementById('deleteConfirmModal').classList.add('hidden');
+    }
+
 
     // Tambahkan fungsi lainnya sesuai kebutuhan
 </script>

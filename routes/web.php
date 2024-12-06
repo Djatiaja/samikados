@@ -120,6 +120,8 @@ Route::middleware(['auth', 'role:admin', 'verifyUser'])->prefix('/admin')->group
     Route::controller(BannerController::class)->prefix("/manajemen-banner")->group(function () {
         Route::get("/", "index")->name("manajemen-banner");
         Route::post("/store", "store")->name("manajemen-banner.store");
+        Route::post("/update/{id}", "update")->name("manajemen-banner.update");
+        Route::delete("/delete/{id}", "delete")->name("manajemen-banner.delete");
     }); 
 });
 

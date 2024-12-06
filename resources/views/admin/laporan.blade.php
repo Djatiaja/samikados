@@ -18,7 +18,7 @@
       <!-- Total Pendapatan -->
       <div class="bg-white p-6 rounded-lg shadow-md text-left border border-remid-600 flex justify-between items-center">
         <div>
-          <h3 class="text-lg font-semibold">Total Pendapatan Seller Seller</h3>
+          <h3 class="text-lg font-semibold">Total Pendapatan Seller</h3>
             <p class="text-xl font-bold">Rp {{ number_format($total_pendapatan, 0, ',', '.') }}</p>
         </div>
         <img src="{{ asset('assets/IncomeIcon.png') }}" alt="Income Icon" class="w-12 h-12">
