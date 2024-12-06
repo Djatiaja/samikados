@@ -153,9 +153,9 @@
         <li class="{{ Route::is('manajemen-produk') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
           <a href="{{ route('manajemen-produk') }}" class="block">Manajemen Produk</a>
         </li>
-        <li class="{{ Route::is('manajemen-banner') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
+        <!-- <li class="{{ Route::is('manajemen-banner') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
           <a href="{{ route('manajemen-banner') }}" class="block">Manajemen Banner</a>
-        </li>
+        </li> -->
         <li class="{{ Route::is('manajemen-withdrawal') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
           <a href="{{ route('manajemen-withdrawal') }}" class="block">Approval Withdraw</a>
         </li>
