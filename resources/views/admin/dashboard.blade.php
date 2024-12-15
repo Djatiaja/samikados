@@ -129,7 +129,7 @@
             },
             ticks: {
                 callback: function(value) {
-                return 'Rp ' + value.toLocaleString(); // Format angka ke rupiah
+                return  value.toLocaleString(); // Format angka ke rupiah
                 }
             }
             },
