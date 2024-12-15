@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,31 +16,40 @@
 
     /* Konten utama */
     .content-wrapper {
-      margin-left: 16rem; /* Lebar default sidebar */
-      min-height: 100vh; /* Pastikan konten mengisi layar penuh */
-      padding-top: calc(var(--header-height, 4rem)); /* Gunakan variabel CSS untuk menyesuaikan tinggi header */
-      transition: padding-top 0.3s ease; /* Animasi jika ada perubahan tinggi header */
+      margin-left: 16rem;
+      /* Lebar default sidebar */
+      min-height: 100vh;
+      /* Pastikan konten mengisi layar penuh */
+      padding-top: calc(var(--header-height, 4rem));
+      /* Gunakan variabel CSS untuk menyesuaikan tinggi header */
+      transition: padding-top 0.3s ease;
+      /* Animasi jika ada perubahan tinggi header */
       overflow: visible;
     }
 
     /* Sidebar Responsif */
     @media (max-width: 1024px) {
       .content-wrapper {
-        margin-left: 0; /* Sidebar akan tersembunyi di layar kecil */
+        margin-left: 0;
+        /* Sidebar akan tersembunyi di layar kecil */
       }
 
       aside {
         position: fixed;
-        left: -100%; /* Awalnya tersembunyi */
+        left: -100%;
+        /* Awalnya tersembunyi */
         transition: left 0.3s ease-in-out;
         z-index: 50;
         width: 75%;
         background-color: white;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       }
+
       aside.active {
-        left: 0; /* Sidebar muncul ketika aktif */
+        left: 0;
+        /* Sidebar muncul ketika aktif */
       }
+
       #overlay {
         display: none;
         position: fixed;
@@ -50,6 +60,7 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 49;
       }
+
       #overlay.active {
         display: block;
       }
@@ -77,7 +88,8 @@
       /* Item di header sejajar vertikal */
       header .container {
         flex-direction: column;
-        gap: 1rem; /* Memberi jarak antar-elemen */
+        gap: 1rem;
+        /* Memberi jarak antar-elemen */
       }
 
       /* Ikon dan tombol responsif */
@@ -94,7 +106,8 @@
 
     @media (min-width: 1025px) {
       #toggleSidebar {
-        display: none; /* Sembunyikan tombol toggle di layar desktop */
+        display: none;
+        /* Sembunyikan tombol toggle di layar desktop */
       }
     }
   </style>
@@ -111,9 +124,9 @@
 
       <!-- Search Bar, hanya tampil jika ada section 'search' -->
       @hasSection('search')
-        <div class="relative w-full md:w-1/2 lg:w-1/3 mt-4 md:mt-0">
-          @yield('search')
-        </div>
+      <div class="relative w-full md:w-1/2 lg:w-1/3 mt-4 md:mt-0">
+        @yield('search')
+      </div>
       @endif
 
       <div class="flex items-center space-x-4 mt-4 md:mt-0">
@@ -123,8 +136,11 @@
         </button>
 
         <!-- Ikon Notifikasi -->
-        <a href="{{ route('admin-notifikasi') }}">
-          <img src="{{ asset('assets/notification.png') }}" alt="Notification Icon" class="w-6 h-6">
+        <a href="{{ route('admin-notifikasi') }}" class="w-6 h-6">
+          <img src="{{ asset('assets/notification.png') }}" alt="Notification Icon" >
+          @if($notificationCount > 0)
+          <span class="absolute  w-4 h-4 bg-red-600 text-white text-xs font-bold rounded-full text-center" style="margin-top: -10px;">{{ $notificationCount }}</span>
+          @endif
         </a>
 
         <!-- Ikon Profil -->
@@ -138,7 +154,7 @@
   @show
 
   <!-- Sidebar -->
-  <aside  id="sidebar" class="bg-white shadow-md h-screen w-64 fixed pt-16 p-6 z-9">
+  <aside id="sidebar" class="bg-white shadow-md h-screen w-64 fixed pt-16 p-6 z-9">
     <nav>
       <ul class="space-y-2 mt-10">
         <li class="{{ Route::is('dashboard') ? 'bg-red-600 text-white' : 'text-gray-700' }} p-2 rounded-md">
@@ -212,4 +228,5 @@
 
   @stack('scripts')
 </body>
+
 </html>

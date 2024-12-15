@@ -6,10 +6,10 @@ use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
-class BannerController extends Controller
+class BannerController extends BaseController
 {
     function index(){
-        $banners = Banner::all();
+        $banners = Banner::paginate(10);
 
         return view("admin.manajemen-banner", compact("banners"));
     }

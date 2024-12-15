@@ -106,7 +106,12 @@
     </tbody>
   </table>
 </div>
-
+<!-- Pagination -->
+<div class="overflow-x-auto mt-4">
+  <nav class="flex items-center gap-x-4 justify-center">
+    {{ $withdrawals->links() }}
+  </nav>
+</div>
 <!-- Pagination -->
 <!-- <div class="overflow-x-auto mt-4">
   <nav class="flex items-center gap-x-4 justify-center">
@@ -137,11 +142,12 @@
     </a>
   </nav>
 </div>` -->
+
 @endsection
 
 <!-- Modals -->
 <div id="withdrawDetailModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden z-20">
-  <div class="bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/3">
+  <div class="bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg w-11/12 md:w-6/4 lg:w-2/5">
     <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 text-center">Detail Penarikan</h3>
     <div class="grid grid-cols-[150px_50px_auto] gap-y-2 sm:gap-y-4 md:gap-y-6 px-4 sm:px-6 md:px-8">
       <div class="font-semibold text-sm sm:text-base text-left">Nama Seller</div>

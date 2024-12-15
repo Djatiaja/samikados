@@ -9,27 +9,28 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use function PHPUnit\Framework\returnSelf;
 
-class AccountController extends Controller 
+class AccountController extends BaseController 
 {
 
     function index(){
-        $users = User::with('role')->get();
         $search = request()->search;
+        $query = User::with('role');
 
-        if(isset($search)){
-            $query = User::query();
-
-            $query->whereAny(['username', 'name', 'email'], 'LIKE', "%$search%")->with('role');
-
-            $users = $query->paginate(10);
-        }
-
-        if(isset(request()->filter)){
-            $users = $users->filter(function($user){
-                return $user->role->name === request()->filter;
+        if (isset($search)) {
+            $query->where(function($q) use ($search) {
+            $q->where('username', 'LIKE', "%$search%")
+              ->orWhere('name', 'LIKE', "%$search%")
+              ->orWhere('email', 'LIKE', "%$search%");
             });
-
         }
+
+        if (isset(request()->filter)) {
+            $query->whereHas('role', function($q) {
+            $q->where('name', request()->filter);
+            });
+        }
+
+        $users = $query->paginate(10);
 
         return view("admin.manajemen-akun", compact("users"));
     }
@@ -38,7 +39,7 @@ class AccountController extends Controller
         $user = User::find($id);
         $user->is_suspended = true;
         $user->save();
-        return redirect()->route("manajemen-akun")->with("success", "suspend");
+        return redirect()->back()->with("success", "suspend");
     }
 
 
@@ -47,7 +48,7 @@ class AccountController extends Controller
         $user = User::find($id);
         $user->is_suspended = false;
         $user->save();
-        return redirect()->route("manajemen-akun")->with("success", "unsuspend");
+        return redirect()->back()->with("success", "unsuspend");
     }
 
 

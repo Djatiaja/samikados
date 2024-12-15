@@ -6,38 +6,32 @@ use App\Models\User;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 
-class WithdrawalController extends Controller
+class WithdrawalController extends BaseController
 {
     function index(){
-        $withdrawals = Withdrawal::with(["seller", "Bank"])->get();
+        $query = Withdrawal::with(["seller", "Bank"]);
 
         $search = request()->search;
 
         if (isset($search)) {
-            $query = Withdrawal::query();
-
-            $query=Withdrawal::with('seller')->whereHas('seller', function ($query) use ($search) {
+            $query = $query->whereHas('seller', function ($query) use ($search) {
                 $query->where('name', 'like', '%' . $search . '%');
             });
         }
 
         if (isset(request()->filter)) {
-            $withdrawals = $withdrawals->filter(function ($withdrawals) {
-                return $withdrawals->status === request()->filter;
-            });
+            $query = $query->where('status', request()->filter);
         }
 
         if (isset(request()->sort)){
             if (request()->sort === 'desc') {
-
-                $withdrawals = $withdrawals->sortByDesc('created_at');
+                $query = $query->orderBy('created_at', 'desc');
             } else {
-
-                $withdrawals = $withdrawals->sortBy('created_at');
+                $query = $query->orderBy('created_at', 'asc');
             }
         }
 
-
+        $withdrawals = $query->paginate(10);
 
         return view("admin.manajemen-withdrawal", compact('withdrawals'));
     }
@@ -48,12 +42,12 @@ class WithdrawalController extends Controller
         ]);
         $withdrawal = Withdrawal::find($id);
         if($withdrawal->status !== "Menunggu"){
-            return redirect()->route("manajemen-withdrawal")->with("failed", "status");
+            return redirect()->back()->with("failed", "status");
         }
         $withdrawal->update($data);
         $withdrawal->save();
 
-        return redirect()->route("manajemen-withdrawal")->with('success', $data['status']);
+        return redirect()->back()->with('success', $data['status']);
     }
 
 
@@ -63,7 +57,7 @@ class WithdrawalController extends Controller
             $query->where('name', 'like', '%'.$search.'%');
         });
 
-        $withdrawals = $query->get();
+        $withdrawals = $query->paginate(10);
         return view("admin.manajemen-withdrawal", compact('withdrawals'));
     }
 }

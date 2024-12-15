@@ -65,24 +65,7 @@
         </tr>
          @endforeach
 
-        <tr class="border-b border-gray-300">
-            <td class="p-4 text-center border-r border-gray-300">
-                <a href="{{ route('kategori-fe') }}" class="text-sm sm:text-base lg:text-lg">Empty Category</a>
-            </td>
-            <td class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg">Kategori tanpa produk</td>
-            <td class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg" id="emptyCategoryProductCount">0</td>
-            <td class="p-4 text-center border-r border-gray-300">
-                <img src="https://placehold.co/48x48" alt="Icon" class="mx-auto w-8 h-8 sm:w-9 sm:h-9 object-cover">
-            </td>
-            <td class="p-4 text-center flex justify-center items-center space-x-2">
-                <button class="p-1" onclick="openEditCategoryModal()">
-                    <img src="{{ asset('assets/edit.png') }}" alt="Edit Icon" class="w-6 h-6 lg:w-8 lg:h-8">
-                </button>
-                <button class="p-1" onclick="checkDeleteCategory(0)">
-                    <img src="{{ asset('assets/delete.png') }}" alt="Delete Icon" class="w-6 h-6 lg:w-8 lg:h-8">
-                </button>
-            </td>
-        </tr>
+
     </tbody>
 </table>
 </div>
@@ -104,6 +87,12 @@
           </a>
       </nav>
   </div> -->
+
+
+  <!-- Pagination -->
+  <div class="overflow-x-auto mt-4">
+    {{ $categories->links() }}
+  </div>
 @endsection
 
 @section('modal')

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class TwoFactorController extends Controller
+class TwoFactorController extends BaseController
 {
     function index (){
         return view('Auth.two-factor');
