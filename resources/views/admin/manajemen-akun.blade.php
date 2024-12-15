@@ -100,6 +100,13 @@
           </a>
       </nav>
   </div> -->
+
+  <!-- Pagination Links -->
+  <div class="overflow-x-auto mt-4">
+    <nav class="flex items-center gap-x-4 justify-center">
+      {{ $users->links() }}
+    </nav>
+  </div>
 @endsection
 
 @section('modal')

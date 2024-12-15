@@ -13,7 +13,7 @@ use App\Models\Withdrawal;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class AdminController extends Controller
+class AdminController extends BaseController
 {
     function index()
     {
@@ -115,8 +115,8 @@ class AdminController extends Controller
     }
 
     function notifikasi() {
-        $notifications =notification::where("user_id", Auth::user()->id)->get();
-
+        $notifications = notification::where("user_id", Auth::user()->id)->get();
+        notification::where("user_id", Auth::user()->id)->update(['is_read' => true]);
         return view('admin.notifikasi', compact("notifications"));
     }
 }

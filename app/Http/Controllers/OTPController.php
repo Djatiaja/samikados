@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
-class OTPController extends Controller
+class OTPController extends BaseController
 {
     static function sendOTP(String $email, String $description)
     {

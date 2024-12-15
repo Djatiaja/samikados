@@ -106,7 +106,12 @@
     </tbody>
   </table>
 </div>
-
+<!-- Pagination -->
+<div class="overflow-x-auto mt-4">
+  <nav class="flex items-center gap-x-4 justify-center">
+    {{ $withdrawals->links() }}
+  </nav>
+</div>
 <!-- Pagination -->
 <!-- <div class="overflow-x-auto mt-4">
   <nav class="flex items-center gap-x-4 justify-center">
@@ -137,6 +142,7 @@
     </a>
   </nav>
 </div>` -->
+
 @endsection
 
 <!-- Modals -->
