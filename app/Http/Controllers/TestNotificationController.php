@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class TestNotificationController extends Controller
+class TestNotificationController extends BaseController
 {
     function index(){
         return view("seller.test");
@@ -17,13 +17,13 @@ class TestNotificationController extends Controller
         })->get();
 
         foreach ($admins as $admin) {
-                $notification = new \App\Models\Notification();
-                $notification->title = 'New Notification';
-                $notification->message = 'This is a test notification';
-                $notification->type = 'info';
-                $notification->is_read = false;
-                $notification->user_id = $admin->id;
-                $notification->save();
+            $notification = new \App\Models\Notification();
+            $notification->title = 'Notifikasi Baru';
+            $notification->message = 'Ini adalah notifikasi percobaan';
+            $notification->type = 'info';
+            $notification->is_read = false;
+            $notification->user_id = $admin->id;
+            $notification->save();
         }
             
         return redirect('/test-notification');

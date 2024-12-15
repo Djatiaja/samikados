@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
 
     function  index()

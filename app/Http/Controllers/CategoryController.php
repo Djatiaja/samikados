@@ -6,22 +6,22 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
-class CategoryController extends Controller
+class CategoryController extends BaseController
 {
     function index(){
-        $categories = Category::withCount("product")->get();
-
         $search = request()->search;
 
         if (isset($search)) {
-            $query = Category::query();
-
-            $query = Category::with('product')->where(['name', 'description'], 'like', '%' . $search . '%');
-            
+            $categories = Category::with('product')
+                ->where('name', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%')
+                ->paginate(10);
+        } else {
+            $categories = Category::withCount("product")->paginate(10);
         }
+
         return view("admin.manajemen-kategori", compact("categories"));
     }  
-    
     function store(Request $request){
         $data =$request->validate([
             "name"=>["required"],
@@ -99,7 +99,7 @@ class CategoryController extends Controller
         $category->update($data);
         $category->save();
 
-        return redirect()->route("manajemen-kategori")->with("update-success", "category berhasil diganti");
+        return redirect()->back()->with("update-success", "category berhasil diganti");
     }
 
     function delete($id){
@@ -108,6 +108,6 @@ class CategoryController extends Controller
             return redirect()->route("manajemen-kategori")->with("error", "category gagal dihapus");
         }
         $category->delete();
-        return redirect()->route("manajemen-kategori")->with("delete-success", "category berhasil dihapus");
+        return redirect()->back()->with("delete-success", "category berhasil dihapus");
     }
 }

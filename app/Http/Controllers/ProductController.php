@@ -6,25 +6,22 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductController extends BaseController
 {
     function index(){
-        $products = Product::with('seller')->get();
+        $query = Product::with('seller');
         $search = request()->search;
         if (isset($search)) {
-            $query = Product::query();
-
-            $query->whereAny([ 'name'], 'LIKE', "%$search%")->with('category');
-
-            $products = $query->paginate(10);
+            $query->where('name', 'LIKE', "%$search%")->with('category');
         }
 
         if (isset(request()->category)) {
-            $products = $products->filter(function ($product) {
-                return $product->category->name === request()->category;
+            $query->whereHas('category', function ($q) {
+                $q->where('name', request()->category);
             });
         }
 
+        $products = $query->paginate(10)->appends(request()->query());
         $categories = Category::all();
         return view('admin.manajemen-produk', compact('products', 'categories'));
     }
@@ -46,6 +43,6 @@ class ProductController extends Controller
             "is_publish" => ! $product->is_publish
         ]);
         $product->save();
-        return redirect()->route("manajemen-produk");
+        return redirect()->back();
     }
 }

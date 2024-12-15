@@ -94,6 +94,10 @@
         </a>
     </nav>
 </div> -->
+<div class="mt-4">
+    {{ $banners->links() }}
+</div>
+
 @endsection
 
 @section('modal')
