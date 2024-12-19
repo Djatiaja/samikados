@@ -65,7 +65,7 @@
         <td class="p-4 text-center align-middle border-r border-gray-300">{{$product->seller->name}}</td>
         <td class="p-4 text-center align-middle border-r border-gray-300">{{$product->is_publish?"publish":"Not Publish"}}</td>
         <td class="p-4 text-center align-middle flex justify-center">
-          <form action="{{route('manajemen-produk.unpublish',$product->id)}}/" method="post" id="toggleStatusForm{{$product->id}}">
+          <form action="{{route('manajemen-produk.unpublish',$product->id)}}" method="post" id="toggleStatusForm{{$product->id}}">
             @csrf
             @method("PUT")
             <label for="toggleFour{{$product->id}}" class="flex items-center cursor-pointer select-none text-dark dark:text-white">
@@ -246,9 +246,5 @@
     document.getElementById('successUnpublishModal').classList.add('hidden');
   }
 
-  // Fungsi Hapus Produk
-  function UnpublishProduct() {
-
-  }
 </script>
 @endpush
