@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Schema  ::defaultStringLength(300);
+        Schema::defaultStringLength(255);
 
 
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
