@@ -62,14 +62,15 @@ class AdminController extends BaseController
 
     function laporan()
     {
-        $transaksis = Payment::with('payment_status')->whereHas('payment_status', function ($query) {
-            $query->where('name', "success");
-        })->with("order")->get();
+        $transaksis = Payment::with(['payment_status', 'order.order_detail.product'])
+            ->whereHas('payment_status', function ($query) {
+                $query->where('name', "success");
+            })->get();
         $withdrawal = Withdrawal::where('status', 'Disetujui')->get();
 
         $total_pendapatan = $transaksis->sum(function($transaksi){
             return $transaksi->order->order_detail->sum(function($detail){
-            return $detail->product->buy_price * $detail->quantity;
+                return $detail->product->buy_price * $detail->quantity;
             });
         });
 
@@ -104,11 +105,11 @@ class AdminController extends BaseController
 
         $pendapatans = array_fill_keys(array_values($nama_bulan), 0);
         foreach ($pendapatan_perbulan as $bulan => $value) {
-            $pendapatans[$nama_bulan[strval($bulan)]] =  $value->sum(function($transaksi){
-                                                                    return $transaksi->order->order_detail->sum(function($detail){
-                                                                    return $detail->product->buy_price * $detail->quantity;
-                                                                    });
-        });;
+            $pendapatans[$nama_bulan[strval($bulan)]] = $value->sum(function($transaksi){
+                return $transaksi->order->order_detail->sum(function($detail){
+                    return $detail->product->buy_price * $detail->quantity;
+                });
+            });
         }
 
         return view('admin.laporan', compact("total_pendapatan", "total_keuntungan", "total_approve", "pendapatans"));
