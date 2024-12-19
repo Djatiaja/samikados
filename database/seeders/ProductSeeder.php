@@ -38,8 +38,8 @@ class ProductSeeder extends Seeder
         Product::factory()->count(50)->create();
 
         $categories=[
-            "Banner & Spanduk" => "Cetak banner dan spanduk untuk kebutuhan promosi acara atau bisnis.",
-            "Kotak Kemasan & Packaging" => "Layanan cetak kotak kemasan dan packaging yang menarik untuk produk Anda."
+            "Banner dan Spanduk" => "Cetak banner dan spanduk untuk kebutuhan promosi acara atau bisnis.",
+            "Kotak Kemasan dan Packaging" => "Layanan cetak kotak kemasan dan packaging yang menarik untuk produk Anda."
         ];
 
         foreach ($categories as $key => $value) {
