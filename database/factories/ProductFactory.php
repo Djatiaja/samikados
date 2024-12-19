@@ -26,7 +26,7 @@ class ProductFactory extends Factory
             "brand_id"=>Brand::all()->random(),
             "category_id"=>Category::all()->random(),
             "seller_id"=>Seller::all()->random(),
-            "sku"=>fake()->sentence(1),
+            "sku"=>fake()->text(255),
             "thumbnail"=>static::$thumbnail,
             "name"=>fake()->word(),
             "description"=>fake()->word(),
