@@ -43,6 +43,6 @@ class ProductController extends BaseController
             "is_publish" => ! $product->is_publish
         ]);
         $product->save();
-        return redirect()->back();
+        return redirect()->back()->with("success",  $product->is_publish?"publish":"unpublish");
     }
 }
