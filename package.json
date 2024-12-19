@@ -5,7 +5,7 @@
         "dev": "vite",
         "watch":"mix watch",
         "build": "vite build",
-        "postinstall": "npm run build"
+        "postinstall": "npm run prod"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
