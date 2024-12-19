@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "watch":"mix watch",
-        "build": "vite build",
+        "build": "npm run build",
         "postinstall": "npm run build"
     },
     "devDependencies": {
