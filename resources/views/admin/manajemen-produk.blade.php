@@ -211,7 +211,6 @@
 
   function closePublishConfirmModal(id) {
     document.getElementById('publishConfirmModal').classList.add('hidden');
-    console.log("toggleStatusForm" + id)
 
     document.getElementById("toggleFour" + id).checked = !document.getElementById("toggleFour" + id).checked;
   }
