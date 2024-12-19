@@ -23,7 +23,7 @@ class SellerFactory extends Factory
             "city_id"=>City::all()->random(),
             "name"=>fake()->name(),
             "address"=>fake()->address(),
-            "description"=>fake()->text(255),
+            "description"=>fake()->text(150),
             "postal_code"=>fake()->numberBetween(1000,9999)
         ];
     }

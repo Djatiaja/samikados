@@ -10,7 +10,7 @@ class Request_status extends Model
     /** @use HasFactory<\Database\Factories\RequestStatusFactory> */
     use HasFactory;
 
-    protected $table="Request_status";
+    protected $table="request_status";
 
     public function wallet(){
         return $this->has(Wallet::class);

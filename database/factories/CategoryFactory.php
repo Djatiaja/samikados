@@ -18,7 +18,7 @@ class CategoryFactory extends Factory
     {
         return [
             "name"=>fake()->word(),
-            "description"=>fake()->text(255),
+            "description"=>fake()->text(150),
             "icon"=>"assets/icon/example.png"
         ];
     }
