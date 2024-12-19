@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string("photo")->nullable()->default('https://placehold.co/600x400');
             $table->string("provider")->nullable();
             $table->string("provider_id")->nullable();
-            $table->string("provider_token")->nullable();
+            $table->string("provider_token", 1500)->nullable();
             $table->boolean("is_suspended")->nullable();
             $table->rememberToken();
             $table->timestamps();
