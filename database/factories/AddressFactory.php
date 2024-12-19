@@ -18,7 +18,7 @@ class AddressFactory extends Factory
     {
         return [
             "name"=>fake()->name(),
-            "address"=> fake()->sentence(20),
+            "address"=> fake()->sentence(10),
             "postal_code"=>fake()->numberBetween(1000,9999),
             "latitude"=>fake()->latitude(),
             "longitude"=>fake()->longitude(),
