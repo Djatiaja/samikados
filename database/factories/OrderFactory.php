@@ -29,7 +29,7 @@ class OrderFactory extends Factory
             "user_id"=>User::all()->random(),
             "seller_id"=>Seller::all()->random(),
             "address"=>fake()->address(),
-            "additional_info"=>fake()->sentence(20),
+            "additional_info"=>fake()->sentence(1),
             "subtotal"=>$subtotal,
             "delivery_type"=>fake()->sentence(1),
             "delivery_code"=>Str::random(),
