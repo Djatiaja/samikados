@@ -52,7 +52,7 @@
             <td class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg">{{$category->description}}</td>
             <td class="p-4 text-center border-r border-gray-300 text-sm sm:text-base lg:text-lg" id="productCount">{{$category->product_count}}</td>
             <td class="p-4 text-center border-r border-gray-300">
-                <img src="{{ asset($category->icon) }}" alt="Icon" class="mx-auto w-8 h-8 sm:w-9 sm:h-9 object-cover">
+                <img src="{{ Storage::exists($category->icon)?Storage::url($category->icon):asset($category->icon) }}" alt="Icon" class="mx-auto w-8 h-8 sm:w-9 sm:h-9 object-cover">
             </td>
             <td class="p-4 text-center flex justify-center items-center space-x-2">
                 <button class="editCategory p-2" onclick="openEditCategoryModal({{$category->id}})" id="editCategory{{$category->id}}">

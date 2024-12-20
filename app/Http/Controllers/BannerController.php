@@ -21,11 +21,9 @@ class BannerController extends BaseController
                     'picture' => ['required', 'image', "mimes:jpeg,png,jpg", 'max:2048']
                 ]);
 
-        $extension = $request->picture->extension();
-        $img_name = date('dmyHis') . '.' . $extension;
         $image = $request->file("picture");
-        $path = $image->storeAs('banners/', $img_name);
-        $data["picture"] = "storage/" . $path;
+        $path = $image->store('banners/');
+        $data["picture"] =  $path;
 
         Banner::create($data);
 
@@ -45,18 +43,16 @@ class BannerController extends BaseController
         if(isset($data['picture'])){
             if ($banner->icon) {
                 try {
-                    if (File::exists("/banners/" . $banner->icon)) {
-                        File::delete("/banners/" . $banner->icon);
+                    if (File::exists( $banner->icon)) {
+                        File::delete( $banner->icon);
                     }
                 } catch (\Throwable $th) {
                     return back()->withError("gagal menyimpan");
                 }
             }
-            $extension = $request->picture->extension();
-            $img_name = date('dmyHis') . '.' . $extension;
             $image = $request->file("picture");
-            $path = $image->storeAs('banners/', $img_name);
-            $data["picture"] = "storage/" . $path;
+            $path = $image->store('banners/');
+            $data["picture"] = $path;
         }
         $banner->update($data);
         $banner->save();

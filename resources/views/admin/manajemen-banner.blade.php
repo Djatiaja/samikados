@@ -48,7 +48,8 @@
                 <td class="p-4 text-center border-r border-gray-300">{{$banner->description}}</td>
                 <td class="p-4 text-center border-r border-gray-300">
                     <div class="flex justify-center">
-                        <img src="{{asset($banner->picture)}}" alt="Gambar Banner" onclick="toggleImageModal()" class="cursor-pointer">
+                        
+                        <img src="{{Storage::exists($banner->picture)? Storage::url($banner->picture):asset($banner->picture)}}" alt="Gambar Banner" onclick="toggleImageModal()" class="cursor-pointer">
                     </div>
                 </td>
                 <td class="p-4 text-center border-r border-gray-300">
@@ -201,7 +202,9 @@
 
     function openDeleteConfirmModal(id) {
         document.getElementById('deleteConfirmModal').classList.remove('hidden');
-        document.getElementById('FormDelete').action = '{{route('manajemen-banner.delete', '')}}/' + id;
+        document.getElementById('FormDelete').action = '{{route('
+        manajemen - banner.delete ', '
+        ')}}/' + id;
     }
 
     function closeDeleteConfirmModal() {

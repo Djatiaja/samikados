@@ -78,19 +78,17 @@ class ProfileController extends BaseController
 
         if (!Str::startsWith($user->photo, ['http://', 'https://'])) {
             try {
-                if (File::exists("/" . $user->photo)) {
-                    File::delete("/" . $user->photo);
+                if (File::exists($user->photo)) {
+                    File::delete($user->photo);
                 }
             } catch (\Throwable $th) {
                 return back()->withError("gagal menyimpan");
             }
         }
 
-        $extension = $request->photo->extension();
-        $imgname = date('dmyHis') . '.' . $extension;
         $image = $request->file("photo");
-        $path = $image->storeAs('photo', $imgname);
-        $data["photo"] = "/storage/" . $path;
+        $path = $image->store('photo');
+        $data["photo"] =  $path;
 
         $user->update(
             $data

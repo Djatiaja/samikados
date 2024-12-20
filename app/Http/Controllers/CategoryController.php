@@ -32,16 +32,13 @@ class CategoryController extends BaseController
         ]);
 
         $extension = $request->icon->extension();
-        $img_name = date('dmyHis') . '.' . $extension;
         $image = $request->file("icon");
-        $path = $image->storeAs('categories/icon', $img_name);
-        $data["icon"] = "storage/" . $path;
+        $path = $image->store('categories/icon');
+        $data["icon"] = $path;
 
         if(isset($data["banner"])){
-            $extension = $request->icon->extension();
-            $img_name = date('dmyHis') . '.' . $extension;
             $image = $request->file("banner");
-            $path = $image->storeAs('categories/banner', $img_name);
+            $path = $image->store('categories/banner');
             $data["banner"] = "storage/" . $path;
         }
     
@@ -62,8 +59,8 @@ class CategoryController extends BaseController
         if(isset($data["icon"])){
             if ($category->icon) {
                 try {
-                    if (File::exists("/" . $category->icon)) {
-                        File::delete("/" . $category->icon);
+                    if (File::exists($category->icon)) {
+                        File::delete($category->icon);
                     }
                 } catch (\Throwable $th) {
                     return back()->withError("gagal menyimpan");
@@ -73,28 +70,25 @@ class CategoryController extends BaseController
             $extension = $request->icon->extension();
             $img_name = date('dmyHis') . '.' . $extension;
             $image = $request->file("icon");
-            $path= $image->storeAs('categories/icon', $img_name);
-            $data["icon"]= "storage/".$path;
-
+            $path= $image->store("category/icon");
+            $data["icon"]=$path;
 
     
         }
         if (isset($data["banner"])) {
             if ($category->banner) {
                 try {
-                    if (File::exists("/" . $category->banner)) {
-                        File::delete("/" . $category->banner);
+                    if (File::exists($category->banner)) {
+                        File::delete($category->banner);
                     }
                 } catch (\Throwable $th) {
                     return back()->withError("gagal menyimpan");
                 }
             }
 
-            $extension = $request->icon->extension();
-            $img_name = date('dmyHis') . '.' . $extension;
             $image = $request->file("banner");
-            $path = $image->storeAs('categories/banner', $img_name);
-            $data["banner"] = "storage/" . $path;
+            $path = $image->store('categories/banner');
+            $data["banner"] = $path;
         }
 
         $category->update($data);
