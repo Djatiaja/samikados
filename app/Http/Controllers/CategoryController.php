@@ -33,14 +33,14 @@ class CategoryController extends BaseController
         $extension = $request->icon->extension();
         $img_name = date('dmyHis') . '.' . $extension;
         $image = $request->file("icon");
-        $path = $image->storeAs('categories/icon', $img_name, "public");
+        $path = $image->storeAs('categories/icon', $img_name);
         $data["icon"] = "storage/" . $path;
 
         if(isset($data["banner"])){
             $extension = $request->icon->extension();
             $img_name = date('dmyHis') . '.' . $extension;
             $image = $request->file("banner");
-            $path = $image->storeAs('categories/banner', $img_name, "public");
+            $path = $image->storeAs('categories/banner', $img_name);
             $data["banner"] = "storage/" . $path;
         }
     
@@ -72,7 +72,7 @@ class CategoryController extends BaseController
             $extension = $request->icon->extension();
             $img_name = date('dmyHis') . '.' . $extension;
             $image = $request->file("icon");
-            $path= $image->storeAs('categories/icon', $img_name, "public");
+            $path= $image->storeAs('categories/icon', $img_name);
             $data["icon"]= "storage/".$path;
 
 
@@ -92,7 +92,7 @@ class CategoryController extends BaseController
             $extension = $request->icon->extension();
             $img_name = date('dmyHis') . '.' . $extension;
             $image = $request->file("banner");
-            $path = $image->storeAs('categories/banner', $img_name, "public");
+            $path = $image->storeAs('categories/banner', $img_name);
             $data["banner"] = "storage/" . $path;
         }
 

@@ -24,7 +24,7 @@ class BannerController extends BaseController
         $extension = $request->picture->extension();
         $img_name = date('dmyHis') . '.' . $extension;
         $image = $request->file("picture");
-        $path = $image->storeAs('banners/', $img_name, "public");
+        $path = $image->storeAs('banners/', $img_name);
         $data["picture"] = "storage/" . $path;
 
         Banner::create($data);
@@ -55,7 +55,7 @@ class BannerController extends BaseController
             $extension = $request->picture->extension();
             $img_name = date('dmyHis') . '.' . $extension;
             $image = $request->file("picture");
-            $path = $image->storeAs('banners/', $img_name, "public");
+            $path = $image->storeAs('banners/', $img_name);
             $data["picture"] = "storage/" . $path;
         }
         $banner->update($data);

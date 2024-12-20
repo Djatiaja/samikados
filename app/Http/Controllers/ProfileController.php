@@ -89,7 +89,7 @@ class ProfileController extends BaseController
         $extension = $request->photo->extension();
         $imgname = date('dmyHis') . '.' . $extension;
         $image = $request->file("photo");
-        $path = $image->storeAs('photo', $imgname, "public");
+        $path = $image->storeAs('photo', $imgname);
         $data["photo"] = "/storage/" . $path;
 
         $user->update(
