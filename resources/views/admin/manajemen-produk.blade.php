@@ -103,8 +103,10 @@
   </div> -->
 
 <!-- Pagination -->
-<div class="mt-4">
-  {{ $products->links() }}
+<div class="overflow-x-auto mt-4">
+  <nav class="flex items-center gap-x-4 justify-center">
+    {{ $products->links() }}
+    </nav>
 </div>
 @endsection
 
@@ -244,6 +246,5 @@
   function closeSuccessPublishModal() {
     document.getElementById('successUnpublishModal').classList.add('hidden');
   }
-
 </script>
 @endpush

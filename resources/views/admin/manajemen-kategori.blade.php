@@ -91,7 +91,9 @@
 
   <!-- Pagination -->
   <div class="overflow-x-auto mt-4">
-    {{ $categories->links() }}
+    <nav class="flex items-center gap-x-4 justify-center">
+      {{ $categories->links() }}
+    </nav>
   </div>
 @endsection
 
