@@ -57,7 +57,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /home/djamgt/aplikasi/www
-          git clone https://github.com/Djatiaja/samikados.git .
+          if [ ! -d $VAR_DIREKTORI/.git ]; then echo 'Project belum ditemukan di direktori $VAR_DIREKTORI' && cd /home/djamgt/aplikasi/www && git clone https://github.com/Djatiaja/samikados.git .; fi
           git pull origin main
           if [ -d /.env ]; then rm .env; fi
           echo ${{ secrets.VAR_FILE_ENV }} >> .env
