@@ -57,6 +57,10 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /home/djamgt/aplikasi/www
+          docker-compose exec -T git clone https://github.com/Djatiaja/samikados.git .
+          docker-compose exec -T git pull origin main
+          docker-compose exec -T if [ -d /.env ]; then rm .env; fi
+          docker-compose exec -T echo ${{ secrets.VAR_FILE_ENV }} >> .env
           docker-compose exec -T webserver composer i
           docker-compose exec -T webserver composer update
           docker-compose exec -T webserver php artisan migrate --force
