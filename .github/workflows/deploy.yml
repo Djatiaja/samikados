@@ -57,6 +57,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /home/djamgt/aplikasi/www
-          php artisan migrate --force
-          php artisan db:seed
-          php artisan optimize
+          docker-compose exec -T app php artisan migrate --force
+          docker-compose exec -T app php artisan db:seed
+          docker-compose exec -T app php artisan optimize
