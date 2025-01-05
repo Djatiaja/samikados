@@ -57,5 +57,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /home/djamgt/aplikasi/www
-          php artisan migrate --force --seed
+          php artisan migrate --force
+          php artisan db:seed
           php artisan optimize
