@@ -62,7 +62,7 @@ jobs:
           git pull origin main
           if [ -d /.env ]; then rm .env; fi
           echo ${{ secrets.VAR_FILE_ENV }} >> .env
-          cd /home/djamgt/aplikasi/ww
+          cd /home/djamgt/aplikasi/www
           docker-compose exec -T webserver composer i
           docker-compose exec -T webserver composer update
           docker-compose exec -T webserver php artisan migrate --force
