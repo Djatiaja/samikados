@@ -55,6 +55,6 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /var/www/html/pad.djatiaja.live
+          cd /home/djamgt/APLIKASI/www
           php artisan migrate --force
           php artisan optimize
