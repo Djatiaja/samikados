@@ -37,7 +37,7 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         ARGS: "-rlgoDzvc -i"
         SOURCE: "dist/"
-        TARGET: /home/djamgt/APLIKASI/www
+        TARGET: /home/djamgt/aplikasi/www
         REMOTE_HOST: ${{ secrets.VPS_HOST }}
         REMOTE_USER: ${{ secrets.VPS_USER }}
         EXCLUDE: "/dist/, /node_modules/"
