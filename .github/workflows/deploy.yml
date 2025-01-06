@@ -61,7 +61,7 @@ jobs:
           if [ ! -d $VAR_DIREKTORI/.git ]; then echo 'Project belum ditemukan di direktori $VAR_DIREKTORI' && cd "/home/djamgt/aplikasi/www" && git clone https://github.com/Djatiaja/samikados.git .; fi
           git pull origin main
           if [ -d /.env ]; then rm .env; fi
-          echo ${{ secrets.FILE_ENV }} >> .env
+          echo "${{ secrets.FILE_ENV }}" >> .env
           cd "/home/djamgt/aplikasi/www"
           ls -la
           docker-compose exec -T webserver composer install
