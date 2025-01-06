@@ -60,7 +60,12 @@ jobs:
           git config --global --add safe.directory '*'
           if [ ! -d $VAR_DIREKTORI/.git ]; then echo 'Project belum ditemukan di direktori $VAR_DIREKTORI' && cd "/home/djamgt/aplikasi/www" && git clone https://github.com/Djatiaja/samikados.git .; fi
           git pull origin main
-          if [ -d /.env ]; then rm .env; fi
+          if [ -f .env ]; then
+            echo "Removing .env file..."
+            rm .env
+          else
+            echo ".env file not found."
+          fi
           echo "${{ secrets.env }}" >> .env
           cd "/home/djamgt/aplikasi/www"
           ls -la
