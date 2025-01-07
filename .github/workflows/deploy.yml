@@ -60,13 +60,6 @@ jobs:
           git config --global --add safe.directory '*'
           if [ ! -d $VAR_DIREKTORI/.git ]; then echo 'Project belum ditemukan di direktori $VAR_DIREKTORI' && cd "/home/djamgt/aplikasi/www" && git clone https://github.com/Djatiaja/samikados.git .; fi
           git pull origin main
-          if [ -f .htaccess ]; then
-            echo "Removing .htaccess file..."
-            rm .htaccess
-            echo "${{ secrets.FILE_HTACCESS}}" >> .htaccess
-          else
-            echo ".htaccess file not found."
-          fi
           
           if [ -f .env ]; then
             echo "Removing .env file..."
@@ -76,7 +69,7 @@ jobs:
             echo ".env file not found."
           fi
           
-          cd "/home/djamgt/aplikasi/www"
+          cd /home/djamgt/aplikasi/www
           ls -la
           docker-compose exec -T webserver composer install
           docker-compose exec -T webserver composer update
