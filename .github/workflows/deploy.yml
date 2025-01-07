@@ -80,8 +80,6 @@ jobs:
           cd "/home/djamgt/aplikasi/www"
           ls -la
           docker-compose exec -T webserver composer install
-          docker-compose exec -T webserver npm i
-          docker-compose exec -T webserver npm run build
           docker-compose exec -T webserver composer update
           docker-compose exec -T webserver php artisan migrate --force
           docker-compose exec -T webserver php artisan db:seed
