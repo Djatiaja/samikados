@@ -63,8 +63,7 @@ jobs:
           if [ -f .htaccess ]; then
             echo "Removing .htaccess file..."
             rm .htaccess
-            echo "${{ secrets.VAR_FILE_HTACCESS }}" >> .htaccess
-            echo "${{ secrets.VAR_FILE_HTACCESS }}"
+            echo "${{ secrets.FILE_HTACCESS}}" >> .htaccess
           else
             echo ".htaccess file not found."
           fi
